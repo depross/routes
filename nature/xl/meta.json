@@ -1,0 +1,14 @@
+{
+ "slug": "nature-xl",
+ "path": "nature/xl/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Nature",
+ "size": "XL",
+ "title": "Three woods loop",
+ "card": "North to the woods and the castle park, home along Provenseweg.",
+ "km": 17.3,
+ "min": 235,
+ "unpaved_km": 2.0,
+ "draft": false
+}

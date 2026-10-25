@@ -269,7 +269,7 @@ rep = {
     "{{CATEGORY}}": CFG["category"], "{{SIZE}}": CFG["size"], "{{DESC}}": CFG.get("desc", ""),
     "{{GOODTOKNOW}}": "".join('<p%s>%s</p>' % (' class="soft"' if i else "", p) for i, p in enumerate(CFG.get("goodtoknow", []))),
     "{{MORE}}": ('<details class="more"><summary>More</summary><div class="more-body">%s</div></details>' % "".join("<p>%s</p>" % p for p in CFG["more"])) if CFG.get("more") else "",
-    "{{UP}}": CFG.get("up", "../../"), "{{KEY}}": CFG["slug"], "{{ICON}}": CFG.get("icon", ""),
+    "{{UP}}": CFG.get("up", "../../#%s/%s" % (CFG.get("region_slug", "poperinge"), CFG["category"].lower().replace(" & ", "-").replace(" ", "-"))), "{{ALL}}": "../../#" + CFG.get("region_slug", "poperinge"), "{{KEY}}": CFG["slug"], "{{ICON}}": CFG.get("icon", ""),
 }
 page = tpl
 for _ in range(2):
@@ -278,6 +278,10 @@ left = re.findall(r"\{\{[A-Z_]+\}\}", page)
 assert not left, left
 outdir = rel(CFG["out"]); os.makedirs(outdir, exist_ok=True)
 open(os.path.join(outdir, "index.html"), "w").write(page)
+json.dump({"slug": CFG["slug"], "path": CFG["out"].strip("/") + "/", "region": CFG.get("region", "Poperinge"), "region_slug": CFG.get("region_slug", "poperinge"),
+           "category": CFG["category"], "size": CFG["size"], "title": CFG["title"], "card": CFG.get("card", CFG["sub"]),
+           "km": round(total/1000, 1), "min": mins, "unpaved_km": round(unpaved/1000, 1), "draft": bool(CFG.get("draft"))},
+          open(os.path.join(outdir, "meta.json"), "w"), ensure_ascii=False, indent=1)
 print("wrote", os.path.join(outdir, "index.html"), len(page), "bytes;", km_s, "km", mins, "min")
 
 # check image

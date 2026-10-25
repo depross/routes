@@ -1,0 +1,14 @@
+{
+ "slug": "nature-m",
+ "path": "nature/m/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Nature",
+ "size": "M",
+ "title": "Helleketelbos loop",
+ "card": "A loop from the front door into the wood and back.",
+ "km": 6.3,
+ "min": 85,
+ "unpaved_km": 0.9,
+ "draft": false
+}

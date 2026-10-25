@@ -1,0 +1,14 @@
+{
+ "slug": "beer-xl",
+ "path": "beer/xl/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Beer & hops",
+ "size": "XL",
+ "title": "To the Trappists",
+ "card": "Through the hop fields to Sint-Sixtus, home by the town and the Hopmuseum.",
+ "km": 19.9,
+ "min": 270,
+ "unpaved_km": 1.9,
+ "draft": false
+}

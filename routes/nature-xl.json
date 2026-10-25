@@ -165,5 +165,7 @@
   "Couthofbos and the Couthof estate are the oldest woodland around Poperinge. Canadabos is named after the Canadian troops of 1944 and still hides a V1 launch base in the undergrowth. De Lovie, between them, is a neo-Gothic castle of the 1850s in a landscaped park with ponds, now a care institution that opens its gardens to visitors.",
   "The way out follows the old railway to Sint-Jan-ter-Biezen; the way back follows Provenseweg, which was the medieval road from Poperinge to Proven."
  ],
- "tlcue": "Clockwise. Distances are from the front door."
+ "tlcue": "Clockwise. Distances are from the front door.",
+ "region": "Poperinge",
+ "region_slug": "poperinge"
 }

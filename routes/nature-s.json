@@ -120,5 +120,8 @@
  "more": [
   "The trail is part of the Sport Vlaanderen mountain-bike network around Poperinge (the old Bloso routes), which stitches field edges and farm tracks into long unpaved loops. Walkers are welcome on them, and this one happens to pass almost behind the house."
  ],
- "tlcue": "Clockwise. Distances are from the front door."
+ "tlcue": "Clockwise. Distances are from the front door.",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "draft": true
 }

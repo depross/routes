@@ -1,0 +1,14 @@
+{
+ "slug": "city-l",
+ "path": "city/l/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "City",
+ "size": "L",
+ "title": "Three churches and a market",
+ "card": "Into Poperinge by Werf, out by Kleine Casseldreef; the old town in between.",
+ "km": 9.3,
+ "min": 125,
+ "unpaved_km": 1.3,
+ "draft": false
+}

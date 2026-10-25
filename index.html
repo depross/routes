@@ -16,120 +16,107 @@
   body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--font-body); font-weight:300; font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased; }
   body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.09;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='1'/></svg>"); background-size:160px 160px; }
-  .page { max-width:560px; margin:0 auto; padding:0 max(16px, env(safe-area-inset-left,0px)) 56px; }
-  .hero { padding-block: 64px 36px; display:grid; gap:14px; }
-  .hero .kicker { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:400; margin:0; }
-  .hero h1 { font-weight:300; font-size:clamp(48px,14vw,80px); line-height:.95; margin:0; letter-spacing:-.03em; }
-  .hero h1 em { font-family:var(--font-accent); font-style:italic; font-weight:300; color:var(--orange); }
+  a { color: inherit; }
+  a:focus-visible { outline:1px solid var(--fg); outline-offset:3px; }
+  .page { max-width:560px; margin:0 auto; padding:0 max(16px, env(safe-area-inset-left,0px)) 56px; min-height:100vh; display:flex; flex-direction:column; }
+  .hero { padding-block: 56px 28px; display:grid; gap:12px; }
+  .crumbs { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:400; margin:0; min-height:1.5em; }
+  .crumbs a { color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:1px; }
+  .crumbs a:hover { color:var(--fg); }
+  .crumbs .sep { color:var(--dim); }
+  .crumbs b { color:var(--fg); font-weight:400; }
+  .hero h1 { font-weight:300; font-size:clamp(44px,13vw,76px); line-height:.95; margin:0; letter-spacing:-.03em; text-wrap:balance; }
+  .hero h1 em { font-family:var(--font-accent); font-style:italic; font-weight:300; color:var(--orange); letter-spacing:0; }
   .hero .sub { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:19px; color:var(--muted); margin:0; }
-  .cat { display:grid; gap:0; margin-top:34px; }
-  .cat:first-of-type { margin-top:0; }
-  .cat-h { margin:0; padding:0 0 10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; display:flex; gap:12px; align-items:baseline; }
-  .cat-h i { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:15px; letter-spacing:0; text-transform:none; color:var(--dim); }
+  .step { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 8px; }
+  .step i { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:15px; letter-spacing:0; text-transform:none; color:var(--dim); }
   .list { border-top:1px solid var(--line); display:grid; }
-  .card { display:grid; grid-template-columns:1fr auto; gap:4px 16px; align-items:center; padding:22px 0; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; }
-  .card:hover .title { color:var(--orange); }
+  .card { display:grid; grid-template-columns:1fr auto; gap:4px 16px; align-items:center; padding:20px 0; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; position:relative; }
+  .card:hover .title, .card:focus-visible .title { color:var(--orange); }
   .card .where { grid-column:1; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500; }
-  .card .title { grid-column:1; font-size:24px; margin:0; font-weight:300; line-height:1.15; margin:0; transition:color .2s; }
+  .card .where .draft { color:var(--orange); }
+  .card .title { grid-column:1; font-size:24px; font-weight:300; line-height:1.15; margin:0; transition:color .2s; text-wrap:balance; }
   .card .note { grid-column:1; font-size:14.5px; color:var(--muted); margin:0; }
-  .card .stat { grid-column:2; grid-row:1 / span 3; text-align:right; display:grid; gap:2px; }
+  .card .stat { grid-column:2; grid-row:1 / span 3; text-align:right; display:grid; gap:2px; justify-items:end; }
   .card .stat b { font-weight:300; font-size:30px; line-height:1; font-variant-numeric:tabular-nums; }
   .card .stat small { font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-  footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--orange); display:flex; align-items:baseline; gap:10px; }
+  .card .sizes { display:inline-flex; gap:4px; }
+  .card .sizes span { font-size:11px; letter-spacing:.08em; padding:3px 7px; border:1px solid var(--line); border-radius:999px; color:var(--muted); }
+  .card .sizes span.on { color:var(--fg); border-color:var(--dim); }
+  .card .arrow { grid-column:2; grid-row:1 / span 3; color:var(--dim); font-size:22px; font-weight:300; }
+  .empty { color:var(--muted); font-size:15px; padding:22px 0; border-top:1px solid var(--line); }
+  footer { margin-top:auto; padding-top:16px; border-top:1px solid var(--orange); display:flex; align-items:baseline; gap:10px; }
   footer .mark { font-family:var(--font-mark); color:var(--orange); font-size:18px; letter-spacing:.04em; }
   footer .desc { color:var(--muted); font-size:13px; }
+  .view { animation: fade .25s ease; }
+  @keyframes fade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) { .view { animation:none; } }
 </style>
 </head>
 <body>
 <main class="page">
   <section class="hero">
-    <p class="kicker">Darinka &amp; Yves</p>
-    <h1>Rou<em>tes</em></h1>
-    <p class="sub">Walks from the front door, drawn on our own maps.</p>
+    <p class="crumbs" id="crumbs"></p>
+    <h1 id="h1">Rou<em>tes</em></h1>
+    <p class="sub" id="sub">Walks from the front door, drawn on our own maps.</p>
   </section>
-  <section class="cat">
-    <h2 class="cat-h">History <i>the town behind the Ypres Salient</i></h2>
-    <nav class="list" aria-label="History routes">
-      <a class="card" href="history/l/">
-        <span class="where">L · about 2 h 10</span>
-        <h3 class="title">Behind the front</h3>
-        <p class="note">Nine Elms British Cemetery, Gasthuisstraat and Talbot House, the death cells behind the town hall, Poperinghe New Military Cemetery.</p>
-        <span class="stat"><b>9,6</b><small>km</small></span>
-      </a>
-      <a class="card" href="history/xl/">
-        <span class="where">XL · about 3 h 40</span>
-        <h3 class="title">Behind the front, with Lijssenthoek</h3>
-        <p class="note">The same, then south to the hospital cemetery of the Salient and home by Abele and Stoppelweg.</p>
-        <span class="stat"><b>16,1</b><small>km</small></span>
-      </a>
-    </nav>
-  </section>
-  <section class="cat">
-    <h2 class="cat-h">City <i>the old cloth and hop town</i></h2>
-    <nav class="list" aria-label="City routes">
-      <a class="card" href="city/l/">
-        <span class="where">L · about 2 h 05</span>
-        <h3 class="title">Three churches and a market</h3>
-        <p class="note">Gasthuisstraat and the Hopmuseum, Grote Markt, Sint-Bertinus, Sint-Jan, Onze-Lieve-Vrouw and the Weeuwhof.</p>
-        <span class="stat"><b>9,3</b><small>km</small></span>
-      </a>
-    </nav>
-  </section>
-  <section class="cat">
-    <h2 class="cat-h">Beer &amp; hops <i>what the fields are for</i></h2>
-    <nav class="list" aria-label="Beer &amp; hops routes">
-      <a class="card" href="beer/xl/">
-        <span class="where">XL · about 4 h 30</span>
-        <h3 class="title">To the Trappists</h3>
-        <p class="note">Provenseweg through the hop fields to Sint-Sixtus and In de Vrede, home through town to the Hopmuseum.</p>
-        <span class="stat"><b>19,9</b><small>km</small></span>
-      </a>
-    </nav>
-  </section>
-  <section class="cat">
-    <h2 class="cat-h">Border <i>two countries, one plain</i></h2>
-    <nav class="list" aria-label="Border routes">
-      <a class="card" href="border/xl/">
-        <span class="where">XL · about 4 h</span>
-        <h3 class="title">To the mill on the border</h3>
-        <p class="note">Helleketelbos, the split village of Abele, the Ondankmeulen windmill at Boeschèpe with its view, home by Lijssenthoek.</p>
-        <span class="stat"><b>17,7</b><small>km</small></span>
-      </a>
-    </nav>
-  </section>
-  <section class="cat">
-    <h2 class="cat-h">Nature <i>woods, hop fields, the old railway</i></h2>
-    <nav class="list" aria-label="Nature routes">
-      <a class="card" href="nature/s/">
-        <span class="where">S · about 40 min · draft</span>
-        <h3 class="title">Field path loop</h3>
-        <p class="note">Up the dreef, Helleketelweg, home by the mountain-bike trail and the field edge.</p>
-        <span class="stat"><b>3,0</b><small>km</small></span>
-      </a>
-      <a class="card" href="nature/m/">
-        <span class="where">M · about 1 h 25</span>
-        <h3 class="title">Helleketelbos loop</h3>
-        <p class="note">Quiet lanes to the wood, unpaved paths through it, back by Kleine Casseldreef.</p>
-        <span class="stat"><b>6,3</b><small>km</small></span>
-      </a>
-      <a class="card" href="nature/l/">
-        <span class="where">L · about 2 h 25</span>
-        <h3 class="title">Railway and wood loop</h3>
-        <p class="note">The old railway bed to Sint-Jan-ter-Biezen, Kapellestraat south, and Helleketelbos on the way home.</p>
-        <span class="stat"><b>10,6</b><small>km</small></span>
-      </a>
-      <a class="card" href="nature/xl/">
-        <span class="where">XL · about 3 h 55</span>
-        <h3 class="title">Three woods loop</h3>
-        <p class="note">Couthofbos, Canadabos and the castle park of De Lovie, home along Provenseweg.</p>
-        <span class="stat"><b>17,3</b><small>km</small></span>
-      </a>
-    </nav>
-  </section>
+  <section class="view" id="view" aria-live="polite"></section>
   <footer>
     <span class="mark">DARIDEH</span>
     <span class="desc">routes</span>
   </footer>
 </main>
+<script>
+(function () {
+  var DATA = [{"name": "Poperinge", "slug": "poperinge", "cue": "From the front door, Kleine Dasdreef.", "cats": [{"name": "Nature", "slug": "nature", "cue": "woods, hop fields, the old railway", "routes": [{"slug": "nature-s", "path": "nature/s/", "region": "Poperinge", "region_slug": "poperinge", "category": "Nature", "size": "S", "title": "Field path loop", "card": "Up the dreef, along Helleketelweg, home by the trail and the field.", "km": 3.0, "min": 40, "unpaved_km": 1.2, "draft": true}, {"slug": "nature-m", "path": "nature/m/", "region": "Poperinge", "region_slug": "poperinge", "category": "Nature", "size": "M", "title": "Helleketelbos loop", "card": "A loop from the front door into the wood and back.", "km": 6.3, "min": 85, "unpaved_km": 0.9, "draft": false}, {"slug": "nature-l", "path": "nature/l/", "region": "Poperinge", "region_slug": "poperinge", "category": "Nature", "size": "L", "title": "Railway and wood loop", "card": "Hop fields, the old railway bed, a chapel hamlet and the wood.", "km": 10.6, "min": 145, "unpaved_km": 0.9, "draft": false}, {"slug": "nature-xl", "path": "nature/xl/", "region": "Poperinge", "region_slug": "poperinge", "category": "Nature", "size": "XL", "title": "Three woods loop", "card": "North to the woods and the castle park, home along Provenseweg.", "km": 17.3, "min": 235, "unpaved_km": 2.0, "draft": false}]}, {"name": "History", "slug": "history", "cue": "the town behind the Ypres Salient", "routes": [{"slug": "history-l", "path": "history/l/", "region": "Poperinge", "region_slug": "poperinge", "category": "History", "size": "L", "title": "Behind the front", "card": "Poperinge as the rest town behind the Ypres Salient, in one morning.", "km": 9.6, "min": 130, "unpaved_km": 1.0, "draft": false}, {"slug": "history-xl", "path": "history/xl/", "region": "Poperinge", "region_slug": "poperinge", "category": "History", "size": "XL", "title": "Behind the front, with Lijssenthoek", "card": "The town behind the Salient, and the biggest hospital cemetery of the war.", "km": 16.1, "min": 220, "unpaved_km": 3.6, "draft": false}]}, {"name": "City", "slug": "city", "cue": "the old cloth and hop town", "routes": [{"slug": "city-l", "path": "city/l/", "region": "Poperinge", "region_slug": "poperinge", "category": "City", "size": "L", "title": "Three churches and a market", "card": "Into Poperinge by Werf, out by Kleine Casseldreef; the old town in between.", "km": 9.3, "min": 125, "unpaved_km": 1.3, "draft": false}]}, {"name": "Beer & hops", "slug": "beer-hops", "cue": "what the fields are for", "routes": [{"slug": "beer-xl", "path": "beer/xl/", "region": "Poperinge", "region_slug": "poperinge", "category": "Beer & hops", "size": "XL", "title": "To the Trappists", "card": "Through the hop fields to Sint-Sixtus, home by the town and the Hopmuseum.", "km": 19.9, "min": 270, "unpaved_km": 1.9, "draft": false}]}, {"name": "Border", "slug": "border", "cue": "two countries, one plain", "routes": [{"slug": "border-xl", "path": "border/xl/", "region": "Poperinge", "region_slug": "poperinge", "category": "Border", "size": "XL", "title": "To the mill on the border", "card": "Through the wood, over the border at Abele, up to the windmill, home by Lijssenthoek.", "km": 17.7, "min": 240, "unpaved_km": 4.0, "draft": false}]}]}];
+  var view = document.getElementById('view'), h1 = document.getElementById('h1'), sub = document.getElementById('sub'), crumbs = document.getElementById('crumbs');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function km(v) { return v.toFixed(1).replace('.', ','); }
+  function dur(m) { var h = Math.floor(m / 60), r = m % 60; return h === 0 ? r + ' min' : (r === 0 ? h + ' h' : h + ' h ' + (r < 10 ? '0' : '') + r); }
+  function sizes(routes) {
+    var have = {}; routes.forEach(function (r) { have[r.size] = true; });
+    return '<span class="sizes">' + ['S', 'M', 'L', 'XL'].map(function (s) { return '<span class="' + (have[s] ? 'on' : '') + '">' + s + '</span>'; }).join('') + '</span>';
+  }
+  function regionCard(r) {
+    var n = 0; r.cats.forEach(function (c) { n += c.routes.length; });
+    return '<a class="card" href="#' + r.slug + '"><span class="where">' + r.cats.length + ' categories · ' + n + ' walks</span><h2 class="title">' + esc(r.name) + '</h2><p class="note">' + esc(r.cue) + '</p><span class="arrow" aria-hidden="true">›</span></a>';
+  }
+  function catCard(r, c) {
+    var one = c.routes.length === 1;
+    var href = one ? c.routes[0].path : '#' + r.slug + '/' + c.slug;
+    var kms = c.routes.map(function (x) { return x.km; });
+    var range = one ? km(kms[0]) + ' km' : km(Math.min.apply(null, kms)) + ' to ' + km(Math.max.apply(null, kms)) + ' km';
+    return '<a class="card" href="' + href + '"><span class="where">' + (one ? '1 walk' : c.routes.length + ' walks') + ' · ' + range + '</span><h2 class="title">' + esc(c.name) + '</h2><p class="note">' + esc(c.cue) + '</p><span class="stat">' + sizes(c.routes) + '</span></a>';
+  }
+  function routeCard(m) {
+    return '<a class="card" href="' + m.path + '"><span class="where">' + m.size + ' · about ' + dur(m.min) + (m.draft ? ' · <span class="draft">draft</span>' : '') + '</span><h2 class="title">' + esc(m.title) + '</h2><p class="note">' + esc(m.card) + '</p><span class="stat"><b>' + km(m.km) + '</b><small>km</small></span></a>';
+  }
+  function render() {
+    var parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+    var region = parts[0] && DATA.filter(function (r) { return r.slug === parts[0]; })[0];
+    var cat = region && parts[1] && region.cats.filter(function (c) { return c.slug === parts[1]; })[0];
+    var html = '', bc = '';
+    if (!region) {
+      h1.innerHTML = 'Rou<em>tes</em>'; sub.textContent = 'Walks from the front door, drawn on our own maps.';
+      bc = '<b>Where</b>';
+      html = '<p class="step">Pick a region</p><div class="list">' + DATA.map(regionCard).join('') + '</div>';
+    } else if (!cat) {
+      h1.innerHTML = esc(region.name).replace(/(.{3})$/, '<em>$1</em>'); sub.textContent = region.cue;
+      bc = '<a href="#">Where</a><span class="sep">›</span><b>' + esc(region.name) + '</b>';
+      html = '<p class="step">Pick a category <i>one walk opens straight away</i></p><div class="list">' + region.cats.map(function (c) { return catCard(region, c); }).join('') + '</div>';
+    } else {
+      h1.innerHTML = esc(cat.name).replace(/(\S+)$/, '<em>$1</em>'); sub.textContent = cat.cue;
+      bc = '<a href="#">Where</a><span class="sep">›</span><a href="#' + region.slug + '">' + esc(region.name) + '</a><span class="sep">›</span><b>' + esc(cat.name) + '</b>';
+      html = '<p class="step">Pick a walk <i>' + cat.routes.length + ' sizes</i></p><div class="list">' + cat.routes.map(routeCard).join('') + '</div>';
+    }
+    crumbs.innerHTML = bc;
+    view.innerHTML = html;
+    view.style.animation = 'none'; void view.offsetWidth; view.style.animation = '';
+    document.title = cat ? cat.name + ' · ' + region.name + ' · Routes' : (region ? region.name + ' · Routes' : 'Routes');
+  }
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
 </body>
 </html>

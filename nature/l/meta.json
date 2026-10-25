@@ -1,0 +1,14 @@
+{
+ "slug": "nature-l",
+ "path": "nature/l/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Nature",
+ "size": "L",
+ "title": "Railway and wood loop",
+ "card": "Hop fields, the old railway bed, a chapel hamlet and the wood.",
+ "km": 10.6,
+ "min": 145,
+ "unpaved_km": 0.9,
+ "draft": false
+}

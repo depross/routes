@@ -1,0 +1,14 @@
+{
+ "slug": "history-xl",
+ "path": "history/xl/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "History",
+ "size": "XL",
+ "title": "Behind the front, with Lijssenthoek",
+ "card": "The town behind the Salient, and the biggest hospital cemetery of the war.",
+ "km": 16.1,
+ "min": 220,
+ "unpaved_km": 3.6,
+ "draft": false
+}

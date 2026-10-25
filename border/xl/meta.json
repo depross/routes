@@ -1,0 +1,14 @@
+{
+ "slug": "border-xl",
+ "path": "border/xl/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Border",
+ "size": "XL",
+ "title": "To the mill on the border",
+ "card": "Through the wood, over the border at Abele, up to the windmill, home by Lijssenthoek.",
+ "km": 17.7,
+ "min": 240,
+ "unpaved_km": 4.0,
+ "draft": false
+}

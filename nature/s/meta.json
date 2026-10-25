@@ -1,0 +1,14 @@
+{
+ "slug": "nature-s",
+ "path": "nature/s/",
+ "region": "Poperinge",
+ "region_slug": "poperinge",
+ "category": "Nature",
+ "size": "S",
+ "title": "Field path loop",
+ "card": "Up the dreef, along Helleketelweg, home by the trail and the field.",
+ "km": 3.0,
+ "min": 40,
+ "unpaved_km": 1.2,
+ "draft": true
+}

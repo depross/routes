@@ -164,5 +164,7 @@
   "The three churches are the mark of the medieval cloth town: Sint-Bertinus for the centre, Sint-Jan and Onze-Lieve-Vrouw for the parishes that grew around it. Hop growing took over from the 15th century and Poperinge is still the hop capital of Belgium, with the Hoppefeesten every three years in September."
  ],
  "tlcue": "Clockwise. Distances are from the front door.",
- "ybias": 0.5
+ "ybias": 0.5,
+ "region": "Poperinge",
+ "region_slug": "poperinge"
 }

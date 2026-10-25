@@ -144,5 +144,7 @@
   "The railway is line 69A, Poperinge to Hazebrouck across the French border, opened in 1870 and closed to passengers in the 1950s. The bed is now a long green corridor used by cyclists and walkers; the stretch here runs between hop fields and small woods.",
   "Helleketelbos, at the far end, is a small replanted wood on a low rise managed by Natuur en Bos: oaks, sheep, a half-timbered cottage at the entrance and views to the French hills from its south edge."
  ],
- "tlcue": "Clockwise. Distances are from the front door."
+ "tlcue": "Clockwise. Distances are from the front door.",
+ "region": "Poperinge",
+ "region_slug": "poperinge"
 }
