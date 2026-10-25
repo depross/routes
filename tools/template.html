@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<style>:root{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Helleketelbos loop</title>
+<meta name="description" content="A {{KM}} km walking loop from Kleine Dasdreef through the Helleketelbos, Poperinge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Rubik+Distressed&display=swap">
+<style>
+  /* One narrow black column, DARIDEH palette. A vertical track on the left carries the stops of the walk,
+     measured in kilometres from the front door rather than in hours. */
+  :root {
+    --bg: #000000;
+    --fg: #EDE8E1;
+    --muted: #A8A197;
+    --dim: #7C756D;
+    --line: #2A2724;
+    --orange: #E85D1F;
+    --now: #4A8CFF;
+    --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --font-accent: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-mark: "Rubik Distressed", "Geist", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .09;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='1'/></svg>");
+    background-size: 160px 160px;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+
+  /* ---- header ---- */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(0,0,0,.96); border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; white-space: nowrap; text-decoration: none; }
+  .brand b { color: var(--fg); font-weight: 400; }
+  .hdr-btns { display: inline-flex; gap: 6px; }
+  .hbtn {
+    appearance: none; background: transparent; border: 1px solid var(--dim); color: var(--fg); font: inherit; font-size: 12px; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s, color .2s;
+  }
+  .hbtn.live { border-color: var(--now); color: var(--now); }
+  .loc-ring { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); box-sizing: border-box; transition: background .2s, border-color .2s; }
+  .hbtn.live .loc-ring { background: var(--now); border-color: var(--now); box-shadow: 0 0 8px rgba(74,140,255,.8); animation: pulse-blue 2.4s ease-out infinite; }
+  .hbtn.wait .loc-ring { border-color: var(--now); border-top-color: transparent; animation: spin-ring 1s linear infinite; }
+  @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(74,140,255,.5); } 70% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } 100% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } }
+  @keyframes spin-ring { to { transform: rotate(360deg); } }
+
+  /* ---- page column ---- */
+  .page { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
+
+  /* ---- hero ---- */
+  .hero { display: grid; justify-items: center; align-content: center; text-align: center; gap: 28px; padding-block: 32px 40px; min-height: calc(100vh - 64px); min-height: calc(100lvh - 64px + 24px); position: relative; }
+  .orb { position: relative; width: 230px; height: 230px; display: grid; place-items: center; }
+  .orb .ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .orb .ring text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; fill: var(--muted); }
+  .eclipse {
+    width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; background: var(--bg);
+    box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22);
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .eclipse svg { width: 118px; height: 118px; overflow: visible; }
+  .eclipse .tree { fill: none; stroke: var(--fg); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+  .eclipse .ground { fill: none; stroke: var(--dim); stroke-width: 1; stroke-dasharray: 2 3; }
+  .eclipse .path { fill: none; stroke: var(--orange); stroke-width: 1.4; stroke-dasharray: 4 3.5; stroke-linecap: round; }
+  @keyframes breathe {
+    0%,100% { box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22); }
+    50%     { box-shadow: 0 0 0 1.5px var(--orange), 0 0 26px 3px rgba(232,93,31,.65), 0 0 80px 10px rgba(232,93,31,.28); }
+  }
+  .hero h1 { font-weight: 300; font-size: clamp(50px, 15vw, 92px); line-height: .95; margin: 0; letter-spacing: -.03em; text-wrap: balance; }
+  .hero h1 em { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--orange); letter-spacing: 0; }
+  .hero .sub { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 20px; color: var(--muted); margin: 0; }
+  .hero .meta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin: 0; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .meta b { color: var(--fg); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .hero .status { font-size: 14px; color: var(--now); font-weight: 400; margin: 0; min-height: 1.5em; }
+
+  /* ---- notes ---- */
+  .block { border-top: 1px solid var(--line); padding-block: 22px; display: grid; gap: 10px; }
+  .block h2 { margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  .block p { margin: 0; font-size: 15px; color: var(--fg); }
+  .block p.soft { color: var(--muted); }
+  .block i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  details > summary { cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .more { margin-top: 6px; }
+  .more > summary { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 4px 0; }
+  .more > summary::before { content: ""; width: 14px; height: 1px; background: var(--orange); }
+  .more > summary:hover { color: var(--fg); }
+  .more-body { display: grid; gap: 8px; padding: 8px 0 4px; max-width: 60ch; }
+  .more-body p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .more-body p:first-child::first-letter { font-family: var(--font-accent); font-style: italic; font-size: 1.6em; line-height: 1; color: var(--fg); }
+
+  /* ---- map ---- */
+  .mapsec { padding-block: 26px 10px; display: grid; gap: 14px; border-top: 1px solid var(--line); }
+  .map-head { display: grid; gap: 4px; }
+  .map-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .map-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 0; }
+  .map-wrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #060505; position: relative; }
+  .map { display: block; width: 100%; height: auto; }
+  .map .streets .park { fill: #0F110C; stroke: #171a12; stroke-width: .6; }
+  .map .streets .water { fill: #0A0D12; stroke: #15202E; stroke-width: 1; }
+  .map .streets .water.stream { fill: none; stroke: #15202E; stroke-width: .9; }
+  .map .streets .rail { fill: none; stroke: #26231F; stroke-width: 1; stroke-dasharray: 4 3; }
+  .map .streets .rd { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .map .streets .rd.major { stroke: #3B3631; stroke-width: 2.4; }
+  .map .streets .rd.minor { stroke: #2C2925; stroke-width: 1.4; }
+  .map .streets .rd.ped { stroke: #2F2C27; stroke-width: 1; stroke-dasharray: 2 2.4; }
+  .map .streets .sn { font-family: var(--font-body); font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; fill: #6A645E; }
+  .map.has-streets > rect:first-of-type { opacity: .35; }
+  .map .rt { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .map .rt.glow { stroke: rgba(232,93,31,.22); stroke-width: 7; }
+  .map .rt.walk { stroke: var(--fg); stroke-width: 1.6; stroke-dasharray: 6 5; opacity: .92; }
+  .map .pt circle { fill: var(--bg); stroke: var(--fg); stroke-width: 1.2; }
+  .map .pt.cafe circle { stroke: var(--dim); }
+  .map .pt.home circle { stroke: var(--orange); fill: none; }
+  .map .pt.home circle.core { fill: var(--orange); stroke: none; }
+  .map .pt.home circle:first-child { filter: drop-shadow(0 0 6px rgba(232,93,31,.7)); }
+  .map .ml { font-family: var(--font-body); font-size: 11.5px; font-weight: 400; fill: var(--fg); letter-spacing: .02em; }
+  .map .ml.dim { fill: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .map .ml.home { font-family: var(--font-accent); font-style: italic; font-size: 14px; fill: var(--fg); }
+  .map .scale line, .map .north line { stroke: var(--muted); stroke-width: 1; }
+  .map .me .me-dot { fill: var(--now); stroke: var(--bg); stroke-width: 1.5; }
+  .map .me .me-halo { fill: rgba(74,140,255,.18); animation: halo 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .map .me .me-acc { fill: rgba(74,140,255,.07); stroke: rgba(74,140,255,.35); stroke-width: .8; stroke-dasharray: 2 2; }
+  @keyframes halo { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+  .map-note { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .map-note i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .lgi { display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+  .lg { display: inline-grid; place-items: center; width: 18px; height: 12px; flex: 0 0 auto; }
+  .lg::before { content: ""; width: 18px; height: 0; border-top: 1.6px dashed var(--fg); }
+  .lg.ped::before { border-top: 1px dashed #5a554e; }
+  .lg.wood::before { width: 12px; height: 10px; border: 1px solid #2a3020; background: #0F110C; border-radius: 2px; }
+  .lg.home::before { width: 10px; height: 10px; border: 1px solid var(--orange); border-radius: 50%; box-shadow: 0 0 6px rgba(232,93,31,.6); }
+
+  /* ---- the walk, as a track ---- */
+  .tl { position: relative; padding-block: 24px 8px; border-top: 1px solid var(--line); margin-top: 16px; }
+  .tl-head { padding-left: 36px; margin-bottom: 20px; position: relative; }
+  .tl-head .dot { position: absolute; left: 0; top: 7px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); }
+  .tl-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .tl-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 4px 0 0; }
+  .track { position: absolute; left: 7px; top: 24px; bottom: 30px; width: 1px; background: var(--line); }
+  .track-done { position: absolute; left: 7px; top: 24px; width: 1px; background: var(--now); height: 0; transition: height .6s ease; }
+  .stop { position: relative; padding-left: 36px; padding-block: 14px 18px; display: grid; gap: 4px; }
+  .stop .dot { position: absolute; left: 3px; top: 22px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); transition: background .3s, border-color .3s; }
+  .stop.done .dot { background: var(--fg); border-color: var(--fg); }
+  .stop.current .dot { background: var(--now); border-color: var(--now); box-shadow: 0 0 10px rgba(74,140,255,.9); }
+  .stop .time { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .stop .title { font-size: 21px; font-weight: 300; line-height: 1.2; margin: 0; text-wrap: balance; }
+  .stop .note { font-size: 15px; color: var(--muted); margin: 0; }
+  .stop .accent { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 16px; color: var(--muted); margin: 2px 0 0; }
+  .stop .where { font-size: 13px; color: var(--muted); margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+  .stop .where a { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); text-decoration: none; white-space: nowrap; font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--dim); border-radius: 999px; }
+  .stop .where a::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 6px rgba(232,93,31,.7); flex: 0 0 auto; }
+  .stop .where a:hover { border-color: var(--fg); background: rgba(237,232,225,.06); }
+  .stop.done { opacity: .55; }
+  .stop.current { opacity: 1; }
+
+  /* ---- footer ---- */
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--orange); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  footer .mark { font-family: var(--font-mark); color: var(--orange); font-size: 18px; letter-spacing: .04em; }
+  footer .desc { color: var(--muted); font-size: 13px; }
+  footer .desc a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer .osm { margin-left: auto; color: var(--dim); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  footer .osm a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eclipse, .hbtn.live .loc-ring, .hbtn.wait .loc-ring, .map .me .me-halo { animation: none; }
+    #ring-g animateTransform { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="../">Routes · <b>Poperinge</b></a>
+    <div class="hdr-btns">
+      <a class="hbtn" href="#map">Map</a>
+      <button type="button" class="hbtn off" id="loc-btn" aria-pressed="false"><span class="loc-ring" aria-hidden="true"></span><span id="loc-txt">Where am I</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <div class="orb">
+      <svg class="ring" viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+        <defs><path id="orbit" d="M115,115 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/></defs>
+        <g id="ring-g">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 115 115" to="360 115 115" dur="40s" repeatCount="indefinite"/>
+          <text textLength="614" lengthAdjust="spacing"><textPath href="#orbit" xlink:href="#orbit" startOffset="0">Helleketelbos · {{KM}} km · from the front door · Poperinge · a loop · </textPath></text>
+        </g>
+      </svg>
+      <div class="eclipse" role="img" aria-label="A path leading into a small wood">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M8,92 Q60,84 112,92"/>
+          <path class="path" d="M58,112 C62,96 48,88 56,74 C62,64 70,60 72,52"/>
+          <g class="tree">
+            <path d="M34,78 L34,54"/><path d="M34,54 C22,54 18,40 28,34 C26,24 40,20 44,28 C54,26 56,42 46,46 C50,56 40,58 34,54 Z"/>
+            <path d="M86,80 L86,50"/><path d="M86,50 C72,52 68,34 80,30 C80,16 100,16 100,30 C110,36 104,52 92,50 C92,54 88,54 86,50 Z"/>
+            <path d="M62,56 L62,44"/><path d="M62,44 C56,44 54,36 59,34 C58,28 66,26 68,30 C74,30 74,40 68,42 C70,46 65,47 62,44 Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <h1>Helle<em>ketel</em></h1>
+    <p class="sub">A loop from Kleine Dasdreef into the wood and back.</p>
+    <p class="meta"><span><b>{{KM}} km</b></span><span><b>about {{MIN}} min</b></span><span>Poperinge</span></p>
+    <p class="status" id="status"></p>
+  </section>
+
+  <section class="block note" id="goodtoknow">
+    <h2>Good to know</h2>
+    <p>Lanes with hardly any traffic to the wood, then unpaved paths inside it. After rain the forest paths are muddy, so boots rather than trainers. The GR 5A runs through the wood with its white-and-red marks, and the walking-junction signs (knooppunten) help if you want to wander off the line on the map.</p>
+    <p class="soft">Two places for a drink on the far side: Boskafé Boule Carré at the south edge of the wood (Stoppelweg 39, open Friday to Monday from noon, Sunday from 11:30), and the old country café De Helleketel a little further west on Vuileseulestraat (Sunday from 10:00). Both add a few hundred metres.</p>
+    <details class="more"><summary>More</summary><div class="more-body">
+      <p>Helleketelbos is a small, replanted wood on a low rise southwest of Poperinge, managed by Natuur en Bos. Sessile oaks, a half-timbered cottage at the entrance, sheep grazing the open parts and, early or late in the day, a fair chance of roe deer. From the southern edge the view opens over the hop fields to the hills of northern France: Mont des Cats, Mont Noir.</p>
+      <p>The wood is crossed by a few public asphalt roads, which is why the route can enter on one side and leave on another without doubling back. The main entrance, with the only car park, is at De Boshoeve on Vijfgemetenstraat; the Belbus 69 stops there too.</p>
+    </div></details>
+  </section>
+
+  <section class="mapsec" id="map">
+    <div class="map-head">
+      <h2>On foot</h2>
+      <p class="cue">Real streets, drawn to scale. The dashed line is the walk.</p>
+    </div>
+    <div class="map-wrap">
+{{SVG}}
+    </div>
+    <div class="legend">
+      <span class="lgi"><i class="lg"></i>The walk</span>
+      <span class="lgi"><i class="lg ped"></i>Unpaved path</span>
+      <span class="lgi"><i class="lg wood"></i>Wood</span>
+      <span class="lgi"><i class="lg home"></i>Start</span>
+    </div>
+    <p class="map-note" id="map-note">Tap <i>Where am I</i> at the top for a blue dot on the map.</p>
+  </section>
+
+  <section class="tl" id="walk">
+    <div class="track" aria-hidden="true"></div>
+    <div class="track-done" id="track-done" aria-hidden="true"></div>
+    <div class="tl-head">
+      <span class="dot"></span>
+      <h2>The walk</h2>
+      <p class="cue">Clockwise. Distances are from the front door.</p>
+    </div>
+{{STOPS}}
+  </section>
+
+  <footer>
+    <span class="mark">DARIDEH</span>
+    <span class="desc">routes · <a href="../">all walks</a></span>
+    <span class="osm">map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  /* ---- hero: fill the visible screen under the header, measured once ---- */
+  var hero = document.querySelector('.hero');
+  function sizeHero() {
+    var top = document.querySelector('.top').offsetHeight;
+    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    hero.style.minHeight = (h - top + 24) + 'px';
+  }
+  sizeHero();
+  window.addEventListener('orientationchange', function () { setTimeout(sizeHero, 300); });
+
+  /* ---- map projection, the same four numbers the SVG was drawn with ---- */
+  var MINLON = {{MINLON}}, MAXLAT = {{MAXLAT}}, K = {{K}}, SX = {{SX}};
+  var HOME = { lat: {{HLAT}}, lon: {{HLON}} };
+  function proj(lat, lon) { return { x: (lon - MINLON) * K * SX, y: (MAXLAT - lat) * SX }; }
+  function distM(a, b) {
+    var R = 6371000, p = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * p, dLon = (b.lon - a.lon) * p;
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a.lat * p) * Math.cos(b.lat * p) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+
+  /* ---- live location: a blue dot on the map, and the nearest stop lit on the track ---- */
+  var KEY_LOC = 'routes-helleketel-loc';
+  var btn = document.getElementById('loc-btn'), txt = document.getElementById('loc-txt'), status = document.getElementById('status');
+  var me = document.getElementById('me'), note = document.getElementById('map-note');
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var trackDone = document.getElementById('track-done'), tl = document.getElementById('walk');
+  var watchId = null;
+  var routePts = (document.querySelector('.rt.walk').getAttribute('d').match(/-?\d+(\.\d+)?,-?\d+(\.\d+)?/g) || []).map(function (s) { var a = s.split(','); return { x: +a[0], y: +a[1] }; });
+  var cum = [0];
+  for (var i = 1; i < routePts.length; i++) cum.push(cum[i - 1] + Math.hypot(routePts[i].x - routePts[i - 1].x, routePts[i].y - routePts[i - 1].y));
+  var totalPx = cum[cum.length - 1];
+
+  function nearestAlong(p) {
+    var best = Infinity, at = 0;
+    for (var i = 1; i < routePts.length; i++) {
+      var a = routePts[i - 1], b = routePts[i], dx = b.x - a.x, dy = b.y - a.y, L = dx * dx + dy * dy || 1;
+      var t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / L));
+      var qx = a.x + t * dx, qy = a.y + t * dy, d = Math.hypot(p.x - qx, p.y - qy);
+      if (d < best) { best = d; at = cum[i - 1] + t * Math.sqrt(L); }
+    }
+    return { off: best, at: at };
+  }
+
+  function setState(cls, label) {
+    btn.className = 'hbtn ' + cls; txt.textContent = label; btn.setAttribute('aria-pressed', cls === 'live' || cls === 'wait' ? 'true' : 'false');
+  }
+  function fmtKm(m) { return (m / 1000).toFixed(1).replace('.', ',') + ' km'; }
+
+  function onFix(pos) {
+    var lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 0;
+    var p = proj(lat, lon);
+    var onMap = p.x > -10 && p.x < 610 && p.y > -10 && p.y < 610;
+    me.hidden = !onMap;
+    if (onMap) {
+      me.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')');
+      me.querySelector('.me-acc').setAttribute('r', Math.min(80, acc / 111320 * SX).toFixed(1));
+    }
+    var toHome = distM({ lat: lat, lon: lon }, HOME);
+    setState('live', 'Live');
+    var n = nearestAlong(p);
+    var kmAlong = n.at / totalPx; /* fraction of the loop */
+    if (onMap && n.off < 25) {
+      status.textContent = fmtKm(toHome) + ' from the door, as the crow flies.';
+      note.innerHTML = 'On the map. <i>' + fmtKm(kmAlong * totalKm()) + ' into the loop.</i>';
+      lightTrack(kmAlong * totalKm());
+    } else {
+      status.textContent = onMap ? fmtKm(toHome) + ' from the door.' : fmtKm(toHome) + ' from the door, off the map.';
+      note.innerHTML = onMap ? 'On the map, <i>off the line</i>.' : 'Outside the map. <i>' + fmtKm(toHome) + ' from the door.</i>';
+    }
+  }
+  function totalKm() { return parseFloat(document.querySelector('.stop:last-of-type').getAttribute('data-km')) * 1000; }
+  function lightTrack(doneM) {
+    var cur = null;
+    stops.forEach(function (s) {
+      var km = parseFloat(s.getAttribute('data-km')) * 1000;
+      s.classList.toggle('done', km < doneM - 60);
+      s.classList.remove('current');
+      if (km <= doneM + 60 && (cur === null || km > parseFloat(cur.getAttribute('data-km')) * 1000)) cur = s;
+    });
+    if (cur) { cur.classList.add('current'); var r = cur.getBoundingClientRect(), t = tl.getBoundingClientRect(); trackDone.style.height = Math.max(0, r.top - t.top + 26 - 24) + 'px'; }
+  }
+  function onErr(e) {
+    setState('off', 'Where am I');
+    me.hidden = true;
+    status.textContent = '';
+    note.innerHTML = e && e.code === 1 ? 'Location is blocked for this site. <i>Allow it in the browser settings.</i>' : 'No fix yet. <i>Try again outside.</i>';
+    stop();
+  }
+  function start() {
+    if (!('geolocation' in navigator)) { note.textContent = 'This browser has no location.'; return; }
+    setState('wait', 'Finding you');
+    note.innerHTML = 'Finding you<i>…</i>';
+    try { localStorage.setItem(KEY_LOC, '1'); } catch (e) {}
+    watchId = navigator.geolocation.watchPosition(onFix, onErr, { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 });
+  }
+  function stop() {
+    if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+    try { localStorage.removeItem(KEY_LOC); } catch (e) {}
+    setState('off', 'Where am I');
+    me.hidden = true; status.textContent = '';
+    note.innerHTML = 'Tap <i>Where am I</i> at the top for a blue dot on the map.';
+    stops.forEach(function (s) { s.classList.remove('done', 'current'); }); trackDone.style.height = '0px';
+  }
+  btn.addEventListener('click', function () { watchId === null ? start() : stop(); });
+  var wanted = false; try { wanted = localStorage.getItem(KEY_LOC) === '1'; } catch (e) {}
+  if (wanted && location.protocol === 'https:') start();
+})();
+</script>
+</body>
+</html>
