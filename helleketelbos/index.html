@@ -408,7 +408,7 @@
     var lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 0;
     var p = proj(lat, lon);
     var onMap = p.x > -10 && p.x < 610 && p.y > -10 && p.y < 610;
-    me.hidden = !onMap;
+    if (onMap) me.removeAttribute('hidden'); else me.setAttribute('hidden', '');
     if (onMap) {
       me.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')');
       me.querySelector('.me-acc').setAttribute('r', Math.min(80, acc / 111320 * SX).toFixed(1));
@@ -439,7 +439,7 @@
   }
   function onErr(e) {
     setState('off', 'Where am I');
-    me.hidden = true;
+    me.setAttribute('hidden', '');
     status.textContent = '';
     note.innerHTML = e && e.code === 1 ? 'Location is blocked for this site. <i>Allow it in the browser settings.</i>' : 'No fix yet. <i>Try again outside.</i>';
     stop();
@@ -455,7 +455,7 @@
     if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
     try { localStorage.removeItem(KEY_LOC); } catch (e) {}
     setState('off', 'Where am I');
-    me.hidden = true; status.textContent = '';
+    me.setAttribute('hidden', ''); status.textContent = '';
     note.innerHTML = 'Tap <i>Where am I</i> at the top for a blue dot on the map.';
     stops.forEach(function (s) { s.classList.remove('done', 'current'); }); trackDone.style.height = '0px';
   }
