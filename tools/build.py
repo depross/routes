@@ -230,6 +230,75 @@ svg = f'''<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="
   <g class="north"><text class="ml dim" x="576" y="24" text-anchor="middle">N</text><line x1="576" y1="30" x2="576" y2="46"/></g>
 </svg>'''
 
+
+# ---------- hero icon per category (line art in the page's own strokes) ----------
+ICON_ALT = {"Nature": "A path leading into a small wood", "History": "A row of headstones with a path between the fields",
+            "City": "Three church towers and a path into town", "Beer & hops": "Hop bines on their poles", "Border": "A post mill on the hill, a path climbing to it"}
+ICONS = {
+"Nature": '''<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M8,92 Q60,84 112,92"/>
+          <path class="path" d="M58,112 C62,96 48,88 56,74 C62,64 70,60 72,52"/>
+          <g class="tree">
+            <path d="M34,78 L34,54"/><path d="M34,54 C22,54 18,40 28,34 C26,24 40,20 44,28 C54,26 56,42 46,46 C50,56 40,58 34,54 Z"/>
+            <path d="M86,80 L86,50"/><path d="M86,50 C72,52 68,34 80,30 C80,16 100,16 100,30 C110,36 104,52 92,50 C92,54 88,54 86,50 Z"/>
+            <path d="M62,56 L62,44"/><path d="M62,44 C56,44 54,36 59,34 C58,28 66,26 68,30 C74,30 74,40 68,42 C70,46 65,47 62,44 Z"/>
+          </g>
+        </svg>''',
+"History": '''<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M6,84 Q60,78 114,84"/>
+          <path class="path" d="M60,112 C58,100 62,94 60,86"/>
+          <g class="tree">
+            <path d="M20,82 L20,56 Q20,48 28,48 Q36,48 36,56 L36,82"/>
+            <path d="M44,82 L44,52 Q44,44 52,44 Q60,44 60,52 L60,82"/>
+            <path d="M68,82 L68,56 Q68,48 76,48 Q84,48 84,56 L84,82"/>
+            <path d="M92,82 L92,60 Q92,52 100,52 Q108,52 108,60 L108,82"/>
+            <path d="M52,54 L52,66 M47,59 L57,59"/>
+            <path d="M28,58 L28,66"/><path d="M76,58 L76,66"/><path d="M100,62 L100,68"/>
+          </g>
+          <path class="tree" d="M60,28 C58,34 62,38 60,44"/>
+          <g fill="#E85D1F"><circle cx="55" cy="21" r="5"/><circle cx="65" cy="21" r="5"/><circle cx="60" cy="15.5" r="5"/><circle cx="60" cy="26" r="5"/></g>
+          <circle cx="60" cy="21" r="2.2" fill="#000"/>
+        </svg>''',
+"City": '''<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M6,88 Q60,82 114,88"/>
+          <path class="path" d="M60,112 C64,100 54,96 58,86"/>
+          <g class="tree">
+            <path d="M22,86 L22,52 L30,40 L38,52 L38,86"/><path d="M30,40 L30,30"/><path d="M26,62 L34,62"/>
+            <path d="M50,86 L50,36 L60,18 L70,36 L70,86"/><path d="M60,18 L60,8"/><path d="M55,48 Q60,42 65,48"/><path d="M55,64 L65,64"/>
+            <path d="M82,86 L82,56 L90,46 L98,56 L98,86"/><path d="M90,46 L90,38"/><path d="M86,66 L94,66"/>
+            <path d="M38,86 L50,86 M70,86 L82,86"/>
+          </g>
+        </svg>''',
+"Beer & hops": '''<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M6,96 Q60,90 114,96"/>
+          <path class="path" d="M60,112 C62,104 58,100 60,94"/>
+          <g class="tree">
+            <path d="M30,94 L30,16"/><path d="M60,94 L60,10"/><path d="M90,94 L90,16"/>
+            <path d="M30,16 L60,10 L90,16" stroke-dasharray="2 2"/>
+            <path d="M30,90 C40,78 24,70 32,58 C40,46 26,40 32,26"/>
+            <path d="M60,88 C70,76 52,68 60,54 C68,42 52,34 60,20"/>
+            <path d="M90,90 C100,78 84,70 92,58 C100,46 86,40 92,26"/>
+          </g>
+          <g fill="none" stroke="#E85D1F" stroke-width="1.2" stroke-linejoin="round">
+            <path d="M38,44 l5,-4 l5,4 l-1,7 l-4,4 l-4,-4 z"/>
+            <path d="M68,38 l5,-4 l5,4 l-1,7 l-4,4 l-4,-4 z"/>
+            <path d="M96,52 l5,-4 l5,4 l-1,7 l-4,4 l-4,-4 z"/>
+          </g>
+        </svg>''',
+"Border": '''<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M6,96 Q40,60 70,66 Q100,72 114,96"/>
+          <path class="path" d="M20,112 C30,100 36,92 48,84 C56,78 62,74 68,70"/>
+          <g class="tree">
+            <path d="M72,70 L70,46 L82,44 L84,68 Z"/>
+            <path d="M74,72 L70,78 M82,70 L86,78"/>
+            <path d="M76,45 L76,38"/>
+            <path d="M76,38 L96,20 M76,38 L58,20 M76,38 L94,56 M76,38 L58,56"/>
+            <path d="M76,38 L92,24 L96,20 M76,38 L62,24 L58,20"/>
+          </g>
+          <path d="M28,92 L28,76 M24,76 L32,76 M24,80 L32,80" fill="none" stroke="#E85D1F" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>''',
+}
+
 # ---------- page ----------
 def kmf(m): return ("%.1f km" % (m/1000)).replace(".", ",")
 km_s = ("%.1f" % (total/1000)).replace(".", ",")
@@ -269,7 +338,8 @@ rep = {
     "{{CATEGORY}}": CFG["category"], "{{SIZE}}": CFG["size"], "{{DESC}}": CFG.get("desc", ""),
     "{{GOODTOKNOW}}": "".join('<p%s>%s</p>' % (' class="soft"' if i else "", p) for i, p in enumerate(CFG.get("goodtoknow", []))),
     "{{MORE}}": ('<details class="more"><summary>More</summary><div class="more-body">%s</div></details>' % "".join("<p>%s</p>" % p for p in CFG["more"])) if CFG.get("more") else "",
-    "{{UP}}": CFG.get("up", "../../#%s/%s" % (CFG.get("region_slug", "poperinge"), CFG["category"].lower().replace(" & ", "-").replace(" ", "-"))), "{{ALL}}": "../../#" + CFG.get("region_slug", "poperinge"), "{{KEY}}": CFG["slug"], "{{ICON}}": CFG.get("icon", ""),
+    "{{ICON}}": ICONS.get(CFG["category"], ICONS["Nature"]), "{{ICON_ALT}}": ICON_ALT.get(CFG["category"], "Illustration"),
+    "{{UP}}": CFG.get("up", "../../#%s/%s" % (CFG.get("region_slug", "poperinge"), CFG["category"].lower().replace(" & ", "-").replace(" ", "-"))), "{{ALL}}": "../../#" + CFG.get("region_slug", "poperinge"), "{{KEY}}": CFG["slug"],
 }
 page = tpl
 for _ in range(2):
