@@ -1,0 +1,148 @@
+{
+ "slug": "border-xl",
+ "out": "border/xl",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "To the mill on the border",
+ "title_html": "The <em>mill</em>",
+ "category": "Border",
+ "size": "XL",
+ "ring": "Border XL · Helleketelbos · Abele · Ondankmeulen · Lijssenthoek · {{KM}} km · ",
+ "sub": "Through the wood, over the border at Abele, up to the windmill, home by Lijssenthoek.",
+ "desc": "A {{KM}} km walk from Kleine Dasdreef through Helleketelbos to Abele and the Ondankmeulen windmill at Boeschepe, back by Lijssenthoek Military Cemetery.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "pad": 0.09,
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left and west on Helleketelweg; at the Karel Grimminckweg junction keep straight on, south, with the wood ahead.",
+   "accent": "Clockwise: the wood first, the border in the middle, the cemetery on the way home."
+  },
+  {
+   "name": "Helleketelweg south",
+   "lat": 50.841734,
+   "lon": 2.671187,
+   "map": false,
+   "title": "Wood on your left",
+   "note": "Follow the lane along the edge of Helleketelbos down to the bottom corner."
+  },
+  {
+   "name": "Into the wood",
+   "lat": 50.838341,
+   "lon": 2.66851,
+   "label": "Helleketelbos",
+   "title": "Through Helleketelbos",
+   "note": "The track into the wood, then the path east through it: oaks, sheep, and from the south edge the first view of the French hills you are walking towards."
+  },
+  {
+   "name": "Helleketelbos",
+   "lat": 50.837264,
+   "lon": 2.67206,
+   "map": false,
+   "title": "Out at the south side",
+   "note": "Leave the wood southwards towards Stoppelweg."
+  },
+  {
+   "name": "Boskafé",
+   "lat": 50.8325841,
+   "lon": 2.6697652,
+   "label": "Boskafé",
+   "dy": 10,
+   "title": "Boskafé Boule Carré",
+   "note": "The café at the south edge of the wood, with a terrace between the fields. Too early for a stop on the way out, perhaps; it is here if you reverse the loop.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Boskaf%C3%A9+Boule+Carr%C3%A9+Stoppelweg+39+Poperinge",
+   "addr": "Stoppelweg 39"
+  },
+  {
+   "name": "Abele",
+   "lat": 50.8227,
+   "lon": 2.6693,
+   "label": "Abele",
+   "title": "Abele, the border village",
+   "note": "A village cut in two by the border: the Belgian half is Poperinge, the French half is Boeschèpe, and the main street changes name halfway. The old station of the Poperinge to Hazebrouck line stood here.",
+   "accent": "You are in France from the station square on.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Abele+Poperinge",
+   "addr": "Abele"
+  },
+  {
+   "name": "Boeschepe mill",
+   "lat": 50.8012,
+   "lon": 2.6865,
+   "label": "Ondankmeulen",
+   "dy": -8,
+   "title": "The Ondankmeulen at Boeschepe",
+   "note": "A wooden post mill of 1802 on the first rise of the Flemish hills, with the estaminet De Vierpot beside it. The view north takes in the whole plain you have crossed, Poperinge included.",
+   "accent": "The far point, 180 degrees of view. The estaminet is the lunch stop.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Moulin+de+Boesch%C3%A8pe+Rue+du+Moulin+Boeschepe",
+   "addr": "Rue du Moulin, Boeschèpe"
+  },
+  {
+   "name": "Lijssenthoek",
+   "lat": 50.8284,
+   "lon": 2.7016,
+   "label": "Lijssenthoek",
+   "title": "Lijssenthoek Military Cemetery",
+   "note": "Back into Belgium by the lanes to Lijssenthoek, the hospital cemetery of the Ypres Salient: 10,784 graves beside the old railway siding where the casualty clearing stations stood.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Lijssenthoek+Military+Cemetery",
+   "addr": "Boescheepseweg 37"
+  },
+  {
+   "name": "Kleine Casseldreef",
+   "lat": 50.8465,
+   "lon": 2.6995,
+   "label": "Kleine Casseldreef",
+   "title": "Home by Kleine Casseldreef",
+   "note": "North on Boescheepseweg, a short stretch of Abeelseweg on its cycle path, then Provenstraat and Kleine Casseldreef back to the dreef."
+  }
+ ],
+ "extras": [
+  {
+   "name": "Mont des Cats",
+   "lat": 50.7854,
+   "lon": 2.6651,
+   "anchor": "start"
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Kleine Casseldreef",
+  "Werf",
+  "Provenstraat",
+  "Provenseweg",
+  "Gasthuisstraat",
+  "Casselstraat",
+  "Boescheepseweg",
+  "Abeelseweg",
+  "Deken De Bolaan",
+  "Boudeweelstraat",
+  "Stoppelweg",
+  "Vijfgemetenstraat",
+  "Noordlaan",
+  "Sint-Sixtusstraat",
+  "Krombeekseweg",
+  "Lyssenthoek",
+  "Bruggestraat",
+  "Ieperstraat",
+  "Duinkerkestraat",
+  "Europalaan",
+  "Wipperhoekdreef",
+  "Rue de la Gare",
+  "Canadaweg",
+  "Rue du Moulin",
+  "Stoppelweg"
+ ],
+ "goodtoknow": [
+  "A long day with a real climb at the far end: the mill stands about 80 m above the plain. Mostly lanes, two unpaved stretches (the wood and the field tracks around Abele) and about 500 m along Abeelseweg, which has a cycle path; use it. Identity card in the pocket, you cross into France twice.",
+  "Lunch at the estaminet De Vierpot next to the mill (closed Monday and Tuesday) or earlier at Boskafé if you turn the loop round. Lijssenthoek's visitor centre is open 9:00 to 18:00."
+ ],
+ "more": [
+  "The Ondankmeulen, the mill of ingratitude, got its name from a quarrel between the miller who commissioned it and the carpenter who built it. It is one of the last working post mills of French Flanders, on the first slope of the Monts de Flandre; Mont des Cats with its abbey is the next hill west. Abele was split by the 1713 border and had its own station on the Poperinge to Hazebrouck railway until the line closed."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door."
+}

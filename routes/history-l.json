@@ -1,0 +1,143 @@
+{
+ "slug": "history-l",
+ "out": "history/l",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "Behind the front",
+ "title_html": "Behind the <em>front</em>",
+ "category": "History",
+ "size": "L",
+ "ring": "History L · Nine Elms · Talbot House · the death cells · {{KM}} km · ",
+ "sub": "Poperinge as the rest town behind the Ypres Salient, in one morning.",
+ "desc": "A {{KM}} km walk from Kleine Dasdreef past Nine Elms British Cemetery into Poperinge for Talbot House, the death cells and Poperinghe New Military Cemetery.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg and right, towards town."
+  },
+  {
+   "name": "Nine Elms",
+   "lat": 50.8505,
+   "lon": 2.6969,
+   "label": "Nine Elms",
+   "dy": -8,
+   "title": "Nine Elms British Cemetery",
+   "note": "Ten minutes from the door, between the fields on Helleketelweg: 1,556 graves from the casualty clearing stations that stood here in 1917 and 1918. Among them Dave Gallaher, captain of the 1905 All Blacks, killed at Passchendaele.",
+   "accent": "Most people in Poperinge do not know it is here.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Nine+Elms+British+Cemetery+Poperinge",
+   "addr": "Helleketelweg"
+  },
+  {
+   "name": "Hopmuseum",
+   "lat": 50.85519,
+   "lon": 2.72198,
+   "map": false,
+   "title": "Into town by Werf and Gasthuisstraat",
+   "note": "Werf and Duinkerkestraat bring you into Gasthuisstraat, the street where the soldiers' Poperinge happened: cafés, shops, the Hopmuseum in the old weighing house, and halfway along, number 43."
+  },
+  {
+   "name": "Talbot House",
+   "lat": 50.85596,
+   "lon": 2.72328,
+   "label": "Talbot House",
+   "dy": -12,
+   "title": "Talbot House",
+   "note": "The Everyman's Club opened by chaplains Tubby Clayton and Neville Talbot in December 1915, where rank was left at the door and the chapel was in the hop loft. Still a house, still open, still serving tea in the garden.",
+   "accent": "Open daily 10:00 to 17:30. Give it an hour if you go in.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Talbot+House+Gasthuisstraat+43+Poperinge",
+   "addr": "Gasthuisstraat 43",
+   "anchor": "start"
+  },
+  {
+   "name": "Dodencellen",
+   "lat": 50.85553,
+   "lon": 2.728,
+   "label": "Death cells",
+   "title": "The death cells and the execution post",
+   "note": "In the courtyard behind the town hall on Grote Markt: the cells where condemned soldiers spent their last night, and the post against which they were shot at dawn. Free, quiet, and the hardest minutes of the walk.",
+   "accent": "Closed Mondays.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Dodencellen+Guido+Gezellestraat+1+Poperinge",
+   "addr": "Guido Gezellestraat 1, behind the town hall",
+   "anchor": "start",
+   "dy": 12
+  },
+  {
+   "name": "Pop New Mil Cem",
+   "lat": 50.84757,
+   "lon": 2.7331,
+   "label": "New Military Cemetery",
+   "title": "Poperinghe New Military Cemetery",
+   "note": "South-east of the centre on Deken De Bolaan. 677 Commonwealth and 270 French burials, and seventeen soldiers executed in the town; more than in any other cemetery of the war.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Poperinghe+New+Military+Cemetery",
+   "addr": "Deken De Bolaan 127",
+   "anchor": "end",
+   "dy": 14
+  },
+  {
+   "name": "Kleine Casseldreef",
+   "lat": 50.8465,
+   "lon": 2.6995,
+   "label": "Kleine Casseldreef",
+   "title": "Home by Kleine Casseldreef",
+   "note": "Out of town by Provenstraat, then right into Kleine Casseldreef: a long straight lane between the fields, back towards the dreef and the gravel lane."
+  }
+ ],
+ "extras": [
+  {
+   "name": "Hopmuseum",
+   "lat": 50.85519,
+   "lon": 2.72198,
+   "anchor": "end",
+   "dy": 12
+  },
+  {
+   "name": "Grote Markt",
+   "lat": 50.8556,
+   "lon": 2.7274,
+   "anchor": "end",
+   "dy": -8
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Kleine Casseldreef",
+  "Werf",
+  "Provenstraat",
+  "Provenseweg",
+  "Gasthuisstraat",
+  "Casselstraat",
+  "Boescheepseweg",
+  "Abeelseweg",
+  "Deken De Bolaan",
+  "Boudeweelstraat",
+  "Stoppelweg",
+  "Vijfgemetenstraat",
+  "Noordlaan",
+  "Sint-Sixtusstraat",
+  "Krombeekseweg",
+  "Lyssenthoek",
+  "Bruggestraat",
+  "Ieperstraat",
+  "Duinkerkestraat",
+  "Europalaan",
+  "Wipperhoekdreef",
+  "Rue de la Gare",
+  "Canadaweg"
+ ],
+ "goodtoknow": [
+  "Pavement most of the way, lanes at both ends. Nine Elms and the New Military Cemetery are open around the clock; Talbot House opens at 10:00 and the death cells are closed on Mondays. Allow an hour extra if you go into Talbot House.",
+  "Poperinge was never taken in the First World War. It sat eleven kilometres behind Ypres, out of range of most guns, and became the place where the soldiers of the Salient slept, drank, were patched up and, for a few, were shot."
+ ],
+ "more": [
+  "Nine Elms was the cemetery of two casualty clearing stations, set up in the fields west of the town in September 1917 for the Passchendaele offensive. Talbot House took its name from Gilbert Talbot, killed at Hooge in 1915; his brother Neville founded the club with Philip Clayton, and the Toc H movement grew out of it after the war. The death cells and the execution post behind the town hall were restored and opened as a memorial; the New Military Cemetery holds seventeen of the men who died there."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door.",
+ "ybias": 0.5
+}

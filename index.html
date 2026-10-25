@@ -22,7 +22,8 @@
   .hero h1 { font-weight:300; font-size:clamp(48px,14vw,80px); line-height:.95; margin:0; letter-spacing:-.03em; }
   .hero h1 em { font-family:var(--font-accent); font-style:italic; font-weight:300; color:var(--orange); }
   .hero .sub { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:19px; color:var(--muted); margin:0; }
-  .cat { display:grid; gap:0; }
+  .cat { display:grid; gap:0; margin-top:34px; }
+  .cat:first-of-type { margin-top:0; }
   .cat-h { margin:0; padding:0 0 10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; display:flex; gap:12px; align-items:baseline; }
   .cat-h i { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:15px; letter-spacing:0; text-transform:none; color:var(--dim); }
   .list { border-top:1px solid var(--line); display:grid; }
@@ -45,6 +46,56 @@
     <p class="kicker">Darinka &amp; Yves</p>
     <h1>Rou<em>tes</em></h1>
     <p class="sub">Walks from the front door, drawn on our own maps.</p>
+  </section>
+  <section class="cat">
+    <h2 class="cat-h">History <i>the town behind the Ypres Salient</i></h2>
+    <nav class="list" aria-label="History routes">
+      <a class="card" href="history/l/">
+        <span class="where">L · about 2 h 10</span>
+        <h3 class="title">Behind the front</h3>
+        <p class="note">Nine Elms British Cemetery, Gasthuisstraat and Talbot House, the death cells behind the town hall, Poperinghe New Military Cemetery.</p>
+        <span class="stat"><b>9,6</b><small>km</small></span>
+      </a>
+      <a class="card" href="history/xl/">
+        <span class="where">XL · about 3 h 40</span>
+        <h3 class="title">Behind the front, with Lijssenthoek</h3>
+        <p class="note">The same, then south to the hospital cemetery of the Salient and home by Abele and Stoppelweg.</p>
+        <span class="stat"><b>16,1</b><small>km</small></span>
+      </a>
+    </nav>
+  </section>
+  <section class="cat">
+    <h2 class="cat-h">City <i>the old cloth and hop town</i></h2>
+    <nav class="list" aria-label="City routes">
+      <a class="card" href="city/l/">
+        <span class="where">L · about 2 h 05</span>
+        <h3 class="title">Three churches and a market</h3>
+        <p class="note">Gasthuisstraat and the Hopmuseum, Grote Markt, Sint-Bertinus, Sint-Jan, Onze-Lieve-Vrouw and the Weeuwhof.</p>
+        <span class="stat"><b>9,3</b><small>km</small></span>
+      </a>
+    </nav>
+  </section>
+  <section class="cat">
+    <h2 class="cat-h">Beer &amp; hops <i>what the fields are for</i></h2>
+    <nav class="list" aria-label="Beer &amp; hops routes">
+      <a class="card" href="beer/xl/">
+        <span class="where">XL · about 4 h 30</span>
+        <h3 class="title">To the Trappists</h3>
+        <p class="note">Provenseweg through the hop fields to Sint-Sixtus and In de Vrede, home through town to the Hopmuseum.</p>
+        <span class="stat"><b>19,9</b><small>km</small></span>
+      </a>
+    </nav>
+  </section>
+  <section class="cat">
+    <h2 class="cat-h">Border <i>two countries, one plain</i></h2>
+    <nav class="list" aria-label="Border routes">
+      <a class="card" href="border/xl/">
+        <span class="where">XL · about 4 h</span>
+        <h3 class="title">To the mill on the border</h3>
+        <p class="note">Helleketelbos, the split village of Abele, the Ondankmeulen windmill at Boeschèpe with its view, home by Lijssenthoek.</p>
+        <span class="stat"><b>17,7</b><small>km</small></span>
+      </a>
+    </nav>
   </section>
   <section class="cat">
     <h2 class="cat-h">Nature <i>woods, hop fields, the old railway</i></h2>

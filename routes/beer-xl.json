@@ -1,0 +1,152 @@
+{
+ "slug": "beer-xl",
+ "out": "beer/xl",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "To the Trappists",
+ "title_html": "To the <em>Trappists</em>",
+ "category": "Beer & hops",
+ "size": "XL",
+ "ring": "Beer & hops XL · Westvleteren · In de Vrede · Hopmuseum · {{KM}} km · ",
+ "sub": "Through the hop fields to Sint-Sixtus, home by the town and the Hopmuseum.",
+ "desc": "A {{KM}} km walk from Kleine Dasdreef through the hop fields to the Sint-Sixtus abbey of Westvleteren and back through Poperinge.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "pad": 0.09,
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg and right, towards town. At Nine Elms turn left into Provenstraat, north."
+  },
+  {
+   "name": "Nine Elms",
+   "lat": 50.8505,
+   "lon": 2.6969,
+   "label": "Nine Elms",
+   "dy": -8,
+   "title": "Past Nine Elms, into Provenstraat",
+   "note": "The small war cemetery is on your right; just beyond it Provenstraat heads north between the fields.",
+   "accent": null,
+   "maps": "https://www.google.com/maps/search/?api=1&query=Nine+Elms+British+Cemetery+Poperinge",
+   "addr": "Helleketelweg",
+   "map": true
+  },
+  {
+   "name": "Provenseweg south",
+   "lat": 50.86,
+   "lon": 2.702,
+   "map": false,
+   "title": "Provenstraat becomes Provenseweg",
+   "note": "Cross the old railway bed and Duinkerkestraat; the lane runs straight north, the hop poles getting taller."
+  },
+  {
+   "name": "Provenseweg",
+   "lat": 50.8714,
+   "lon": 2.7105,
+   "label": "Provenseweg",
+   "title": "Hop country",
+   "note": "Six kilometres of lane through the densest hop land in Belgium. In September the bines are five metres high and the air smells of it; in winter the bare poles stand like a forest of masts.",
+   "accent": "The medieval road from Poperinge to Proven."
+  },
+  {
+   "name": "In de Vrede",
+   "lat": 50.895,
+   "lon": 2.7221,
+   "label": "In de Vrede",
+   "dy": -8,
+   "title": "Sint-Sixtus abbey and In de Vrede",
+   "note": "The abbey brews the Westvleteren Trappist beers and sells them nowhere else. The café across the road, In de Vrede, pours all three; the 12 is the one people drive across Europe for. Abbey cheese and a shop too.",
+   "accent": "The turning point, and the reason for the walk. Open 10:00 to 18:30, Saturday and Sunday to 20:00, closed Friday.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=In+de+Vrede+Donkerstraat+13+Westvleteren",
+   "addr": "Donkerstraat 13, Westvleteren"
+  },
+  {
+   "name": "Sint-Sixtusstraat",
+   "lat": 50.884,
+   "lon": 2.7191,
+   "label": "Sint-Sixtusstraat",
+   "title": "South on Sint-Sixtusstraat",
+   "note": "The straight road back towards Poperinge, hop fields again, the church towers ahead."
+  },
+  {
+   "name": "Grote Markt",
+   "lat": 50.8556,
+   "lon": 2.7263,
+   "label": "Grote Markt",
+   "title": "Grote Markt",
+   "note": "Into town from the north. A coffee or a last beer on the square; the terraces face south.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Grote+Markt+Poperinge",
+   "addr": "Grote Markt",
+   "anchor": "start",
+   "dy": -8
+  },
+  {
+   "name": "Hopmuseum",
+   "lat": 50.85519,
+   "lon": 2.72198,
+   "label": "Hopmuseum",
+   "dy": 12,
+   "title": "Hopmuseum",
+   "note": "In the old weighing house on Gasthuisstraat, where the bales came to be weighed and stamped: the whole story of the plant you walked through all day. Then Werf and Helleketelweg home.",
+   "accent": "Open 10:00 to 17:30, closed Mondays.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Hopmuseum+Gasthuisstraat+71+Poperinge",
+   "addr": "Gasthuisstraat 71",
+   "anchor": "end"
+  }
+ ],
+ "extras": [
+  {
+   "name": "De Lovie",
+   "lat": 50.8813,
+   "lon": 2.6975,
+   "anchor": "end"
+  },
+  {
+   "name": "Sint-Sixtus abbey",
+   "lat": 50.896,
+   "lon": 2.7205,
+   "anchor": "end",
+   "dy": -6
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Kleine Casseldreef",
+  "Werf",
+  "Provenstraat",
+  "Provenseweg",
+  "Gasthuisstraat",
+  "Casselstraat",
+  "Boescheepseweg",
+  "Abeelseweg",
+  "Deken De Bolaan",
+  "Boudeweelstraat",
+  "Stoppelweg",
+  "Vijfgemetenstraat",
+  "Noordlaan",
+  "Sint-Sixtusstraat",
+  "Krombeekseweg",
+  "Lyssenthoek",
+  "Bruggestraat",
+  "Ieperstraat",
+  "Duinkerkestraat",
+  "Europalaan",
+  "Wipperhoekdreef",
+  "Rue de la Gare",
+  "Canadaweg"
+ ],
+ "goodtoknow": [
+  "A full day on quiet lanes, almost all asphalt. The reward is at kilometre ten, so check the opening hours of In de Vrede before you leave (closed Friday). Water for the first half; the beers are strong and there are ten kilometres to walk after them.",
+  "Westvleteren beer cannot be bought in shops. The café sells it by the glass and in small packs; crates only by reservation at the abbey."
+ ],
+ "more": [
+  "Sint-Sixtus was founded in 1831 in a wood that already held a hermitage. The monks brew only what they need to live and have refused to grow for decades, which is why the Westvleteren 12 became the most sought-after beer in the world. In de Vrede, across the road, is the abbey's own café and the one place to drink the beers fresh.",
+  "The hop fields on the way are what remains of a trade that once covered the whole district; Poperinge still grows most of Belgium's hops and holds the Hoppefeesten every three years in September."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door."
+}

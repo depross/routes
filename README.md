@@ -3,7 +3,7 @@
 Walks from the front door, each as a one-page, phone-first site in the DARIDEH style, with a street map drawn from OpenStreetMap data rather than map tiles.
 
 - Live: https://depross.github.io/routes/
-- Routes are grouped by category and size. Nature: `nature/s` (field path, 3,0 km, draft), `nature/m` (Helleketelbos, 6,3 km), `nature/l` (old railway and wood, 10,6 km), `nature/xl` (three woods, 17,3 km).
+- Routes are grouped by category and size (S up to 4 km, M 4 to 8, L 8 to 13, XL above). Nature: `nature/s` (field path, 3,0 km, draft), `nature/m` (Helleketelbos, 6,3 km), `nature/l` (old railway and wood, 10,6 km), `nature/xl` (three woods, 17,3 km). History: `history/l` (9,6 km), `history/xl` (16,1 km). City: `city/l` (9,3 km). Beer & hops: `beer/xl` (19,9 km). Border: `border/xl` (17,7 km).
 - Each route is one JSON config in `routes/`; the page is generated from it.
 
 ## How a route page is built

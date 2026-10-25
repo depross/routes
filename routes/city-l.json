@@ -1,0 +1,168 @@
+{
+ "slug": "city-l",
+ "out": "city/l",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "Three churches and a market",
+ "title_html": "Three <em>churches</em>",
+ "category": "City",
+ "size": "L",
+ "ring": "City L · Grote Markt · three Gothic churches · the Weeuwhof · {{KM}} km · ",
+ "sub": "Into Poperinge by Werf, out by Kleine Casseldreef; the old town in between.",
+ "desc": "A {{KM}} km walk from Kleine Dasdreef into Poperinge: Gasthuisstraat, Grote Markt, Sint-Bertinus, Sint-Jan, Onze-Lieve-Vrouw and the Weeuwhof.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg and right, towards town."
+  },
+  {
+   "name": "Nine Elms",
+   "lat": 50.8505,
+   "lon": 2.6969,
+   "label": "Nine Elms",
+   "dy": -8,
+   "title": "Past Nine Elms",
+   "note": "A small war cemetery between the fields on Helleketelweg, ten minutes from the door. Worth the two-minute detour through the gate even on a town walk.",
+   "accent": "Most people in Poperinge do not know it is here.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Nine+Elms+British+Cemetery+Poperinge",
+   "addr": "Helleketelweg"
+  },
+  {
+   "name": "Hopmuseum",
+   "lat": 50.85519,
+   "lon": 2.72198,
+   "label": "Hopmuseum",
+   "dy": 12,
+   "title": "Gasthuisstraat",
+   "note": "Werf and Duinkerkestraat bring you into the main shopping street. The Hopmuseum is in the old municipal weighing house where the hop bales were weighed and stamped; Talbot House is a few doors on.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Hopmuseum+Gasthuisstraat+71+Poperinge",
+   "addr": "Gasthuisstraat 71",
+   "anchor": "end"
+  },
+  {
+   "name": "Gasthuiskapel",
+   "lat": 50.856,
+   "lon": 2.7251,
+   "map": false,
+   "title": "The Gasthuiskapel",
+   "note": "At the end of the street, the chapel of the medieval hospital, now an exhibition space; look in if the door is open."
+  },
+  {
+   "name": "Grote Markt",
+   "lat": 50.8556,
+   "lon": 2.7263,
+   "label": "Grote Markt",
+   "dy": -10,
+   "title": "Grote Markt and Sint-Bertinus",
+   "note": "The square with the neo-Gothic town hall of 1911 and, behind it, Sint-Bertinuskerk, the main church, with its heavy tower. Cafés all round the square for a coffee.",
+   "accent": "Halfway. Sit down.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Grote+Markt+Poperinge",
+   "addr": "Grote Markt",
+   "anchor": "start"
+  },
+  {
+   "name": "Sint-Janskerk",
+   "lat": 50.85525,
+   "lon": 2.73101,
+   "label": "Sint-Janskerk",
+   "title": "Sint-Janskerk",
+   "note": "East along Bruggestraat to the second Gothic church, home of the miraculous statue of Our Lady of Sint-Jan and of the Maria procession every July.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Sint-Janskerk+Poperinge",
+   "addr": "Sint-Janskruisstraat",
+   "anchor": "end",
+   "dy": 14
+  },
+  {
+   "name": "Toekomststraat",
+   "lat": 50.8519,
+   "lon": 2.7308,
+   "map": false,
+   "title": "South and west through the back streets",
+   "note": "Leave by the quieter streets south of the centre, towards the third church."
+  },
+  {
+   "name": "OLV-kerk",
+   "lat": 50.8526,
+   "lon": 2.7219,
+   "label": "O.L.V.-kerk",
+   "dy": 12,
+   "title": "Onze-Lieve-Vrouwekerk",
+   "note": "The oldest of the three, 13th century, a hall church in a green square. The parish outgrew it; it stands quiet now.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Onze-Lieve-Vrouwekerk+Poperinge",
+   "addr": "Onze-Lieve-Vrouwekruisstraat",
+   "anchor": "end"
+  },
+  {
+   "name": "Weeuwhof",
+   "lat": 50.854,
+   "lon": 2.7217,
+   "label": "Weeuwhof",
+   "title": "The Weeuwhof",
+   "note": "Through the gate on Sint-Annastraat: a courtyard of small 18th-century almshouses built for widows, still lived in, with benches under the trees.",
+   "accent": "The quietest spot in town.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Weeuwhof+Sint-Annastraat+Poperinge",
+   "addr": "Sint-Annastraat 5",
+   "anchor": "end",
+   "dy": 4
+  },
+  {
+   "name": "Kleine Casseldreef",
+   "lat": 50.8465,
+   "lon": 2.6995,
+   "label": "Kleine Casseldreef",
+   "title": "Home by Kleine Casseldreef",
+   "note": "Out of town by Provenstraat, then right into Kleine Casseldreef: a long straight lane between the fields, back towards the dreef and the gravel lane."
+  }
+ ],
+ "extras": [
+  {
+   "name": "Talbot House",
+   "lat": 50.85596,
+   "lon": 2.72328,
+   "anchor": "start",
+   "dy": -10
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Kleine Casseldreef",
+  "Werf",
+  "Provenstraat",
+  "Provenseweg",
+  "Gasthuisstraat",
+  "Casselstraat",
+  "Boescheepseweg",
+  "Abeelseweg",
+  "Deken De Bolaan",
+  "Boudeweelstraat",
+  "Stoppelweg",
+  "Vijfgemetenstraat",
+  "Noordlaan",
+  "Sint-Sixtusstraat",
+  "Krombeekseweg",
+  "Lyssenthoek",
+  "Bruggestraat",
+  "Ieperstraat",
+  "Duinkerkestraat",
+  "Europalaan",
+  "Wipperhoekdreef",
+  "Rue de la Gare",
+  "Canadaweg"
+ ],
+ "goodtoknow": [
+  "Lanes to town, pavement in it. Shops close on Sunday; the churches are usually open in the daytime, the Weeuwhof gate too. Market on Friday mornings on Grote Markt.",
+  "Poperinge got its town rights in 1147 and grew rich on cloth, then on hops, which is why the Hopmuseum sits in the old weighing house and why there are three Gothic churches for a town this size."
+ ],
+ "more": [
+  "The three churches are the mark of the medieval cloth town: Sint-Bertinus for the centre, Sint-Jan and Onze-Lieve-Vrouw for the parishes that grew around it. Hop growing took over from the 15th century and Poperinge is still the hop capital of Belgium, with the Hoppefeesten every three years in September."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door.",
+ "ybias": 0.5
+}
