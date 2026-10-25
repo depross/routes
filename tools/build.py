@@ -155,15 +155,17 @@ def classify(t):
     return None
 
 EPS = CFG.get("simplify", .6)
+M = int(max(320, min(1600, CFG.get("margin_m", 2600) / (111320/SX))))  # streets kept around the canvas, so panning and portrait screens show map, not black
+print("margin units:", M)
 groups = {}; named = {}
 for e in els:
     t = e.get("tags", {}); cls = classify(t)
     if not cls: continue
     pts = [proj(g["lat"], g["lon"]) for g in e["geometry"]]
-    if not any(-320 <= x <= 920 and -320 <= y <= 920 for x, y in pts): continue
+    if not any(-M <= x <= 600+M and -M <= y <= 600+M for x, y in pts): continue
     pts = [(round(x, 1), round(y, 1)) for x, y in pts]
     if cls.startswith("rd") or cls in ("rail", "stream"):
-        pts = [p for p in pts if -320 <= p[0] <= 920 and -320 <= p[1] <= 920]
+        pts = [p for p in pts if -M <= p[0] <= 600+M and -M <= p[1] <= 600+M]
     if len(pts) < 2: continue
     pts = dp(pts, EPS)
     closed = cls in ("park", "water") and e["nodes"][0] == e["nodes"][-1]
@@ -209,14 +211,13 @@ hx, hy = stops[0]["px"]; hanchor = stops[0].get("anchor") or ("start" if hx < 40
 pts_svg.append(ptg("home", hx, hy, '<circle r="9"/><circle r="3" class="core"/><text class="ml home" x="%.1f" y="4" text-anchor="%s">Home</text>' % ((14 if hanchor == "start" else -14), hanchor)))
 for c in CFG.get("extras", []):
     x, y = proj(c["lat"], c["lon"])
-    if not (-250 < x < 850 and -250 < y < 850): continue
+    if not (-M < x < 600+M and -M < y < 600+M): continue
     anchor = c.get("anchor", "start"); dx = 8 if anchor == "start" else -8
     pts_svg.append(ptg("cafe", x, y, '<circle r="3.2"/><text class="ml dim" x="%.1f" y="%.1f" text-anchor="%s">%s</text>' % (dx, 3.5+c.get("dy", 0), anchor, esc(c["name"]))))
 
-M = 320
 scale_m = 500 if 111320/SX < 12 else 1000
 scale_px = scale_m/111320*SX
-svg = f'''<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(CFG.get("aria", "Map of the walk"))}" data-scale-px="{scale_px:.2f}" data-scale-m="{scale_m}">
+svg = f'''<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(CFG.get("aria", "Map of the walk"))}" data-scale-px="{scale_px:.2f}" data-scale-m="{scale_m}" data-margin="{M}">
   <defs>
     <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#2A2724"/></pattern>
   </defs>

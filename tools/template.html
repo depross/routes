@@ -311,11 +311,26 @@
   var svgEl = document.getElementById('mapsvg'), wrap = document.getElementById('map-wrap'), hint = document.getElementById('map-hint');
   var scaleTxt = document.getElementById('scale-txt'), scaleBar = document.getElementById('scale-bar');
   var M_PER_UNIT = 111320 / SX;
+  var MARGIN = parseFloat(svgEl.getAttribute('data-margin')) || 320;
   var view = { cx: 300, cy: 300, z: 1 }, W = 1, H = 1, lastFix = null, accPx = 0;
   function unitsPerPx() { return 600 / Math.min(W, H) / view.z; }
   function clamp() {
-    view.z = Math.max(0.6, Math.min(10, view.z));
-    view.cx = Math.max(-250, Math.min(850, view.cx)); view.cy = Math.max(-250, Math.min(850, view.cy));
+    view.z = Math.max(minZ, Math.min(12, view.z));
+    view.cx = Math.max(-MARGIN, Math.min(600 + MARGIN, view.cx)); view.cy = Math.max(-MARGIN, Math.min(600 + MARGIN, view.cy));
+  }
+  /* fit: the whole walk in view, whatever the shape of the screen */
+  var routeBox = null, minZ = 0.5;
+  function fit() {
+    if (!routeBox) {
+      var pts = (document.querySelector('.rt.walk').getAttribute('d').match(/-?\d+(\.\d+)?,-?\d+(\.\d+)?/g) || []).map(function (s) { var a = s.split(','); return { x: +a[0], y: +a[1] }; });
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      routeBox = { x0: Math.min.apply(null, xs), x1: Math.max.apply(null, xs), y0: Math.min.apply(null, ys), y1: Math.max.apply(null, ys) };
+    }
+    var bw = routeBox.x1 - routeBox.x0, bh = routeBox.y1 - routeBox.y0;
+    var padPx = 56; /* room for labels and the controls */
+    var u = Math.max(bw / Math.max(1, W - 2 * padPx), bh / Math.max(1, H - 2 * padPx));
+    view.z = 600 / Math.min(W, H) / u; minZ = view.z * 0.6; view.cx = (routeBox.x0 + routeBox.x1) / 2; view.cy = (routeBox.y0 + routeBox.y1) / 2 + 10;
+    apply();
   }
   function apply() {
     clamp();
@@ -328,7 +343,8 @@
     for (var i = 0; i < nice.length; i++) { if (nice[i] / mPerPx <= 150) m = nice[i]; }
     scaleBar.style.width = (m / mPerPx).toFixed(0) + 'px'; scaleTxt.textContent = m >= 1000 ? (m / 1000) + ' km' : m + ' m';
   }
-  function measure() { var r = wrap.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); apply(); }
+  var measured = false;
+  function measure() { var r = wrap.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); if (!measured) { measured = true; fit(); } else apply(); }
   function screenToWorld(px, py) { var r = wrap.getBoundingClientRect(), u = unitsPerPx(); return { x: view.cx - W * u / 2 + (px - r.left) * u, y: view.cy - H * u / 2 + (py - r.top) * u }; }
   function zoomAt(factor, px, py) {
     var before = screenToWorld(px, py);
@@ -373,7 +389,7 @@
   wrap.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(Math.exp(-e.deltaY * 0.0022), e.clientX, e.clientY); hint && hint.classList.add('gone'); }, { passive: false });
   document.getElementById('zoom-in').addEventListener('click', function () { var r = wrap.getBoundingClientRect(); zoomAt(1.6, r.left + W / 2, r.top + H / 2); });
   document.getElementById('zoom-out').addEventListener('click', function () { var r = wrap.getBoundingClientRect(); zoomAt(1 / 1.6, r.left + W / 2, r.top + H / 2); });
-  document.getElementById('zoom-fit').addEventListener('click', function () { flyTo(300, 300, 1); });
+  document.getElementById('zoom-fit').addEventListener('click', fit);
   window.addEventListener('resize', measure); window.addEventListener('orientationchange', function () { setTimeout(measure, 300); });
   setTimeout(function () { hint && hint.classList.add('gone'); }, 6000);
 
