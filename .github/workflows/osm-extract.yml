@@ -1,0 +1,57 @@
+name: Extract OSM data (Geofabrik)
+
+# Fallback for the Overpass workflow: downloads the Belgium extract from
+# Geofabrik, cuts out a bounding box with osmium and commits it as gzipped
+# GeoJSON under data/. Slower to start, but it does not depend on the
+# public Overpass servers being responsive.
+
+on:
+  workflow_dispatch:
+    inputs:
+      bbox:
+        description: "west,south,east,north (osmium order)"
+        required: true
+        default: "2.650,50.825,2.705,50.858"
+      name:
+        description: "data file name"
+        required: true
+        default: "osm"
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install osmium
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - name: Download Belgium extract
+        run: curl -sSL -o belgium.osm.pbf https://download.geofabrik.de/europe/belgium-latest.osm.pbf && ls -la belgium.osm.pbf
+      - name: Cut and export
+        env:
+          BBOX: ${{ github.event.inputs.bbox }}
+          NAME: ${{ github.event.inputs.name }}
+        run: |
+          osmium extract -b "$BBOX" -s complete_ways belgium.osm.pbf -o area.osm.pbf --overwrite
+          osmium export area.osm.pbf -f geojson -o area.geojson --overwrite
+          python3 - <<'EOF'
+          import json, gzip, os
+          g = json.load(open('area.geojson'))
+          keep = []
+          for f in g['features']:
+              p = f.get('properties', {})
+              if any(k in p for k in ('highway', 'railway', 'natural', 'landuse', 'waterway', 'leisure', 'boundary')):
+                  keep.append(f)
+          print(len(keep), 'features kept of', len(g['features']))
+          os.makedirs('data', exist_ok=True)
+          with gzip.open('data/%s.geojson.gz' % os.environ['NAME'], 'wt') as fh:
+              json.dump({'type': 'FeatureCollection', 'features': keep}, fh)
+          EOF
+          git config user.name osm-extract
+          git config user.email osm-extract@users.noreply.github.com
+          git add data
+          git commit -m "OSM data (Geofabrik extract): $NAME" || echo "nothing to commit"
+          git pull --rebase origin main || true
+          git push
