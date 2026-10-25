@@ -107,8 +107,27 @@
   .map-head { display: grid; gap: 4px; }
   .map-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
   .map-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 0; }
-  .map-wrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #060505; position: relative; }
-  .map { display: block; width: 100%; height: auto; }
+  .map-wrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #060505; position: relative; height: calc(100svh - 64px - 28px); min-height: 440px; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .map { display: block; width: 100%; height: 100%; cursor: grab; }
+  .map.drag { cursor: grabbing; }
+  .map .streets path, .map .rt { vector-effect: non-scaling-stroke; }
+  .map .pz { transform: scale(var(--k, 1)); }
+  .map .streets .sn { font-size: calc(8.5px * var(--k, 1)); }
+  .map-ctl { position: absolute; right: 12px; bottom: 12px; display: grid; gap: 8px; z-index: 2; }
+  .map-ctl button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--dim); background: rgba(0,0,0,.82); color: var(--fg); font: 300 22px/1 var(--font-body); cursor: pointer; display: grid; place-items: center; padding: 0; -webkit-tap-highlight-color: transparent; }
+  .map-ctl button:hover { border-color: var(--fg); }
+  .map-ctl .down { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: rgba(0,0,0,.82); color: var(--muted); font: 300 20px/1 var(--font-body); display: grid; place-items: center; text-decoration: none; margin-top: 6px; }
+  .map-ctl .down:hover { color: var(--fg); border-color: var(--dim); }
+  .map-ctl button svg { width: 18px; height: 18px; display: block; }
+  .map-ctl button.live { border-color: var(--now); color: var(--now); box-shadow: 0 0 10px rgba(74,140,255,.35); }
+  .map-ctl button.wait { color: var(--now); }
+  .map-ctl button.wait svg { animation: spin-ring 1s linear infinite; }
+  .map-scale { position: absolute; left: 14px; bottom: 16px; z-index: 2; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: grid; gap: 4px; pointer-events: none; }
+  .map-scale i { display: block; height: 5px; border: 1px solid var(--muted); border-top: 0; }
+  .map-north { position: absolute; right: 22px; top: 12px; z-index: 2; color: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-align: center; line-height: 1.1; pointer-events: none; }
+  .map-north::after { content: ""; display: block; width: 1px; height: 14px; background: var(--muted); margin: 3px auto 0; }
+  .map-hint { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); z-index: 2; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); background: rgba(0,0,0,.7); padding: 5px 10px; border-radius: 999px; pointer-events: none; transition: opacity .6s; white-space: nowrap; }
+  .map-hint.gone { opacity: 0; }
   .map .streets .park { fill: #0F110C; stroke: #171a12; stroke-width: .6; }
   .map .streets .water { fill: #0A0D12; stroke: #15202E; stroke-width: 1; }
   .map .streets .water.stream { fill: none; stroke: #15202E; stroke-width: .9; }
@@ -130,7 +149,6 @@
   .map .ml { font-family: var(--font-body); font-size: 11.5px; font-weight: 400; fill: var(--fg); letter-spacing: .02em; }
   .map .ml.dim { fill: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
   .map .ml.home { font-family: var(--font-accent); font-style: italic; font-size: 14px; fill: var(--fg); }
-  .map .scale line, .map .north line { stroke: var(--muted); stroke-width: 1; }
   .map .me .me-dot { fill: var(--now); stroke: var(--bg); stroke-width: 1.5; }
   .map .me .me-halo { fill: rgba(74,140,255,.18); animation: halo 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
   .map .me .me-acc { fill: rgba(74,140,255,.07); stroke: rgba(74,140,255,.35); stroke-width: .8; stroke-dasharray: 2 2; }
@@ -177,7 +195,7 @@
   footer .osm a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--line); }
 
   @media (prefers-reduced-motion: reduce) {
-    .eclipse, .hbtn.live .loc-ring, .hbtn.wait .loc-ring, .map .me .me-halo { animation: none; }
+    .eclipse, .map-ctl button.wait svg, .map .me .me-halo { animation: none; }
     #ring-g animateTransform { display: none; }
   }
 </style>
@@ -189,7 +207,6 @@
     <a class="brand" href="{{UP}}">Routes · <b>{{CATEGORY}} {{SIZE}}</b></a>
     <div class="hdr-btns">
       <a class="hbtn" href="#map">Map</a>
-      <button type="button" class="hbtn off" id="loc-btn" aria-pressed="false"><span class="loc-ring" aria-hidden="true"></span><span id="loc-txt">Where am I</span></button>
     </div>
   </div>
 </header>
@@ -226,8 +243,18 @@
       <h2>On foot</h2>
       <p class="cue">{{CUE}}</p>
     </div>
-    <div class="map-wrap">
+    <div class="map-wrap" id="map-wrap">
 {{SVG}}
+      <div class="map-hint" id="map-hint">Pinch to zoom, drag to move</div>
+      <div class="map-north" aria-hidden="true">N</div>
+      <div class="map-scale" aria-hidden="true"><span id="scale-txt">500 m</span><i id="scale-bar"></i></div>
+      <div class="map-ctl">
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
+        <button type="button" id="zoom-fit" aria-label="Show the whole walk"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/><rect x="7" y="7" width="6" height="6" rx="1"/></svg></button>
+        <button type="button" id="loc-btn" class="off" aria-pressed="false" aria-label="Where am I"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="10" cy="10" r="5.5"/><circle cx="10" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3"/></svg></button>
+        <a class="down" href="#walk" aria-label="Down to the walk">&darr;</a>
+      </div>
     </div>
     <div class="legend">
       <span class="lgi"><i class="lg"></i>The walk</span>
@@ -235,7 +262,7 @@
       <span class="lgi"><i class="lg wood"></i>Wood</span>
       <span class="lgi"><i class="lg home"></i>Start</span>
     </div>
-    <p class="map-note" id="map-note">Tap <i>Where am I</i> at the top for a blue dot on the map.</p>
+    <p class="map-note" id="map-note">Tap the <i>crosshair</i> on the map for a blue dot where you are.</p>
   </section>
 
   <section class="tl" id="walk">
@@ -279,9 +306,80 @@
     return 2 * R * Math.asin(Math.sqrt(s));
   }
 
+
+  /* ---- pan and zoom: the SVG viewBox is the camera; markers and labels are counter-scaled through --k ---- */
+  var svgEl = document.getElementById('mapsvg'), wrap = document.getElementById('map-wrap'), hint = document.getElementById('map-hint');
+  var scaleTxt = document.getElementById('scale-txt'), scaleBar = document.getElementById('scale-bar');
+  var M_PER_UNIT = 111320 / SX;
+  var view = { cx: 300, cy: 300, z: 1 }, W = 1, H = 1, lastFix = null, accPx = 0;
+  function unitsPerPx() { return 600 / Math.min(W, H) / view.z; }
+  function clamp() {
+    view.z = Math.max(0.6, Math.min(10, view.z));
+    view.cx = Math.max(-250, Math.min(850, view.cx)); view.cy = Math.max(-250, Math.min(850, view.cy));
+  }
+  function apply() {
+    clamp();
+    var u = unitsPerPx();
+    svgEl.setAttribute('viewBox', (view.cx - W * u / 2).toFixed(2) + ' ' + (view.cy - H * u / 2).toFixed(2) + ' ' + (W * u).toFixed(2) + ' ' + (H * u).toFixed(2));
+    svgEl.style.setProperty('--k', (1 / view.z).toFixed(4));
+    var acc = me.querySelector('.me-acc'); if (acc && accPx) acc.setAttribute('r', (accPx * view.z).toFixed(1));
+    /* scale bar: a round number of metres that fits in 60 to 150 px */
+    var mPerPx = u * M_PER_UNIT, nice = [10, 20, 50, 100, 200, 250, 500, 1000, 2000, 5000], m = nice[0];
+    for (var i = 0; i < nice.length; i++) { if (nice[i] / mPerPx <= 150) m = nice[i]; }
+    scaleBar.style.width = (m / mPerPx).toFixed(0) + 'px'; scaleTxt.textContent = m >= 1000 ? (m / 1000) + ' km' : m + ' m';
+  }
+  function measure() { var r = wrap.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); apply(); }
+  function screenToWorld(px, py) { var r = wrap.getBoundingClientRect(), u = unitsPerPx(); return { x: view.cx - W * u / 2 + (px - r.left) * u, y: view.cy - H * u / 2 + (py - r.top) * u }; }
+  function zoomAt(factor, px, py) {
+    var before = screenToWorld(px, py);
+    view.z *= factor; clamp();
+    var after = screenToWorld(px, py);
+    view.cx += before.x - after.x; view.cy += before.y - after.y; apply();
+  }
+  function flyTo(x, y, z) { view.cx = x; view.cy = y; if (z) view.z = z; apply(); }
+  var pointers = {}, pinch = null, lastTap = 0, moved = false;
+  function ids() { return Object.keys(pointers); }
+  wrap.addEventListener('pointerdown', function (e) {
+    if (e.target.closest && e.target.closest('.map-ctl')) return;
+    wrap.setPointerCapture(e.pointerId); pointers[e.pointerId] = { x: e.clientX, y: e.clientY }; moved = false;
+    svgEl.classList.add('drag');
+    var k = ids(); if (k.length === 2) { var a = pointers[k[0]], b = pointers[k[1]]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) }; }
+  });
+  wrap.addEventListener('pointermove', function (e) {
+    if (!pointers[e.pointerId]) return;
+    var prev = pointers[e.pointerId]; pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var k = ids();
+    if (k.length === 1) {
+      var u = unitsPerPx(); var dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+      if (Math.abs(dx) + Math.abs(dy) > 2) moved = true;
+      view.cx -= dx * u; view.cy -= dy * u; apply();
+    } else if (k.length === 2 && pinch) {
+      moved = true;
+      var a = pointers[k[0]], b = pointers[k[1]], d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      if (pinch.d > 0) zoomAt(d / pinch.d, mx, my);
+      pinch.d = d;
+    }
+    if (hint && !hint.classList.contains('gone')) hint.classList.add('gone');
+  });
+  function up(e) {
+    if (!pointers[e.pointerId]) return;
+    delete pointers[e.pointerId]; pinch = null;
+    if (!ids().length) {
+      svgEl.classList.remove('drag');
+      if (!moved) { var now = Date.now(); if (now - lastTap < 320) { zoomAt(2, e.clientX, e.clientY); lastTap = 0; } else lastTap = now; }
+    }
+  }
+  wrap.addEventListener('pointerup', up); wrap.addEventListener('pointercancel', up);
+  wrap.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(Math.exp(-e.deltaY * 0.0022), e.clientX, e.clientY); hint && hint.classList.add('gone'); }, { passive: false });
+  document.getElementById('zoom-in').addEventListener('click', function () { var r = wrap.getBoundingClientRect(); zoomAt(1.6, r.left + W / 2, r.top + H / 2); });
+  document.getElementById('zoom-out').addEventListener('click', function () { var r = wrap.getBoundingClientRect(); zoomAt(1 / 1.6, r.left + W / 2, r.top + H / 2); });
+  document.getElementById('zoom-fit').addEventListener('click', function () { flyTo(300, 300, 1); });
+  window.addEventListener('resize', measure); window.addEventListener('orientationchange', function () { setTimeout(measure, 300); });
+  setTimeout(function () { hint && hint.classList.add('gone'); }, 6000);
+
   /* ---- live location: a blue dot on the map, and the nearest stop lit on the track ---- */
   var KEY_LOC = 'routes-{{KEY}}-loc';
-  var btn = document.getElementById('loc-btn'), txt = document.getElementById('loc-txt'), status = document.getElementById('status');
+  var btn = document.getElementById('loc-btn'), status = document.getElementById('status');
   var me = document.getElementById('me'), note = document.getElementById('map-note');
   var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
   var trackDone = document.getElementById('track-done'), tl = document.getElementById('walk');
@@ -303,18 +401,20 @@
   }
 
   function setState(cls, label) {
-    btn.className = 'hbtn ' + cls; txt.textContent = label; btn.setAttribute('aria-pressed', cls === 'live' || cls === 'wait' ? 'true' : 'false');
+    btn.className = cls; btn.setAttribute('aria-pressed', cls === 'live' || cls === 'wait' ? 'true' : 'false'); btn.setAttribute('aria-label', label);
   }
   function fmtKm(m) { return (m / 1000).toFixed(1).replace('.', ',') + ' km'; }
 
   function onFix(pos) {
     var lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 0;
     var p = proj(lat, lon);
-    var onMap = p.x > -10 && p.x < 610 && p.y > -10 && p.y < 610;
+    var onMap = p.x > -300 && p.x < 900 && p.y > -300 && p.y < 900;
+    lastFix = p;
     if (onMap) me.removeAttribute('hidden'); else me.setAttribute('hidden', '');
     if (onMap) {
       me.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')');
-      me.querySelector('.me-acc').setAttribute('r', Math.min(80, acc / 111320 * SX).toFixed(1));
+      me.querySelector('.me-acc').setAttribute('r', (Math.min(80, acc / 111320 * SX) * view.z).toFixed(1));
+      accPx = Math.min(80, acc / 111320 * SX);
     }
     var toHome = distM({ lat: lat, lon: lon }, HOME);
     setState('live', 'Live');
@@ -349,7 +449,7 @@
   }
   function start() {
     if (!('geolocation' in navigator)) { note.textContent = 'This browser has no location.'; return; }
-    setState('wait', 'Finding you');
+    setState('wait', 'Finding you'); delete btn.dataset.centred;
     note.innerHTML = 'Finding you<i>…</i>';
     try { localStorage.setItem(KEY_LOC, '1'); } catch (e) {}
     watchId = navigator.geolocation.watchPosition(onFix, onErr, { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 });
@@ -359,12 +459,18 @@
     try { localStorage.removeItem(KEY_LOC); } catch (e) {}
     setState('off', 'Where am I');
     me.setAttribute('hidden', ''); status.textContent = '';
-    note.innerHTML = 'Tap <i>Where am I</i> at the top for a blue dot on the map.';
+    note.innerHTML = 'Tap the <i>crosshair</i> on the map for a blue dot where you are.';
+    lastFix = null;
     stops.forEach(function (s) { s.classList.remove('done', 'current'); }); trackDone.style.height = '0px';
   }
-  btn.addEventListener('click', function () { watchId === null ? start() : stop(); });
+  btn.addEventListener('click', function () {
+    if (watchId === null) { start(); return; }
+    if (lastFix && !btn.dataset.centred) { btn.dataset.centred = '1'; flyTo(lastFix.x, lastFix.y, Math.max(view.z, 2.5)); return; }
+    delete btn.dataset.centred; stop();
+  });
   var wanted = false; try { wanted = localStorage.getItem(KEY_LOC) === '1'; } catch (e) {}
   if (wanted && location.protocol === 'https:') start();
+  measure();
 })();
 </script>
 </body>

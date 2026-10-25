@@ -160,10 +160,10 @@ for e in els:
     t = e.get("tags", {}); cls = classify(t)
     if not cls: continue
     pts = [proj(g["lat"], g["lon"]) for g in e["geometry"]]
-    if not any(-40 <= x <= 640 and -40 <= y <= 640 for x, y in pts): continue
+    if not any(-320 <= x <= 920 and -320 <= y <= 920 for x, y in pts): continue
     pts = [(round(x, 1), round(y, 1)) for x, y in pts]
     if cls.startswith("rd") or cls in ("rail", "stream"):
-        pts = [p for p in pts if -40 <= p[0] <= 640 and -40 <= p[1] <= 640]
+        pts = [p for p in pts if -320 <= p[0] <= 920 and -320 <= p[1] <= 920]
     if len(pts) < 2: continue
     pts = dp(pts, EPS)
     closed = cls in ("park", "water") and e["nodes"][0] == e["nodes"][-1]
@@ -177,7 +177,7 @@ ROUTE_D = fmt(rpts)
 def esc(s): return html.escape(str(s), quote=True)
 order_cls = ["park", "water", "stream", "rail", "rd ped", "rd minor", "rd major"]
 cls_name = {"park": "park", "water": "water", "stream": "water stream", "rail": "rail", "rd ped": "rd ped", "rd minor": "rd minor", "rd major": "rd major"}
-streets = "".join('<path class="%s" d="%s"/>' % (cls_name[k], groups[k]) for k in order_cls if k in groups)
+streets = "".join('<path class="%s" vector-effect="non-scaling-stroke" d="%s"/>' % (cls_name[k], groups[k]) for k in order_cls if k in groups)
 
 def seglen(pts): return sum(math.hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]) for i in range(len(pts)-1))
 labels = []
@@ -198,36 +198,37 @@ stops = []
 for i, wdef in enumerate(WP):
     s = dict(wdef); s["px"] = proj(*nodes[wp_nodes[i]]); s["cum_m"] = stop_cum[i]; stops.append(s)
 pts_svg = []
+def ptg(cls, x, y, inner, data=""):
+    # translate to the point, then a counter-scaled inner group so markers and labels keep their screen size when zooming
+    return '<g class="pt %s" transform="translate(%.1f,%.1f)"%s><g class="pz">%s</g></g>' % (cls, x, y, data, inner)
 for s in stops[1:]:
     if not s.get("map", True): continue
     x, y = s["px"]; anchor = s.get("anchor") or ("start" if x < 420 else "end"); dx = 8 if anchor == "start" else -8
-    pts_svg.append('<g class="pt"><circle cx="%.1f" cy="%.1f" r="4"/><text class="ml" x="%.1f" y="%.1f" text-anchor="%s">%s</text></g>' % (x, y, x+dx, y+4+s.get("dy", 0), anchor, esc(s.get("label", s["name"]))))
+    pts_svg.append(ptg("", x, y, '<circle r="4"/><text class="ml" x="%.1f" y="%.1f" text-anchor="%s">%s</text>' % (dx, 4+s.get("dy", 0), anchor, esc(s.get("label", s["name"])))))
 hx, hy = stops[0]["px"]; hanchor = stops[0].get("anchor") or ("start" if hx < 400 else "end")
-pts_svg.append('<g class="pt home"><circle cx="%.1f" cy="%.1f" r="9"/><circle cx="%.1f" cy="%.1f" r="3" class="core"/><text class="ml home" x="%.1f" y="%.1f" text-anchor="%s">Home</text></g>' % (hx, hy, hx, hy, hx + (14 if hanchor == "start" else -14), hy+4, hanchor))
+pts_svg.append(ptg("home", hx, hy, '<circle r="9"/><circle r="3" class="core"/><text class="ml home" x="%.1f" y="4" text-anchor="%s">Home</text>' % ((14 if hanchor == "start" else -14), hanchor)))
 for c in CFG.get("extras", []):
     x, y = proj(c["lat"], c["lon"])
-    if not (15 < x < 585 and 15 < y < 585): continue
+    if not (-250 < x < 850 and -250 < y < 850): continue
     anchor = c.get("anchor", "start"); dx = 8 if anchor == "start" else -8
-    pts_svg.append('<g class="pt cafe"><circle cx="%.1f" cy="%.1f" r="3.2"/><text class="ml dim" x="%.1f" y="%.1f" text-anchor="%s">%s</text></g>' % (x, y, x+dx, y+3.5+c.get("dy", 0), anchor, esc(c["name"])))
+    pts_svg.append(ptg("cafe", x, y, '<circle r="3.2"/><text class="ml dim" x="%.1f" y="%.1f" text-anchor="%s">%s</text>' % (dx, 3.5+c.get("dy", 0), anchor, esc(c["name"]))))
 
+M = 320
 scale_m = 500 if 111320/SX < 12 else 1000
 scale_px = scale_m/111320*SX
-svg = f'''<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(CFG.get("aria", "Map of the walk"))}">
+svg = f'''<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(CFG.get("aria", "Map of the walk"))}" data-scale-px="{scale_px:.2f}" data-scale-m="{scale_m}">
   <defs>
-    <clipPath id="canvas"><rect width="600" height="600"/></clipPath>
     <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#2A2724"/></pattern>
   </defs>
-  <rect width="600" height="600" fill="url(#dots)"/>
-  <g class="streets" clip-path="url(#canvas)">
+  <rect x="-{M}" y="-{M}" width="{600+2*M}" height="{600+2*M}" fill="url(#dots)"/>
+  <g class="streets">
   {streets}
   {"".join(labels)}
   </g>
-  <path class="rt glow" d="{ROUTE_D}"/>
-  <path class="rt walk" d="{ROUTE_D}"/>
-  {"".join(pts_svg)}
-  <g class="me" id="me" hidden><circle class="me-halo" r="14"/><circle class="me-acc" r="0"/><circle class="me-dot" r="4.5"/></g>
-  <g class="scale"><line x1="20" y1="578" x2="{20+scale_px:.1f}" y2="578"/><text class="ml dim" x="20" y="572">{scale_m if scale_m < 1000 else "1 km"}{" m" if scale_m < 1000 else ""}</text></g>
-  <g class="north"><text class="ml dim" x="576" y="24" text-anchor="middle">N</text><line x1="576" y1="30" x2="576" y2="46"/></g>
+  <path class="rt glow" vector-effect="non-scaling-stroke" d="{ROUTE_D}"/>
+  <path class="rt walk" vector-effect="non-scaling-stroke" d="{ROUTE_D}"/>
+  <g class="pts">{"".join(pts_svg)}</g>
+  <g class="me" id="me" hidden><g class="pz"><circle class="me-halo" r="14"/><circle class="me-acc" r="0"/><circle class="me-dot" r="4.5"/></g></g>
 </svg>'''
 
 
@@ -357,11 +358,11 @@ print("wrote", os.path.join(outdir, "index.html"), len(page), "bytes;", km_s, "k
 # check image
 try:
     import cairosvg
-    rules = "\n".join(l for l in tpl.splitlines() if l.strip().startswith(".map .") or l.strip().startswith(".map.has"))
+    rules = "\n".join(l for l in tpl.splitlines() if (l.strip().startswith(".map .") or l.strip().startswith(".map.has")) and "--k" not in l and "vector-effect" not in l)
     for k_, v_ in {"--bg": "#000000", "--fg": "#EDE8E1", "--muted": "#A8A197", "--dim": "#7C756D", "--line": "#2A2724", "--orange": "#E85D1F", "--now": "#4A8CFF", "--font-body": "sans-serif", "--font-accent": "serif"}.items():
         rules = rules.replace("var(%s)" % k_, v_)
     rules = rules.replace(".map .", "svg .").replace(".map.has-streets", "svg").replace("filter: drop-shadow(0 0 6px rgba(232,93,31,.7));", "")
-    chk = svg.replace("<defs>", "<style>%s</style><defs>" % rules, 1).replace('<rect width="600" height="600" fill="url(#dots)"/>', '<rect width="600" height="600" fill="#060505"/><rect width="600" height="600" fill="url(#dots)"/>', 1)
+    chk = svg.replace("<defs>", "<style>%s</style><defs>" % rules, 1).replace('fill="url(#dots)"/>', 'fill="#060505"/>', 1)
     chk = chk.replace(" hidden>", ' display="none">').replace("&", "&amp;")
     cairosvg.svg2png(bytestring=chk.encode(), write_to=os.path.join(outdir, "check.png"), output_width=1200, output_height=1200)
     print("check image written")
