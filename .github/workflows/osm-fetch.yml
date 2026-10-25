@@ -1,7 +1,7 @@
 name: Fetch OSM data
 
 # Fetches OpenStreetMap geometry for a route area from the Overpass API
-# and uploads it as a workflow artifact. Used while building route pages;
+# and commits it gzipped under data/. Used while building route pages;
 # the result is baked into the page, nothing is fetched at runtime.
 
 on:
@@ -16,10 +16,14 @@ on:
         required: true
         default: "osm"
 
+permissions:
+  contents: write
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Query Overpass
         env:
           BBOX: ${{ github.event.inputs.bbox }}
@@ -33,8 +37,14 @@ jobs:
             rm -f osm.json; sleep 5
           done
           test -s osm.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.inputs.name }}
-          path: osm.json
-          retention-days: 7
+      - name: Commit to data/
+        env:
+          NAME: ${{ github.event.inputs.name }}
+        run: |
+          git config user.name "osm-fetch"
+          git config user.email "osm-fetch@users.noreply.github.com"
+          mkdir -p data
+          gzip -9 -c osm.json > "data/$NAME.osm.json.gz"
+          git add data
+          git commit -m "OSM data: $NAME" || echo "nothing to commit"
+          git push
