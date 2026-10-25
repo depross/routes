@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<style>:root{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Field path loop · Routes</title>
+<meta name="description" content="A short 3,0 km loop from Kleine Dasdreef over Helleketelweg and the mountain-bike trail, Poperinge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Rubik+Distressed&display=swap">
+<style>
+  /* One narrow black column, DARIDEH palette. A vertical track on the left carries the stops of the walk,
+     measured in kilometres from the front door rather than in hours. */
+  :root {
+    --bg: #000000;
+    --fg: #EDE8E1;
+    --muted: #A8A197;
+    --dim: #7C756D;
+    --line: #2A2724;
+    --orange: #E85D1F;
+    --now: #4A8CFF;
+    --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --font-accent: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-mark: "Rubik Distressed", "Geist", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .09;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='1'/></svg>");
+    background-size: 160px 160px;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+
+  /* ---- header ---- */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(0,0,0,.96); border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; white-space: nowrap; text-decoration: none; }
+  .brand b { color: var(--fg); font-weight: 400; }
+  .hdr-btns { display: inline-flex; gap: 6px; }
+  .hbtn {
+    appearance: none; background: transparent; border: 1px solid var(--dim); color: var(--fg); font: inherit; font-size: 12px; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s, color .2s;
+  }
+  .hbtn.live { border-color: var(--now); color: var(--now); }
+  .loc-ring { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); box-sizing: border-box; transition: background .2s, border-color .2s; }
+  .hbtn.live .loc-ring { background: var(--now); border-color: var(--now); box-shadow: 0 0 8px rgba(74,140,255,.8); animation: pulse-blue 2.4s ease-out infinite; }
+  .hbtn.wait .loc-ring { border-color: var(--now); border-top-color: transparent; animation: spin-ring 1s linear infinite; }
+  @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(74,140,255,.5); } 70% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } 100% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } }
+  @keyframes spin-ring { to { transform: rotate(360deg); } }
+
+  /* ---- page column ---- */
+  .page { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
+
+  /* ---- hero ---- */
+  .hero { display: grid; justify-items: center; align-content: center; text-align: center; gap: 28px; padding-block: 32px 40px; min-height: calc(100vh - 64px); min-height: calc(100lvh - 64px + 24px); position: relative; }
+  .orb { position: relative; width: 230px; height: 230px; display: grid; place-items: center; }
+  .orb .ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .orb .ring text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; fill: var(--muted); }
+  .eclipse {
+    width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; background: var(--bg);
+    box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22);
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .eclipse svg { width: 118px; height: 118px; overflow: visible; }
+  .eclipse .tree { fill: none; stroke: var(--fg); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+  .eclipse .ground { fill: none; stroke: var(--dim); stroke-width: 1; stroke-dasharray: 2 3; }
+  .eclipse .path { fill: none; stroke: var(--orange); stroke-width: 1.4; stroke-dasharray: 4 3.5; stroke-linecap: round; }
+  @keyframes breathe {
+    0%,100% { box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22); }
+    50%     { box-shadow: 0 0 0 1.5px var(--orange), 0 0 26px 3px rgba(232,93,31,.65), 0 0 80px 10px rgba(232,93,31,.28); }
+  }
+  .hero h1 { font-weight: 300; font-size: clamp(50px, 15vw, 92px); line-height: .95; margin: 0; letter-spacing: -.03em; text-wrap: balance; }
+  .hero h1 em { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--orange); letter-spacing: 0; }
+  .hero .sub { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 20px; color: var(--muted); margin: 0; }
+  .hero .meta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin: 0; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .meta b { color: var(--fg); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .hero .status { font-size: 14px; color: var(--now); font-weight: 400; margin: 0; min-height: 1.5em; }
+
+  /* ---- notes ---- */
+  .block { border-top: 1px solid var(--line); padding-block: 22px; display: grid; gap: 10px; }
+  .block h2 { margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  .block p { margin: 0; font-size: 15px; color: var(--fg); }
+  .block p.soft { color: var(--muted); }
+  .block i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  details > summary { cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .more { margin-top: 6px; }
+  .more > summary { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 4px 0; }
+  .more > summary::before { content: ""; width: 14px; height: 1px; background: var(--orange); }
+  .more > summary:hover { color: var(--fg); }
+  .more-body { display: grid; gap: 8px; padding: 8px 0 4px; max-width: 60ch; }
+  .more-body p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .more-body p:first-child::first-letter { font-family: var(--font-accent); font-style: italic; font-size: 1.6em; line-height: 1; color: var(--fg); }
+
+  /* ---- map ---- */
+  .mapsec { padding-block: 26px 10px; display: grid; gap: 14px; border-top: 1px solid var(--line); }
+  .map-head { display: grid; gap: 4px; }
+  .map-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .map-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 0; }
+  .map-wrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #060505; position: relative; }
+  .map { display: block; width: 100%; height: auto; }
+  .map .streets .park { fill: #0F110C; stroke: #171a12; stroke-width: .6; }
+  .map .streets .water { fill: #0A0D12; stroke: #15202E; stroke-width: 1; }
+  .map .streets .water.stream { fill: none; stroke: #15202E; stroke-width: .9; }
+  .map .streets .rail { fill: none; stroke: #26231F; stroke-width: 1; stroke-dasharray: 4 3; }
+  .map .streets .rd { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .map .streets .rd.major { stroke: #3B3631; stroke-width: 2.4; }
+  .map .streets .rd.minor { stroke: #2C2925; stroke-width: 1.4; }
+  .map .streets .rd.ped { stroke: #2F2C27; stroke-width: 1; stroke-dasharray: 2 2.4; }
+  .map .streets .sn { font-family: var(--font-body); font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; fill: #6A645E; }
+  .map.has-streets > rect:first-of-type { opacity: .35; }
+  .map .rt { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .map .rt.glow { stroke: rgba(232,93,31,.22); stroke-width: 7; }
+  .map .rt.walk { stroke: var(--fg); stroke-width: 1.6; stroke-dasharray: 6 5; opacity: .92; }
+  .map .pt circle { fill: var(--bg); stroke: var(--fg); stroke-width: 1.2; }
+  .map .pt.cafe circle { stroke: var(--dim); }
+  .map .pt.home circle { stroke: var(--orange); fill: none; }
+  .map .pt.home circle.core { fill: var(--orange); stroke: none; }
+  .map .pt.home circle:first-child { filter: drop-shadow(0 0 6px rgba(232,93,31,.7)); }
+  .map .ml { font-family: var(--font-body); font-size: 11.5px; font-weight: 400; fill: var(--fg); letter-spacing: .02em; }
+  .map .ml.dim { fill: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .map .ml.home { font-family: var(--font-accent); font-style: italic; font-size: 14px; fill: var(--fg); }
+  .map .scale line, .map .north line { stroke: var(--muted); stroke-width: 1; }
+  .map .me .me-dot { fill: var(--now); stroke: var(--bg); stroke-width: 1.5; }
+  .map .me .me-halo { fill: rgba(74,140,255,.18); animation: halo 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .map .me .me-acc { fill: rgba(74,140,255,.07); stroke: rgba(74,140,255,.35); stroke-width: .8; stroke-dasharray: 2 2; }
+  @keyframes halo { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+  .map-note { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .map-note i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .lgi { display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+  .lg { display: inline-grid; place-items: center; width: 18px; height: 12px; flex: 0 0 auto; }
+  .lg::before { content: ""; width: 18px; height: 0; border-top: 1.6px dashed var(--fg); }
+  .lg.ped::before { border-top: 1px dashed #5a554e; }
+  .lg.wood::before { width: 12px; height: 10px; border: 1px solid #2a3020; background: #0F110C; border-radius: 2px; }
+  .lg.home::before { width: 10px; height: 10px; border: 1px solid var(--orange); border-radius: 50%; box-shadow: 0 0 6px rgba(232,93,31,.6); }
+
+  /* ---- the walk, as a track ---- */
+  .tl { position: relative; padding-block: 24px 8px; border-top: 1px solid var(--line); margin-top: 16px; }
+  .tl-head { padding-left: 36px; margin-bottom: 20px; position: relative; }
+  .tl-head .dot { position: absolute; left: 0; top: 7px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); }
+  .tl-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .tl-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 4px 0 0; }
+  .track { position: absolute; left: 7px; top: 24px; bottom: 30px; width: 1px; background: var(--line); }
+  .track-done { position: absolute; left: 7px; top: 24px; width: 1px; background: var(--now); height: 0; transition: height .6s ease; }
+  .stop { position: relative; padding-left: 36px; padding-block: 14px 18px; display: grid; gap: 4px; }
+  .stop .dot { position: absolute; left: 3px; top: 22px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); transition: background .3s, border-color .3s; }
+  .stop.done .dot { background: var(--fg); border-color: var(--fg); }
+  .stop.current .dot { background: var(--now); border-color: var(--now); box-shadow: 0 0 10px rgba(74,140,255,.9); }
+  .stop .time { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .stop .title { font-size: 21px; font-weight: 300; line-height: 1.2; margin: 0; text-wrap: balance; }
+  .stop .note { font-size: 15px; color: var(--muted); margin: 0; }
+  .stop .accent { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 16px; color: var(--muted); margin: 2px 0 0; }
+  .stop .where { font-size: 13px; color: var(--muted); margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+  .stop .where a { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); text-decoration: none; white-space: nowrap; font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--dim); border-radius: 999px; }
+  .stop .where a::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 6px rgba(232,93,31,.7); flex: 0 0 auto; }
+  .stop .where a:hover { border-color: var(--fg); background: rgba(237,232,225,.06); }
+  .stop.done { opacity: .55; }
+  .stop.current { opacity: 1; }
+
+  /* ---- footer ---- */
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--orange); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  footer .mark { font-family: var(--font-mark); color: var(--orange); font-size: 18px; letter-spacing: .04em; }
+  footer .desc { color: var(--muted); font-size: 13px; }
+  footer .desc a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer .osm { margin-left: auto; color: var(--dim); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  footer .osm a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eclipse, .hbtn.live .loc-ring, .hbtn.wait .loc-ring, .map .me .me-halo { animation: none; }
+    #ring-g animateTransform { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="../../">Routes · <b>Nature S</b></a>
+    <div class="hdr-btns">
+      <a class="hbtn" href="#map">Map</a>
+      <button type="button" class="hbtn off" id="loc-btn" aria-pressed="false"><span class="loc-ring" aria-hidden="true"></span><span id="loc-txt">Where am I</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <div class="orb">
+      <svg class="ring" viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+        <defs><path id="orbit" d="M115,115 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/></defs>
+        <g id="ring-g">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 115 115" to="360 115 115" dur="40s" repeatCount="indefinite"/>
+          <text textLength="614" lengthAdjust="spacing"><textPath href="#orbit" xlink:href="#orbit" startOffset="0">Nature S · the mountain-bike trail · 3,0 km · from the front door · Poperinge · </textPath></text>
+        </g>
+      </svg>
+      <div class="eclipse" role="img" aria-label="A path leading into a small wood">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M8,92 Q60,84 112,92"/>
+          <path class="path" d="M58,112 C62,96 48,88 56,74 C62,64 70,60 72,52"/>
+          <g class="tree">
+            <path d="M34,78 L34,54"/><path d="M34,54 C22,54 18,40 28,34 C26,24 40,20 44,28 C54,26 56,42 46,46 C50,56 40,58 34,54 Z"/>
+            <path d="M86,80 L86,50"/><path d="M86,50 C72,52 68,34 80,30 C80,16 100,16 100,30 C110,36 104,52 92,50 C92,54 88,54 86,50 Z"/>
+            <path d="M62,56 L62,44"/><path d="M62,44 C56,44 54,36 59,34 C58,28 66,26 68,30 C74,30 74,40 68,42 C70,46 65,47 62,44 Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <h1>Field <em>path</em></h1>
+    <p class="sub">Up the dreef, along Helleketelweg, home by the trail and the field.</p>
+    <p class="meta"><span><b>3,0 km</b></span><span><b>about 40 min</b></span><span>Poperinge</span></p>
+    <p class="status" id="status"></p>
+  </section>
+
+  <section class="block note" id="goodtoknow">
+    <h2>Good to know</h2>
+    <p>A short one: quiet lanes out, the unpaved mountain-bike trail and a field edge back. After rain the trail is muddy in the dips. Mountain bikers come through on weekends; step aside, they are usually quick to say thanks.</p><p class="soft">Two short links on this loop are drawn as straight dashed lines because they are not in OpenStreetMap: from the junction to the start of the trail, and from the end of the trail to the gravel lane. The rest of the line follows mapped paths. This page is a first draft of yesterday's walk; tell me where it differs and I will redraw it.</p>
+    <details class="more"><summary>More</summary><div class="more-body"><p>The trail is part of the Sport Vlaanderen mountain-bike network around Poperinge (the old Bloso routes), which stitches field edges and farm tracks into long unpaved loops. Walkers are welcome on them, and this one happens to pass almost behind the house.</p></div></details>
+  </section>
+
+  <section class="mapsec" id="map">
+    <div class="map-head">
+      <h2>On foot</h2>
+      <p class="cue">Real streets, drawn to scale. The dashed line is the walk.</p>
+    </div>
+    <div class="map-wrap">
+<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of the walk">
+  <defs>
+    <clipPath id="canvas"><rect width="600" height="600"/></clipPath>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#2A2724"/></pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <g class="streets" clip-path="url(#canvas)">
+  <path class="park" d="M-19.0,34.1L-18.9,37.6L-14.3,37.0L-13.0,39.4L-16.2,45.0L-16.5,47.4L-8.6,48.8L-6.1,50.9L-4.3,49.3L-3.0,45.2L-3.7,39.7L-6.3,38.0L-9.9,37.7L-12.5,36.4L-13.9,30.5L-17.4,30.2L-19.0,34.1ZM-72.3,100.8L-70.0,103.0L-56.7,93.6L-57.9,92.4L-30.5,71.6L-31.6,70.0L-40.2,75.4L-72.3,100.8ZM76.3,264.1L84.0,270.5L78.5,276.7L91.6,287.0L99.0,280.0L109.7,289.1L112.2,297.0L120.0,294.3L128.2,287.4L110.2,264.2L105.9,267.8L88.3,245.4L77.0,247.1L76.3,264.1ZM76.1,315.3L106.7,360.9L108.1,359.9L84.8,326.0L90.9,322.4L92.3,319.7L93.4,316.1L91.9,310.7L87.8,304.9L84.7,302.3L76.5,312.3L76.1,315.3ZM192.7,219.7L196.5,222.5L193.5,226.7L195.0,229.2L201.2,230.5L202.3,233.1L197.8,239.5L196.9,244.6L198.3,247.9L206.5,253.6L219.7,244.2L220.4,239.8L192.7,219.7ZM105.0,309.7L105.4,312.7L110.3,318.0L117.9,319.8L122.4,329.6L131.8,340.3L147.7,325.9L149.6,327.4L150.7,326.0L149.0,323.5L142.5,322.2L141.8,329.3L140.3,329.5L137.4,323.6L133.3,319.8L119.6,314.6L115.9,310.6L112.4,308.4L107.0,308.1L105.0,309.7ZM72.6,292.4L73.5,294.6L81.7,300.3L90.7,288.2L81.3,281.1L72.6,292.4ZM279.1,90.7L289.9,100.6L294.4,95.2L292.4,92.8L290.8,95.8L289.8,96.4L288.3,95.3L284.7,91.3L282.7,86.5L279.1,88.8L279.1,90.7ZM418.7,102.4L421.6,104.5L431.2,103.3L466.0,102.6L463.6,94.8L462.0,92.9L458.0,95.3L459.4,99.5L458.8,100.4L445.7,99.2L432.9,99.4L418.7,102.4ZM261.8,29.7L272.9,34.1L275.7,32.9L279.0,22.1L277.4,18.7L276.0,21.0L273.7,31.0L271.8,31.6L268.9,30.4L267.6,26.7L270.0,20.4L274.6,19.9L275.6,18.0L268.9,15.5L261.8,29.7ZM321.7,333.6L359.7,371.0L383.1,369.4L387.5,368.1L400.0,358.8L381.0,339.7L378.6,342.2L378.7,343.5L385.5,347.7L396.7,357.4L387.2,364.9L373.3,367.1L363.7,367.2L360.0,365.9L326.8,335.8L331.8,330.3L328.6,326.7L321.7,333.6ZM471.8,54.1L482.3,65.3L484.8,65.5L487.6,64.9L489.5,63.2L491.2,60.7L491.9,53.1L495.8,50.0L494.3,46.3L491.1,47.5L488.8,50.8L483.0,44.8L481.3,44.2L477.3,46.7L476.8,48.8L477.9,50.2L482.1,49.1L487.3,56.1L488.1,58.4L487.4,60.6L486.1,61.0L484.1,60.5L480.8,57.5L475.7,51.4L474.1,51.1L472.2,52.4L471.8,54.1ZM274.6,19.9L276.0,21.0L277.4,18.7L275.6,18.0L274.6,19.9ZM395.1,282.3L416.0,303.4L418.4,301.5L396.7,280.7L395.1,282.3ZM433.1,313.8L454.2,347.5L456.1,346.8L434.9,313.0L433.1,313.8ZM563.1,436.2L563.3,438.1L568.8,437.0L568.2,435.4L563.1,436.2ZM442.1,480.4L443.5,482.5L469.6,470.3L470.1,469.2L469.6,468.1L442.1,480.4ZM518.1,446.8L518.9,448.6L550.7,439.9L551.4,437.7L545.6,438.6L518.1,446.8ZM405.8,92.4L408.6,94.7L422.7,78.5L423.8,76.6L423.5,74.6L421.6,73.7L419.8,74.1L405.8,92.4ZM226.9,96.9L253.1,120.2L256.1,119.9L232.4,97.2L240.1,90.6L251.1,97.5L252.1,95.4L240.0,86.9L226.9,96.9ZM462.1,88.1L471.0,102.1L489.9,101.0L465.0,64.4L469.1,73.7L464.1,78.6L462.9,81.7L465.9,85.9L462.1,88.1ZM445.9,570.4L446.7,572.1L449.0,570.5L449.9,572.8L456.2,572.6L455.9,571.7L452.6,571.5L447.3,569.2L445.9,570.4ZM438.5,559.1L444.9,573.4L446.7,572.1L444.8,568.3L446.3,562.5L446.0,559.2L443.5,557.5L438.5,559.1ZM480.6,620.3L485.5,628.8L487.7,631.0L489.5,630.5L511.3,613.3L509.7,611.4L488.7,627.1L486.8,626.2L482.1,619.5L480.6,620.3ZM452.0,556.1L452.1,558.3L455.0,551.4L458.3,551.3L460.1,548.9L461.4,545.3L461.0,543.6L459.2,543.2L456.8,545.1L454.7,548.7L452.4,547.9L452.0,549.0L453.6,551.3L452.0,556.1ZM1.2,605.4L2.4,608.1L14.2,604.5L12.7,602.1L1.2,605.4ZM602.6,604.8L610.9,620.7L605.7,624.2L619.9,644.4L625.7,650.3L627.6,647.5L612.6,623.4L617.7,619.2L607.9,600.7L602.6,604.8Z"/><path class="water" d="M-20.9,40.1L-19.0,43.4L-16.2,45.0L-13.0,39.4L-14.3,37.0L-18.9,37.6L-20.9,40.1ZM138.3,323.3L140.3,329.5L141.8,329.3L141.0,322.8L139.9,322.0L138.3,323.3ZM217.1,254.1L222.5,259.9L226.7,262.7L230.9,258.8L235.1,252.6L226.0,245.1L224.3,245.5L217.1,254.1ZM635.9,374.8L637.7,379.4L642.5,378.6L644.5,376.8L644.0,373.0L641.8,371.3L635.9,372.2L635.9,374.8ZM475.7,51.4L484.1,60.5L487.4,60.6L488.1,58.4L487.3,56.1L482.1,49.1L479.3,50.3L477.9,50.2L476.8,48.8L475.7,51.4ZM267.6,26.7L268.9,30.4L271.8,31.6L273.7,31.0L276.0,21.0L274.6,19.9L270.0,20.4L267.6,26.7ZM282.7,86.5L284.7,91.3L288.3,95.3L289.8,96.4L290.8,95.8L292.4,92.8L286.0,84.5L282.7,86.5ZM443.3,552.0L443.5,557.5L444.6,557.7L446.3,560.4L444.8,568.3L445.9,570.4L447.3,569.2L452.6,571.5L455.9,571.7L452.5,562.1L452.0,556.1L453.5,550.5L452.0,549.0L445.6,547.9L444.1,549.2L443.3,552.0ZM-1.9,600.7L1.2,605.4L12.7,602.1L6.0,594.1L-1.9,600.7ZM55.0,352.9L56.9,353.8L56.2,357.4L57.3,358.6L60.2,358.6L60.8,360.7L63.6,361.2L63.8,355.3L61.9,352.1L57.1,348.8L55.0,352.9ZM33.2,358.1L35.3,361.5L36.5,361.6L41.0,357.0L43.4,348.3L40.8,345.9L37.7,345.9L34.3,348.0L35.1,353.1L33.2,358.1ZM611.8,98.8L615.8,104.3L623.1,98.7L623.1,97.6L622.9,96.4L619.0,92.6L611.8,98.8ZM509.5,39.6L513.9,44.1L520.9,39.7L515.8,33.9L509.5,39.6ZM280.1,165.6L283.5,167.7L285.6,164.3L281.9,162.2L280.1,165.6ZM-22.5,183.3L-19.4,187.6L-13.1,184.1L-17.4,179.9L-22.0,182.2L-22.5,183.3ZM137.4,637.9L141.5,642.2L142.4,646.1L143.6,647.0L144.9,646.5L145.8,645.5L144.3,641.6L145.2,638.4L143.0,633.8L139.4,633.9L138.0,634.8L137.4,637.9ZM57.9,611.3L59.1,613.4L61.5,613.6L61.8,611.4L59.9,609.8L57.9,611.3ZM449.5,89.4L450.0,91.7L453.0,95.2L456.8,94.6L456.8,91.6L454.2,87.7L452.5,87.0L449.5,89.4Z"/><path class="water stream" d="M223.3,399.4L260.2,435.9L270.9,453.1L295.2,498.7L315.1,495.4L321.0,496.0L338.7,506.5M566.2,436.7L577.1,434.9M577.1,434.9L583.8,425.2L589.1,422.6L605.6,418.1M474.4,466.9L519.9,447.4L546.8,439.6L566.2,436.7M469.1,469.4L474.4,466.9M338.7,506.5L343.1,504.1M343.1,504.1L360.4,493.2L383.5,483.9L398.2,503.3L469.1,469.4"/><path class="rd ped" d="M232.5,124.4L235.9,130.2L253.3,141.7L253.5,143.7L248.5,151.0L224.4,178.9L186.2,218.0L182.3,224.1M261.8,433.9L156.6,332.6L163.6,324.4L127.5,289.1L109.9,266.0L106.0,269.0L76.9,232.0L69.8,271.2"/><path class="rd minor" d="M637.7,407.8L627.0,411.4L608.7,415.1L587.0,420.9L582.8,423.3L578.0,428.0M445.9,637.7L432.4,618.6L418.4,602.6L393.4,580.0L384.8,569.7L381.5,564.6L378.1,555.2L369.1,521.7L365.3,516.4M365.3,516.4L344.5,507.4L323.2,494.1L315.4,493.4L299.8,496.2L296.3,494.6L293.8,491.9L261.8,433.9M578.0,428.0L573.2,415.2L566.7,391.5L561.0,377.6L553.2,363.6L552.8,360.1L556.9,354.7L586.6,339.8L600.4,330.0L616.8,315.9L617.9,312.8L608.3,297.7L595.4,282.9L508.1,194.9L501.4,185.9L560.4,129.0L562.0,124.3L560.4,119.6L556.7,114.6L541.0,98.3L539.0,93.4M86.3,629.8L58.1,588.4L55.3,585.8L37.2,576.7L24.7,562.8L5.2,547.5L-33.1,526.1M627.6,520.0L589.8,463.4L574.6,436.1M68.4,190.1L62.0,184.1L28.2,157.8M28.2,157.8L42.8,120.6L43.0,114.8L25.3,33.2L21.2,19.1L-2.7,-34.6M578.0,428.0L574.6,436.1M539.0,93.4L513.1,101.0L458.9,104.2L427.9,104.7L388.4,110.6L377.5,111.4L333.9,111.1L318.3,113.9L232.5,124.4L210.3,129.3L185.3,138.1L162.4,147.8L125.2,166.6L103.7,176.4L68.4,190.1M-5.4,222.2L-32.1,271.0M623.2,65.2L604.4,67.7L569.2,76.1L555.4,82.0L539.0,93.4M86.3,629.8L73.3,636.9L61.6,639.8M-19.9,331.2L-10.4,338.0L-2.2,342.0L11.0,351.6M-37.9,223.2L-11.2,221.2L-5.4,222.2M69.8,271.2L95.0,291.7M473.0,469.8L440.1,421.7M365.3,516.4L292.7,546.9L202.4,588.1L194.0,591.0L163.6,598.5L133.9,609.7M394.2,274.6L394.8,277.3L421.6,303.5M355.3,311.2L390.5,276.6L394.2,274.6L432.9,237.3L451.6,228.4L456.9,225.0L476.4,206.8M501.4,185.9L493.6,191.6L476.4,206.8M574.6,436.1L566.5,438.4L540.9,443.1L514.4,451.5L429.1,489.8L396.0,506.2L365.3,516.4M133.9,609.7L101.7,622.4L86.3,629.8M68.4,190.1L5.6,213.4L-1.0,216.9M-1.0,216.9L1.9,219.9L69.8,271.2M297.9,403.8L264.4,426.9L262.0,430.5L261.8,433.9M28.2,157.8L-34.2,135.6M346.2,69.1L375.7,105.9L377.5,111.4M270.8,63.3L311.3,114.8M112.7,618.4L113.9,621.6M-1.0,216.9L-5.4,222.2"/>
+  <path id="sn0" d="M541.3,92.5L542.9,96.7L558.5,112.9L562.6,118.4L564.5,124.3L562.2,130.8L503.4,187.5L510.3,193.7L589.0,339.1L558.2,356.8L555.1,361.1L555.5,362.5L563.3,376.5L569.1,390.7L575.6,414.5L580.3,427.1" fill="none"/><text class="sn"><textPath href="#sn0" startOffset="50%" text-anchor="middle">Kleine Dasdreef</textPath></text><path id="sn1" d="M67.5,187.8L102.7,174.1L124.1,164.4L161.3,145.5L184.4,135.8L209.6,126.9L232.1,121.9L318.0,111.4L333.8,108.6L377.5,108.9L388.1,108.1L427.7,102.2L458.8,101.7L512.8,98.5L538.3,91.0" fill="none"/><text class="sn"><textPath href="#sn1" startOffset="50%" text-anchor="middle">Helleketelweg</textPath></text><path id="sn3" d="M364.5,514.0L395.0,503.9L428.1,487.5L513.4,449.2L540.3,440.7L566.0,436.0L573.9,433.7" fill="none"/><text class="sn"><textPath href="#sn3" startOffset="50%" text-anchor="middle">Kleine Casseldreef</textPath></text><path id="sn5" d="M264.0,432.7L296.0,490.7L297.8,492.6L299.6,493.7L315.2,490.9L324.3,491.8L345.7,505.2L366.3,514.1" fill="none"/><text class="sn"><textPath href="#sn5" startOffset="50%" text-anchor="middle">Boudeweelstraat</textPath></text><path id="sn8" d="M23.6,18.4L27.7,32.6L45.5,114.3L45.2,121.4L30.5,158.7" fill="none"/><text class="sn"><textPath href="#sn8" startOffset="50%" text-anchor="middle">Duivinnestraat</textPath></text>
+  </g>
+  <path class="rt glow" d="M419.8,312.4L421.6,303.5L394.8,277.3L394.2,274.6L432.9,237.3L456.9,225.0L493.6,191.6L501.4,185.9L560.4,129.0L562.0,124.3L560.4,119.6L541.0,98.3L539.0,93.4L513.1,101.0L458.9,104.2L427.9,104.7L377.5,111.4L333.9,111.1L232.5,124.4L210.3,129.3L185.3,138.1L162.4,147.8L125.2,166.6L81.0,185.8L68.4,190.1L62.0,184.1L69.8,271.2L76.9,232.0L106.0,269.0L109.9,266.0L127.5,289.1L163.6,324.4L156.6,332.6L261.8,433.9L261.7,432.4L355.3,311.2L390.5,276.6L394.2,274.6L394.8,277.3L421.6,303.5L419.8,312.4"/>
+  <path class="rt walk" d="M419.8,312.4L421.6,303.5L394.8,277.3L394.2,274.6L432.9,237.3L456.9,225.0L493.6,191.6L501.4,185.9L560.4,129.0L562.0,124.3L560.4,119.6L541.0,98.3L539.0,93.4L513.1,101.0L458.9,104.2L427.9,104.7L377.5,111.4L333.9,111.1L232.5,124.4L210.3,129.3L185.3,138.1L162.4,147.8L125.2,166.6L81.0,185.8L68.4,190.1L62.0,184.1L69.8,271.2L76.9,232.0L106.0,269.0L109.9,266.0L127.5,289.1L163.6,324.4L156.6,332.6L261.8,433.9L261.7,432.4L355.3,311.2L390.5,276.6L394.2,274.6L394.8,277.3L421.6,303.5L419.8,312.4"/>
+  <g class="pt"><circle cx="69.8" cy="271.2" r="4"/><text class="ml" x="77.8" y="267.2" text-anchor="start">Onto the trail</text></g><g class="pt"><circle cx="261.7" cy="432.4" r="4"/><text class="ml" x="269.7" y="436.4" text-anchor="start">End of the trail</text></g><g class="pt"><circle cx="355.3" cy="311.2" r="4"/><text class="ml" x="347.3" y="327.2" text-anchor="end">Back on the lane</text></g><g class="pt home"><circle cx="419.8" cy="312.4" r="9"/><circle cx="419.8" cy="312.4" r="3" class="core"/><text class="ml home" x="433.8" y="316.4" text-anchor="start">Home</text></g>
+  <g class="me" id="me" hidden><circle class="me-halo" r="14"/><circle class="me-acc" r="0"/><circle class="me-dot" r="4.5"/></g>
+  <g class="scale"><line x1="20" y1="578" x2="264.1" y2="578"/><text class="ml dim" x="20" y="572">500 m</text></g>
+  <g class="north"><text class="ml dim" x="576" y="24" text-anchor="middle">N</text><line x1="576" y1="30" x2="576" y2="46"/></g>
+</svg>
+    </div>
+    <div class="legend">
+      <span class="lgi"><i class="lg"></i>The walk</span>
+      <span class="lgi"><i class="lg ped"></i>Unpaved path</span>
+      <span class="lgi"><i class="lg wood"></i>Wood</span>
+      <span class="lgi"><i class="lg home"></i>Start</span>
+    </div>
+    <p class="map-note" id="map-note">Tap <i>Where am I</i> at the top for a blue dot on the map.</p>
+  </section>
+
+  <section class="tl" id="walk">
+    <div class="track" aria-hidden="true"></div>
+    <div class="track-done" id="track-done" aria-hidden="true"></div>
+    <div class="tl-head">
+      <span class="dot"></span>
+      <h2>The walk</h2>
+      <p class="cue">Clockwise. Distances are from the front door.</p>
+    </div>
+    <article class="stop" data-km="0.000">
+      <span class="dot"></span>
+      <div class="time">0,0 km</div>
+      <h3 class="title">Out of the door</h3>
+      <p class="note">Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg.</p>
+      <p class="accent">Clockwise: lanes first, the trail and the field on the way back.</p>
+    </article>
+    <article class="stop" data-km="0.645">
+      <span class="dot"></span>
+      <div class="time">0,6 km</div>
+      <h3 class="title">Left onto Helleketelweg</h3>
+      <p class="note">Follow it west for about a kilometre. Open fields, hop poles, hardly a car.</p>
+      
+    </article>
+    <article class="stop" data-km="1.658">
+      <span class="dot"></span>
+      <div class="time">1,7 km</div>
+      <h3 class="title">At the Karel Grimminckweg junction, left</h3>
+      <p class="note">Where Karel Grimminckweg comes in from the right, leave the asphalt on the left and head south across the field edge to the start of the trail (a couple of hundred metres; not on the map).</p>
+      
+    </article>
+    <article class="stop" data-km="1.837">
+      <span class="dot"></span>
+      <div class="time">1,8 km</div>
+      <h3 class="title">Onto the mountain-bike trail</h3>
+      <p class="note">The unpaved trail runs south-east along the field edges, with the town's church towers on the horizon. Mountain bikers use it too, so keep an ear open.</p>
+      <p class="accent">The nice part.</p>
+    </article>
+    <article class="stop" data-km="2.512">
+      <span class="dot"></span>
+      <div class="time">2,5 km</div>
+      <h3 class="title">Across the field</h3>
+      <p class="note">At the end of the trail, bear left across the field edge towards the gravel lane. This last link is not on any map; it is the way we walked it.</p>
+      <p class="accent">Confirm this bit on the next walk and I will fix the line if it runs differently.</p>
+    </article>
+    <article class="stop" data-km="2.825">
+      <span class="dot"></span>
+      <div class="time">2,8 km</div>
+      <h3 class="title">The gravel lane home</h3>
+      <p class="note">Onto the far end of the gravel lane, and along it to the door.</p>
+      
+    </article>
+    <article class="stop" data-km="3.035">
+      <span class="dot"></span>
+      <div class="time">3,0 km</div>
+      <h3 class="title">Home</h3>
+      <p class="note">Boots off. 3,0 km in all, 1,2 km of it unpaved.</p>
+      <p class="accent">About 40 min at a walking pace, longer if you stop.</p>
+    </article>
+  </section>
+
+  <footer>
+    <span class="mark">DARIDEH</span>
+    <span class="desc">routes · <a href="../../">all walks</a></span>
+    <span class="osm">map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  /* ---- hero: fill the visible screen under the header, measured once ---- */
+  var hero = document.querySelector('.hero');
+  function sizeHero() {
+    var top = document.querySelector('.top').offsetHeight;
+    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    hero.style.minHeight = (h - top + 24) + 'px';
+  }
+  sizeHero();
+  window.addEventListener('orientationchange', function () { setTimeout(sizeHero, 300); });
+
+  /* ---- map projection, the same four numbers the SVG was drawn with ---- */
+  var MINLON = 2.6758162819999995, MAXLAT = 50.85196797923005, K = 0.6313918138924813, SX = 54353.36166663389;
+  var HOME = { lat: 50.846221, lon: 2.68805 };
+  function proj(lat, lon) { return { x: (lon - MINLON) * K * SX, y: (MAXLAT - lat) * SX }; }
+  function distM(a, b) {
+    var R = 6371000, p = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * p, dLon = (b.lon - a.lon) * p;
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a.lat * p) * Math.cos(b.lat * p) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+
+  /* ---- live location: a blue dot on the map, and the nearest stop lit on the track ---- */
+  var KEY_LOC = 'routes-nature-s-loc';
+  var btn = document.getElementById('loc-btn'), txt = document.getElementById('loc-txt'), status = document.getElementById('status');
+  var me = document.getElementById('me'), note = document.getElementById('map-note');
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var trackDone = document.getElementById('track-done'), tl = document.getElementById('walk');
+  var watchId = null;
+  var routePts = (document.querySelector('.rt.walk').getAttribute('d').match(/-?\d+(\.\d+)?,-?\d+(\.\d+)?/g) || []).map(function (s) { var a = s.split(','); return { x: +a[0], y: +a[1] }; });
+  var cum = [0];
+  for (var i = 1; i < routePts.length; i++) cum.push(cum[i - 1] + Math.hypot(routePts[i].x - routePts[i - 1].x, routePts[i].y - routePts[i - 1].y));
+  var totalPx = cum[cum.length - 1];
+
+  function nearestAlong(p) {
+    var best = Infinity, at = 0;
+    for (var i = 1; i < routePts.length; i++) {
+      var a = routePts[i - 1], b = routePts[i], dx = b.x - a.x, dy = b.y - a.y, L = dx * dx + dy * dy || 1;
+      var t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / L));
+      var qx = a.x + t * dx, qy = a.y + t * dy, d = Math.hypot(p.x - qx, p.y - qy);
+      if (d < best) { best = d; at = cum[i - 1] + t * Math.sqrt(L); }
+    }
+    return { off: best, at: at };
+  }
+
+  function setState(cls, label) {
+    btn.className = 'hbtn ' + cls; txt.textContent = label; btn.setAttribute('aria-pressed', cls === 'live' || cls === 'wait' ? 'true' : 'false');
+  }
+  function fmtKm(m) { return (m / 1000).toFixed(1).replace('.', ',') + ' km'; }
+
+  function onFix(pos) {
+    var lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 0;
+    var p = proj(lat, lon);
+    var onMap = p.x > -10 && p.x < 610 && p.y > -10 && p.y < 610;
+    if (onMap) me.removeAttribute('hidden'); else me.setAttribute('hidden', '');
+    if (onMap) {
+      me.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')');
+      me.querySelector('.me-acc').setAttribute('r', Math.min(80, acc / 111320 * SX).toFixed(1));
+    }
+    var toHome = distM({ lat: lat, lon: lon }, HOME);
+    setState('live', 'Live');
+    var n = nearestAlong(p);
+    var kmAlong = n.at / totalPx; /* fraction of the loop */
+    if (onMap && n.off < 25) {
+      status.textContent = fmtKm(toHome) + ' from the door, as the crow flies.';
+      note.innerHTML = 'On the map. <i>' + fmtKm(kmAlong * totalKm()) + ' into the loop.</i>';
+      lightTrack(kmAlong * totalKm());
+    } else {
+      status.textContent = onMap ? fmtKm(toHome) + ' from the door.' : fmtKm(toHome) + ' from the door, off the map.';
+      note.innerHTML = onMap ? 'On the map, <i>off the line</i>.' : 'Outside the map. <i>' + fmtKm(toHome) + ' from the door.</i>';
+    }
+  }
+  function totalKm() { return parseFloat(document.querySelector('.stop:last-of-type').getAttribute('data-km')) * 1000; }
+  function lightTrack(doneM) {
+    var cur = null;
+    stops.forEach(function (s) {
+      var km = parseFloat(s.getAttribute('data-km')) * 1000;
+      s.classList.toggle('done', km < doneM - 60);
+      s.classList.remove('current');
+      if (km <= doneM + 60 && (cur === null || km > parseFloat(cur.getAttribute('data-km')) * 1000)) cur = s;
+    });
+    if (cur) { cur.classList.add('current'); var r = cur.getBoundingClientRect(), t = tl.getBoundingClientRect(); trackDone.style.height = Math.max(0, r.top - t.top + 26 - 24) + 'px'; }
+  }
+  function onErr(e) {
+    setState('off', 'Where am I');
+    me.setAttribute('hidden', '');
+    status.textContent = '';
+    note.innerHTML = e && e.code === 1 ? 'Location is blocked for this site. <i>Allow it in the browser settings.</i>' : 'No fix yet. <i>Try again outside.</i>';
+    stop();
+  }
+  function start() {
+    if (!('geolocation' in navigator)) { note.textContent = 'This browser has no location.'; return; }
+    setState('wait', 'Finding you');
+    note.innerHTML = 'Finding you<i>…</i>';
+    try { localStorage.setItem(KEY_LOC, '1'); } catch (e) {}
+    watchId = navigator.geolocation.watchPosition(onFix, onErr, { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 });
+  }
+  function stop() {
+    if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+    try { localStorage.removeItem(KEY_LOC); } catch (e) {}
+    setState('off', 'Where am I');
+    me.setAttribute('hidden', ''); status.textContent = '';
+    note.innerHTML = 'Tap <i>Where am I</i> at the top for a blue dot on the map.';
+    stops.forEach(function (s) { s.classList.remove('done', 'current'); }); trackDone.style.height = '0px';
+  }
+  btn.addEventListener('click', function () { watchId === null ? start() : stop(); });
+  var wanted = false; try { wanted = localStorage.getItem(KEY_LOC) === '1'; } catch (e) {}
+  if (wanted && location.protocol === 'https:') start();
+})();
+</script>
+</body>
+</html>

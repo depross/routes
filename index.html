@@ -22,11 +22,14 @@
   .hero h1 { font-weight:300; font-size:clamp(48px,14vw,80px); line-height:.95; margin:0; letter-spacing:-.03em; }
   .hero h1 em { font-family:var(--font-accent); font-style:italic; font-weight:300; color:var(--orange); }
   .hero .sub { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:19px; color:var(--muted); margin:0; }
+  .cat { display:grid; gap:0; }
+  .cat-h { margin:0; padding:0 0 10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; display:flex; gap:12px; align-items:baseline; }
+  .cat-h i { font-family:var(--font-accent); font-style:italic; font-weight:300; font-size:15px; letter-spacing:0; text-transform:none; color:var(--dim); }
   .list { border-top:1px solid var(--line); display:grid; }
   .card { display:grid; grid-template-columns:1fr auto; gap:4px 16px; align-items:center; padding:22px 0; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; }
   .card:hover .title { color:var(--orange); }
   .card .where { grid-column:1; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500; }
-  .card .title { grid-column:1; font-size:24px; font-weight:300; line-height:1.15; margin:0; transition:color .2s; }
+  .card .title { grid-column:1; font-size:24px; margin:0; font-weight:300; line-height:1.15; margin:0; transition:color .2s; }
   .card .note { grid-column:1; font-size:14.5px; color:var(--muted); margin:0; }
   .card .stat { grid-column:2; grid-row:1 / span 3; text-align:right; display:grid; gap:2px; }
   .card .stat b { font-weight:300; font-size:30px; line-height:1; font-variant-numeric:tabular-nums; }
@@ -43,14 +46,35 @@
     <h1>Rou<em>tes</em></h1>
     <p class="sub">Walks from the front door, drawn on our own maps.</p>
   </section>
-  <nav class="list" aria-label="Routes">
-    <a class="card" href="helleketelbos/">
-      <span class="where">Poperinge</span>
-      <h2 class="title">Helleketelbos loop</h2>
-      <p class="note">Kleine Dasdreef, quiet lanes to the wood, unpaved paths through it, back by Kleine Casseldreef.</p>
-      <span class="stat"><b>6,3</b><small>km</small></span>
-    </a>
-  </nav>
+  <section class="cat">
+    <h2 class="cat-h">Nature <i>woods, hop fields, the old railway</i></h2>
+    <nav class="list" aria-label="Nature routes">
+      <a class="card" href="nature/s/">
+        <span class="where">S · about 40 min · draft</span>
+        <h3 class="title">Field path loop</h3>
+        <p class="note">Up the dreef, Helleketelweg, home by the mountain-bike trail and the field edge.</p>
+        <span class="stat"><b>3,0</b><small>km</small></span>
+      </a>
+      <a class="card" href="nature/m/">
+        <span class="where">M · about 1 h 25</span>
+        <h3 class="title">Helleketelbos loop</h3>
+        <p class="note">Quiet lanes to the wood, unpaved paths through it, back by Kleine Casseldreef.</p>
+        <span class="stat"><b>6,3</b><small>km</small></span>
+      </a>
+      <a class="card" href="nature/l/">
+        <span class="where">L · about 2 h 25</span>
+        <h3 class="title">Railway and wood loop</h3>
+        <p class="note">The old railway bed to Sint-Jan-ter-Biezen, Kapellestraat south, and Helleketelbos on the way home.</p>
+        <span class="stat"><b>10,6</b><small>km</small></span>
+      </a>
+      <a class="card" href="nature/xl/">
+        <span class="where">XL · about 3 h 55</span>
+        <h3 class="title">Three woods loop</h3>
+        <p class="note">Couthofbos, Canadabos and the castle park of De Lovie, home along Provenseweg.</p>
+        <span class="stat"><b>17,3</b><small>km</small></span>
+      </a>
+    </nav>
+  </section>
   <footer>
     <span class="mark">DARIDEH</span>
     <span class="desc">routes</span>

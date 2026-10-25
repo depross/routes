@@ -1,0 +1,169 @@
+{
+ "slug": "nature-xl",
+ "out": "nature/xl",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "Three woods loop",
+ "title_html": "Three <em>woods</em>",
+ "category": "Nature",
+ "size": "XL",
+ "ring": "Nature XL · Couthofbos · Canadabos · De Lovie · {{KM}} km · ",
+ "sub": "North to the woods and the castle park, home along Provenseweg.",
+ "desc": "An {{KM}} km loop from Kleine Dasdreef over the old railway to Couthofbos, Canadabos and De Lovie, Poperinge.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "pad": 0.09,
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left and west on Helleketelweg; at the Karel Grimminckweg junction take Duivinnestraat north.",
+   "accent": "Clockwise. The woods come between kilometre six and eleven."
+  },
+  {
+   "name": "Old railway",
+   "lat": 50.858224,
+   "lon": 2.675929,
+   "label": "Old railway",
+   "dy": -8,
+   "title": "Left onto the old railway bed",
+   "note": "The Poperinge to Hazebrouck line, now a car-free path. West to Sint-Jan-ter-Biezen."
+  },
+  {
+   "name": "Sint-Jan-ter-Biezen",
+   "lat": 50.85996,
+   "lon": 2.6665,
+   "label": "Sint-Jan-ter-Biezen",
+   "dy": -8,
+   "title": "Sint-Jan-ter-Biezen",
+   "note": "Chapel hamlet. Leave the railway and head north: the lane climbs gently past the hop farms towards Blokstraat and Gravendreef.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Sint-Jan-ter-Biezen+Poperinge",
+   "addr": "Sint-Jan-ter-Biezen"
+  },
+  {
+   "name": "Gravendreef",
+   "lat": 50.869381,
+   "lon": 2.661786,
+   "label": "Gravendreef",
+   "title": "Right into Gravendreef",
+   "note": "The dreef runs straight at the wood. Limited parking at the end; from here it is walkers only."
+  },
+  {
+   "name": "Couthofbos",
+   "lat": 50.871116,
+   "lon": 2.667286,
+   "label": "Couthofbos",
+   "dy": 10,
+   "title": "Couthofbos",
+   "note": "Sessile oaks, some of them very old; the signs say the oldest tree of Poperinge stands here. Take the path north-east through the wood.",
+   "accent": "Quiet wood. You may have it to yourself.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Couthofbos+Gravendreef+Poperinge",
+   "addr": "Couthofbos, Gravendreef"
+  },
+  {
+   "name": "Couthofbos north",
+   "lat": 50.873348,
+   "lon": 2.670821,
+   "map": false,
+   "title": "Out at the north side",
+   "note": "Leave the wood towards Couthoflaan, cross it with care (it is the busiest road of the day) and follow the lane north towards Canadabos."
+  },
+  {
+   "name": "Canadabos",
+   "lat": 50.8862,
+   "lon": 2.6937,
+   "label": "Canadabos",
+   "dy": -8,
+   "title": "Canadabos",
+   "note": "A wood with a strange history: under the leaves lies a concrete launch pad for V1 flying bombs from 1944. Information board at the entrance.",
+   "accent": "The northernmost point.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Canadabos+Canadaweg+44+Poperinge",
+   "addr": "Canadabos, Canadaweg"
+  },
+  {
+   "name": "De Lovie",
+   "lat": 50.8813,
+   "lon": 2.6975,
+   "label": "De Lovie",
+   "dy": 10,
+   "title": "De Lovie",
+   "note": "The castle of De Lovie, 19th century, with its park and ponds, today a care home. The lane skirts the park; the gardens are open on weekdays.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Kasteel+De+Lovie+Krombeekseweg+82+Poperinge",
+   "addr": "Krombeekseweg 82"
+  },
+  {
+   "name": "Krombeekseweg",
+   "lat": 50.8806,
+   "lon": 2.7021,
+   "map": false,
+   "title": "South on Provenseweg",
+   "note": "From the castle gate head south-east, then south along Provenseweg, a long straight lane towards Poperinge."
+  },
+  {
+   "name": "Provenseweg",
+   "lat": 50.8714,
+   "lon": 2.7105,
+   "label": "Provenseweg",
+   "title": "Long straight south",
+   "note": "Hop fields and farms. The town appears ahead; stay on the lane until the ring road."
+  },
+  {
+   "name": "Ring road",
+   "lat": 50.864,
+   "lon": 2.714,
+   "map": false,
+   "title": "Cross the ring road",
+   "note": "A short stretch beside the ring, then Provenseweg continues south-west out of town. Then Provenstraat, Helleketelweg and the dreef home."
+  }
+ ],
+ "extras": [
+  {
+   "name": "Dozinghembos",
+   "lat": 50.8925,
+   "lon": 2.6987,
+   "anchor": "start"
+  },
+  {
+   "name": "Grote Markt",
+   "lat": 50.8556,
+   "lon": 2.7263,
+   "anchor": "end"
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Vijfgemetenstraat",
+  "Kleine Casseldreef",
+  "Stoppelweg",
+  "Boudeweelstraat",
+  "Karel Grimminckweg",
+  "Watouseweg",
+  "Duivinnestraat",
+  "Wulfhullestraat",
+  "Provenseweg",
+  "Gapaardstraat",
+  "Gravendreef",
+  "Blokstraat",
+  "Kapellestraat",
+  "Couthoflaan",
+  "Canadaweg",
+  "Krombeekseweg",
+  "Abeelseweg",
+  "Noordlaan",
+  "Provenstraat",
+  "Leeuwerikstraat"
+ ],
+ "goodtoknow": [
+  "A long one on quiet lanes, with three woods and the old railway as the unpaved parts. Two roads to respect: Couthoflaan north of Couthofbos and the ring road at Poperinge; both have a crossing within a few metres of the line.",
+  "Nothing to eat or drink on the way except what you carry; the one café is De Lovie's on weekdays. Plan a good half day."
+ ],
+ "more": [
+  "Couthofbos and the Couthof estate are the oldest woodland around Poperinge. Canadabos is named after the Canadian troops of 1944 and still hides a V1 launch base in the undergrowth. De Lovie, between them, is a neo-Gothic castle of the 1850s in a landscaped park with ponds, now a care institution that opens its gardens to visitors.",
+  "The way out follows the old railway to Sint-Jan-ter-Biezen; the way back follows Provenseweg, which was the medieval road from Poperinge to Proven."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door."
+}

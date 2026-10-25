@@ -1,0 +1,127 @@
+{
+ "slug": "nature-m",
+ "out": "nature/m",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "Helleketelbos loop",
+ "title_html": "Helle<em>ketel</em>",
+ "category": "Nature",
+ "size": "M",
+ "ring": "Nature M · Helleketelbos · {{KM}} km · from the front door · Poperinge · ",
+ "sub": "A loop from the front door into the wood and back.",
+ "desc": "A {{KM}} km walking loop from Kleine Dasdreef through the Helleketelbos, Poperinge.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "waypoints": [
+  {
+   "name": "Kleine Dasdreef 8",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "label": "Home",
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left, up the dreef towards Helleketelweg. Quiet lanes; the odd tractor is the traffic.",
+   "accent": "Clockwise, so the wood comes halfway and the long straight lanes are behind you on the way home."
+  },
+  {
+   "name": "Helleketelweg",
+   "lat": 50.850274,
+   "lon": 2.691473,
+   "map": false,
+   "title": "Left onto Helleketelweg",
+   "note": "Follow it west. Open fields on both sides, hop poles in the distance, the first farms after about a kilometre."
+  },
+  {
+   "name": "West along Helleketelweg",
+   "lat": 50.848597,
+   "lon": 2.677466,
+   "label": "Helleketelweg",
+   "dy": -8,
+   "title": "Keep left, stay on Helleketelweg",
+   "note": "At the junction with Karel Grimminckweg the road bends south. Stay on Helleketelweg; it runs straight at the wood from here.",
+   "accent": "The wood is the dark line ahead."
+  },
+  {
+   "name": "Helleketelweg south",
+   "lat": 50.841734,
+   "lon": 2.671187,
+   "map": false,
+   "title": "Wood on your left",
+   "note": "The forest edge now runs alongside the lane. Keep following the asphalt along the edge of the wood, down to the bottom corner."
+  },
+  {
+   "name": "Into the wood",
+   "lat": 50.838341,
+   "lon": 2.66851,
+   "label": "Into the wood",
+   "title": "Leave the asphalt",
+   "note": "At the corner where the lane bends away, take the track into Helleketelbos. From here on it is unpaved: packed earth, roots, a boardwalk where it stays wet.",
+   "accent": "White-and-red GR 5A marks and knooppunt signs along the way."
+  },
+  {
+   "name": "Helleketelbos",
+   "lat": 50.837264,
+   "lon": 2.67206,
+   "label": "Helleketelbos",
+   "dy": 10,
+   "title": "Through the wood",
+   "note": "East along the path through the heart of the wood. Oaks, sheep in the open parts, a chance of roe deer if you are early. The path then swings north and climbs gently out towards the lane.",
+   "accent": "For a drink, De Boshoeve and the car park are a few hundred metres south of here, and Boskafé Boule Carré just beyond on Stoppelweg.",
+   "maps": "https://www.google.com/maps/search/?api=1&query=Helleketelbos+Vijfgemetenstraat+4+Poperinge",
+   "addr": "Helleketelbos, Vijfgemetenstraat"
+  },
+  {
+   "name": "Out of the wood",
+   "lat": 50.838952,
+   "lon": 2.674366,
+   "label": "Out of the wood",
+   "title": "Back onto a lane",
+   "note": "The path comes out on Vijfgemetenstraat at the top corner of the wood. Turn left; the lane heads north-east."
+  },
+  {
+   "name": "Vijfgemetenstraat",
+   "lat": 50.840446,
+   "lon": 2.678533,
+   "label": "Vijfgemetenstraat",
+   "dy": -8,
+   "title": "Right onto Kleine Casseldreef",
+   "note": "A long, straight lane between the fields, pointing almost exactly at home. The wood falls away behind you.",
+   "accent": "The longest stretch of the walk, a bit under a kilometre of straight line."
+  },
+  {
+   "name": "Kleine Casseldreef",
+   "lat": 50.843663,
+   "lon": 2.690802,
+   "label": "Kleine Casseldreef",
+   "title": "Left, and up the dreef",
+   "note": "Where Kleine Casseldreef meets Kleine Dasdreef, turn left up the dreef, then left again into the gravel lane for the last stretch to the door."
+  }
+ ],
+ "extras": [
+  {
+   "name": "De Boshoeve · P",
+   "lat": 50.8361274,
+   "lon": 2.6708963
+  }
+ ],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Vijfgemetenstraat",
+  "Kleine Casseldreef",
+  "Stoppelweg",
+  "Boudeweelstraat",
+  "Karel Grimminckweg",
+  "Abeelseweg",
+  "Vuileseulestraat",
+  "Wulfhullestraat"
+ ],
+ "goodtoknow": [
+  "Lanes with hardly any traffic to the wood, then unpaved paths inside it. After rain the forest paths are muddy, so boots rather than trainers. The GR 5A runs through the wood with its white-and-red marks, and the walking-junction signs (knooppunten) help if you want to wander off the line on the map.",
+  "Two places for a drink on the far side: Boskafé Boule Carré at the south edge of the wood (Stoppelweg 39, open Friday to Monday from noon, Sunday from 11:30), and the old country café De Helleketel a little further west on Vuileseulestraat (Sunday from 10:00). Both add a few hundred metres."
+ ],
+ "more": [
+  "Helleketelbos is a small, replanted wood on a low rise southwest of Poperinge, managed by Natuur en Bos. Sessile oaks, a half-timbered cottage at the entrance, sheep grazing the open parts and, early or late in the day, a fair chance of roe deer. From the southern edge the view opens over the hop fields to the hills of northern France: Mont des Cats, Mont Noir.",
+  "The wood is crossed by a few public asphalt roads, which is why the route can enter on one side and leave on another without doubling back. The main entrance, with the only car park, is at De Boshoeve on Vijfgemetenstraat; the Belbus 69 stops there too."
+ ]
+}

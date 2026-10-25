@@ -6,8 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#000000">
 <style>:root{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Helleketelbos loop</title>
-<meta name="description" content="A {{KM}} km walking loop from Kleine Dasdreef through the Helleketelbos, Poperinge.">
+<title>{{TITLE}} · Routes</title>
+<meta name="description" content="{{DESC}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Rubik+Distressed&display=swap">
 <style>
@@ -186,7 +186,7 @@
 
 <header class="top">
   <div class="top-inner">
-    <a class="brand" href="../">Routes · <b>Poperinge</b></a>
+    <a class="brand" href="{{UP}}">Routes · <b>{{CATEGORY}} {{SIZE}}</b></a>
     <div class="hdr-btns">
       <a class="hbtn" href="#map">Map</a>
       <button type="button" class="hbtn off" id="loc-btn" aria-pressed="false"><span class="loc-ring" aria-hidden="true"></span><span id="loc-txt">Where am I</span></button>
@@ -202,7 +202,7 @@
         <defs><path id="orbit" d="M115,115 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/></defs>
         <g id="ring-g">
           <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 115 115" to="360 115 115" dur="40s" repeatCount="indefinite"/>
-          <text textLength="614" lengthAdjust="spacing"><textPath href="#orbit" xlink:href="#orbit" startOffset="0">Helleketelbos · {{KM}} km · from the front door · Poperinge · a loop · </textPath></text>
+          <text textLength="614" lengthAdjust="spacing"><textPath href="#orbit" xlink:href="#orbit" startOffset="0">{{RING}}</textPath></text>
         </g>
       </svg>
       <div class="eclipse" role="img" aria-label="A path leading into a small wood">
@@ -217,26 +217,22 @@
         </svg>
       </div>
     </div>
-    <h1>Helle<em>ketel</em></h1>
-    <p class="sub">A loop from Kleine Dasdreef into the wood and back.</p>
-    <p class="meta"><span><b>{{KM}} km</b></span><span><b>about {{MIN}} min</b></span><span>Poperinge</span></p>
+    <h1>{{TITLE_HTML}}</h1>
+    <p class="sub">{{SUB}}</p>
+    <p class="meta"><span><b>{{KM}} km</b></span><span><b>about {{DUR}}</b></span><span>Poperinge</span></p>
     <p class="status" id="status"></p>
   </section>
 
   <section class="block note" id="goodtoknow">
     <h2>Good to know</h2>
-    <p>Lanes with hardly any traffic to the wood, then unpaved paths inside it. After rain the forest paths are muddy, so boots rather than trainers. The GR 5A runs through the wood with its white-and-red marks, and the walking-junction signs (knooppunten) help if you want to wander off the line on the map.</p>
-    <p class="soft">Two places for a drink on the far side: Boskafé Boule Carré at the south edge of the wood (Stoppelweg 39, open Friday to Monday from noon, Sunday from 11:30), and the old country café De Helleketel a little further west on Vuileseulestraat (Sunday from 10:00). Both add a few hundred metres.</p>
-    <details class="more"><summary>More</summary><div class="more-body">
-      <p>Helleketelbos is a small, replanted wood on a low rise southwest of Poperinge, managed by Natuur en Bos. Sessile oaks, a half-timbered cottage at the entrance, sheep grazing the open parts and, early or late in the day, a fair chance of roe deer. From the southern edge the view opens over the hop fields to the hills of northern France: Mont des Cats, Mont Noir.</p>
-      <p>The wood is crossed by a few public asphalt roads, which is why the route can enter on one side and leave on another without doubling back. The main entrance, with the only car park, is at De Boshoeve on Vijfgemetenstraat; the Belbus 69 stops there too.</p>
-    </div></details>
+    {{GOODTOKNOW}}
+    {{MORE}}
   </section>
 
   <section class="mapsec" id="map">
     <div class="map-head">
       <h2>On foot</h2>
-      <p class="cue">Real streets, drawn to scale. The dashed line is the walk.</p>
+      <p class="cue">{{CUE}}</p>
     </div>
     <div class="map-wrap">
 {{SVG}}
@@ -256,14 +252,14 @@
     <div class="tl-head">
       <span class="dot"></span>
       <h2>The walk</h2>
-      <p class="cue">Clockwise. Distances are from the front door.</p>
+      <p class="cue">{{TLCUE}}</p>
     </div>
 {{STOPS}}
   </section>
 
   <footer>
     <span class="mark">DARIDEH</span>
-    <span class="desc">routes · <a href="../">all walks</a></span>
+    <span class="desc">routes · <a href="{{UP}}">all walks</a></span>
     <span class="osm">map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
   </footer>
 </main>
@@ -292,7 +288,7 @@
   }
 
   /* ---- live location: a blue dot on the map, and the nearest stop lit on the track ---- */
-  var KEY_LOC = 'routes-helleketel-loc';
+  var KEY_LOC = 'routes-{{KEY}}-loc';
   var btn = document.getElementById('loc-btn'), txt = document.getElementById('loc-txt'), status = document.getElementById('status');
   var me = document.getElementById('me'), note = document.getElementById('map-note');
   var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));

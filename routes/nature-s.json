@@ -1,0 +1,124 @@
+{
+ "slug": "nature-s",
+ "out": "nature/s",
+ "data": "data/poperinge-wide.geojson.gz",
+ "title": "Field path loop",
+ "title_html": "Field <em>path</em>",
+ "category": "Nature",
+ "size": "S",
+ "ring": "Nature S · the mountain-bike trail · {{KM}} km · from the front door · Poperinge · ",
+ "sub": "Up the dreef, along Helleketelweg, home by the trail and the field.",
+ "desc": "A short {{KM}} km loop from Kleine Dasdreef over Helleketelweg and the mountain-bike trail, Poperinge.",
+ "home": {
+  "lat": 50.846221,
+  "lon": 2.68805
+ },
+ "links": [
+  [
+   [
+    50.8486,
+    2.6775
+   ],
+   [
+    50.847,
+    2.6778
+   ]
+  ],
+  [
+   [
+    50.844,
+    2.6834
+   ],
+   [
+    50.84624,
+    2.68617
+   ]
+  ]
+ ],
+ "waypoints": [
+  {
+   "name": "Home",
+   "lat": 50.846221,
+   "lon": 2.68805,
+   "title": "Out of the door",
+   "note": "Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg.",
+   "accent": "Clockwise: lanes first, the trail and the field on the way back.",
+   "anchor": "start"
+  },
+  {
+   "name": "Helleketelweg",
+   "lat": 50.850274,
+   "lon": 2.691473,
+   "map": false,
+   "title": "Left onto Helleketelweg",
+   "note": "Follow it west for about a kilometre. Open fields, hop poles, hardly a car."
+  },
+  {
+   "name": "Junction",
+   "lat": 50.8486,
+   "lon": 2.6775,
+   "map": false,
+   "title": "At the Karel Grimminckweg junction, left",
+   "note": "Where Karel Grimminckweg comes in from the right, leave the asphalt on the left and head south across the field edge to the start of the trail (a couple of hundred metres; not on the map)."
+  },
+  {
+   "name": "Onto the trail",
+   "lat": 50.847,
+   "lon": 2.6778,
+   "label": "Onto the trail",
+   "dy": -8,
+   "title": "Onto the mountain-bike trail",
+   "note": "The unpaved trail runs south-east along the field edges, with the town's church towers on the horizon. Mountain bikers use it too, so keep an ear open.",
+   "accent": "The nice part."
+  },
+  {
+   "name": "End of the trail",
+   "lat": 50.844,
+   "lon": 2.6834,
+   "label": "End of the trail",
+   "title": "Across the field",
+   "note": "At the end of the trail, bear left across the field edge towards the gravel lane. This last link is not on any map; it is the way we walked it.",
+   "accent": "Confirm this bit on the next walk and I will fix the line if it runs differently."
+  },
+  {
+   "name": "Back on the lane",
+   "lat": 50.84624,
+   "lon": 2.68617,
+   "label": "Back on the lane",
+   "title": "The gravel lane home",
+   "note": "Onto the far end of the gravel lane, and along it to the door.",
+   "anchor": "end",
+   "dy": 12
+  }
+ ],
+ "extras": [],
+ "labels": [
+  "Kleine Dasdreef",
+  "Helleketelweg",
+  "Vijfgemetenstraat",
+  "Kleine Casseldreef",
+  "Stoppelweg",
+  "Boudeweelstraat",
+  "Karel Grimminckweg",
+  "Watouseweg",
+  "Duivinnestraat",
+  "Wulfhullestraat",
+  "Provenseweg",
+  "Gapaardstraat",
+  "Gravendreef",
+  "Blokstraat",
+  "Kapellestraat",
+  "Couthoflaan",
+  "Canadaweg",
+  "Krombeekseweg",
+  "Abeelseweg"
+ ],
+ "goodtoknow": [
+  "A short one: quiet lanes out, the unpaved mountain-bike trail and a field edge back. After rain the trail is muddy in the dips. Mountain bikers come through on weekends; step aside, they are usually quick to say thanks.",
+  "Two short links on this loop are drawn as straight dashed lines because they are not in OpenStreetMap: from the junction to the start of the trail, and from the end of the trail to the gravel lane. The rest of the line follows mapped paths. This page is a first draft of yesterday's walk; tell me where it differs and I will redraw it."
+ ],
+ "more": [
+  "The trail is part of the Sport Vlaanderen mountain-bike network around Poperinge (the old Bloso routes), which stitches field edges and farm tracks into long unpaved loops. Walkers are welcome on them, and this one happens to pass almost behind the house."
+ ],
+ "tlcue": "Clockwise. Distances are from the front door."
+}

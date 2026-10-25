@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<style>:root{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Railway and wood loop · Routes</title>
+<meta name="description" content="A 10,6 km loop from Kleine Dasdreef over the old railway path to Sint-Jan-ter-Biezen and back through Helleketelbos, Poperinge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Rubik+Distressed&display=swap">
+<style>
+  /* One narrow black column, DARIDEH palette. A vertical track on the left carries the stops of the walk,
+     measured in kilometres from the front door rather than in hours. */
+  :root {
+    --bg: #000000;
+    --fg: #EDE8E1;
+    --muted: #A8A197;
+    --dim: #7C756D;
+    --line: #2A2724;
+    --orange: #E85D1F;
+    --now: #4A8CFF;
+    --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
+    --font-accent: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-mark: "Rubik Distressed", "Geist", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .09;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='1'/></svg>");
+    background-size: 160px 160px;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+
+  /* ---- header ---- */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(0,0,0,.96); border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; white-space: nowrap; text-decoration: none; }
+  .brand b { color: var(--fg); font-weight: 400; }
+  .hdr-btns { display: inline-flex; gap: 6px; }
+  .hbtn {
+    appearance: none; background: transparent; border: 1px solid var(--dim); color: var(--fg); font: inherit; font-size: 12px; font-weight: 500;
+    letter-spacing: .06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s, color .2s;
+  }
+  .hbtn.live { border-color: var(--now); color: var(--now); }
+  .loc-ring { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--muted); box-sizing: border-box; transition: background .2s, border-color .2s; }
+  .hbtn.live .loc-ring { background: var(--now); border-color: var(--now); box-shadow: 0 0 8px rgba(74,140,255,.8); animation: pulse-blue 2.4s ease-out infinite; }
+  .hbtn.wait .loc-ring { border-color: var(--now); border-top-color: transparent; animation: spin-ring 1s linear infinite; }
+  @keyframes pulse-blue { 0% { box-shadow: 0 0 0 0 rgba(74,140,255,.5); } 70% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } 100% { box-shadow: 0 0 0 7px rgba(74,140,255,0); } }
+  @keyframes spin-ring { to { transform: rotate(360deg); } }
+
+  /* ---- page column ---- */
+  .page { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
+
+  /* ---- hero ---- */
+  .hero { display: grid; justify-items: center; align-content: center; text-align: center; gap: 28px; padding-block: 32px 40px; min-height: calc(100vh - 64px); min-height: calc(100lvh - 64px + 24px); position: relative; }
+  .orb { position: relative; width: 230px; height: 230px; display: grid; place-items: center; }
+  .orb .ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .orb .ring text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; fill: var(--muted); }
+  .eclipse {
+    width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; background: var(--bg);
+    box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22);
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .eclipse svg { width: 118px; height: 118px; overflow: visible; }
+  .eclipse .tree { fill: none; stroke: var(--fg); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+  .eclipse .ground { fill: none; stroke: var(--dim); stroke-width: 1; stroke-dasharray: 2 3; }
+  .eclipse .path { fill: none; stroke: var(--orange); stroke-width: 1.4; stroke-dasharray: 4 3.5; stroke-linecap: round; }
+  @keyframes breathe {
+    0%,100% { box-shadow: 0 0 0 1.5px var(--orange), 0 0 18px 2px rgba(232,93,31,.55), 0 0 60px 6px rgba(232,93,31,.22); }
+    50%     { box-shadow: 0 0 0 1.5px var(--orange), 0 0 26px 3px rgba(232,93,31,.65), 0 0 80px 10px rgba(232,93,31,.28); }
+  }
+  .hero h1 { font-weight: 300; font-size: clamp(50px, 15vw, 92px); line-height: .95; margin: 0; letter-spacing: -.03em; text-wrap: balance; }
+  .hero h1 em { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--orange); letter-spacing: 0; }
+  .hero .sub { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 20px; color: var(--muted); margin: 0; }
+  .hero .meta { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin: 0; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .meta b { color: var(--fg); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .hero .status { font-size: 14px; color: var(--now); font-weight: 400; margin: 0; min-height: 1.5em; }
+
+  /* ---- notes ---- */
+  .block { border-top: 1px solid var(--line); padding-block: 22px; display: grid; gap: 10px; }
+  .block h2 { margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  .block p { margin: 0; font-size: 15px; color: var(--fg); }
+  .block p.soft { color: var(--muted); }
+  .block i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  details > summary { cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  .more { margin-top: 6px; }
+  .more > summary { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 4px 0; }
+  .more > summary::before { content: ""; width: 14px; height: 1px; background: var(--orange); }
+  .more > summary:hover { color: var(--fg); }
+  .more-body { display: grid; gap: 8px; padding: 8px 0 4px; max-width: 60ch; }
+  .more-body p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .more-body p:first-child::first-letter { font-family: var(--font-accent); font-style: italic; font-size: 1.6em; line-height: 1; color: var(--fg); }
+
+  /* ---- map ---- */
+  .mapsec { padding-block: 26px 10px; display: grid; gap: 14px; border-top: 1px solid var(--line); }
+  .map-head { display: grid; gap: 4px; }
+  .map-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .map-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 0; }
+  .map-wrap { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #060505; position: relative; }
+  .map { display: block; width: 100%; height: auto; }
+  .map .streets .park { fill: #0F110C; stroke: #171a12; stroke-width: .6; }
+  .map .streets .water { fill: #0A0D12; stroke: #15202E; stroke-width: 1; }
+  .map .streets .water.stream { fill: none; stroke: #15202E; stroke-width: .9; }
+  .map .streets .rail { fill: none; stroke: #26231F; stroke-width: 1; stroke-dasharray: 4 3; }
+  .map .streets .rd { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .map .streets .rd.major { stroke: #3B3631; stroke-width: 2.4; }
+  .map .streets .rd.minor { stroke: #2C2925; stroke-width: 1.4; }
+  .map .streets .rd.ped { stroke: #2F2C27; stroke-width: 1; stroke-dasharray: 2 2.4; }
+  .map .streets .sn { font-family: var(--font-body); font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; fill: #6A645E; }
+  .map.has-streets > rect:first-of-type { opacity: .35; }
+  .map .rt { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .map .rt.glow { stroke: rgba(232,93,31,.22); stroke-width: 7; }
+  .map .rt.walk { stroke: var(--fg); stroke-width: 1.6; stroke-dasharray: 6 5; opacity: .92; }
+  .map .pt circle { fill: var(--bg); stroke: var(--fg); stroke-width: 1.2; }
+  .map .pt.cafe circle { stroke: var(--dim); }
+  .map .pt.home circle { stroke: var(--orange); fill: none; }
+  .map .pt.home circle.core { fill: var(--orange); stroke: none; }
+  .map .pt.home circle:first-child { filter: drop-shadow(0 0 6px rgba(232,93,31,.7)); }
+  .map .ml { font-family: var(--font-body); font-size: 11.5px; font-weight: 400; fill: var(--fg); letter-spacing: .02em; }
+  .map .ml.dim { fill: var(--muted); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .map .ml.home { font-family: var(--font-accent); font-style: italic; font-size: 14px; fill: var(--fg); }
+  .map .scale line, .map .north line { stroke: var(--muted); stroke-width: 1; }
+  .map .me .me-dot { fill: var(--now); stroke: var(--bg); stroke-width: 1.5; }
+  .map .me .me-halo { fill: rgba(74,140,255,.18); animation: halo 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .map .me .me-acc { fill: rgba(74,140,255,.07); stroke: rgba(74,140,255,.35); stroke-width: .8; stroke-dasharray: 2 2; }
+  @keyframes halo { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+  .map-note { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .map-note i { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12.5px; color: var(--muted); }
+  .lgi { display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+  .lg { display: inline-grid; place-items: center; width: 18px; height: 12px; flex: 0 0 auto; }
+  .lg::before { content: ""; width: 18px; height: 0; border-top: 1.6px dashed var(--fg); }
+  .lg.ped::before { border-top: 1px dashed #5a554e; }
+  .lg.wood::before { width: 12px; height: 10px; border: 1px solid #2a3020; background: #0F110C; border-radius: 2px; }
+  .lg.home::before { width: 10px; height: 10px; border: 1px solid var(--orange); border-radius: 50%; box-shadow: 0 0 6px rgba(232,93,31,.6); }
+
+  /* ---- the walk, as a track ---- */
+  .tl { position: relative; padding-block: 24px 8px; border-top: 1px solid var(--line); margin-top: 16px; }
+  .tl-head { padding-left: 36px; margin-bottom: 20px; position: relative; }
+  .tl-head .dot { position: absolute; left: 0; top: 7px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); }
+  .tl-head h2 { margin: 0; font-weight: 300; font-size: 28px; line-height: 1.1; }
+  .tl-head .cue { font-family: var(--font-accent); font-style: italic; font-weight: 300; color: var(--muted); font-size: 17px; margin: 4px 0 0; }
+  .track { position: absolute; left: 7px; top: 24px; bottom: 30px; width: 1px; background: var(--line); }
+  .track-done { position: absolute; left: 7px; top: 24px; width: 1px; background: var(--now); height: 0; transition: height .6s ease; }
+  .stop { position: relative; padding-left: 36px; padding-block: 14px 18px; display: grid; gap: 4px; }
+  .stop .dot { position: absolute; left: 3px; top: 22px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--dim); transition: background .3s, border-color .3s; }
+  .stop.done .dot { background: var(--fg); border-color: var(--fg); }
+  .stop.current .dot { background: var(--now); border-color: var(--now); box-shadow: 0 0 10px rgba(74,140,255,.9); }
+  .stop .time { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .stop .title { font-size: 21px; font-weight: 300; line-height: 1.2; margin: 0; text-wrap: balance; }
+  .stop .note { font-size: 15px; color: var(--muted); margin: 0; }
+  .stop .accent { font-family: var(--font-accent); font-style: italic; font-weight: 300; font-size: 16px; color: var(--muted); margin: 2px 0 0; }
+  .stop .where { font-size: 13px; color: var(--muted); margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+  .stop .where a { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); text-decoration: none; white-space: nowrap; font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--dim); border-radius: 999px; }
+  .stop .where a::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 6px rgba(232,93,31,.7); flex: 0 0 auto; }
+  .stop .where a:hover { border-color: var(--fg); background: rgba(237,232,225,.06); }
+  .stop.done { opacity: .55; }
+  .stop.current { opacity: 1; }
+
+  /* ---- footer ---- */
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--orange); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  footer .mark { font-family: var(--font-mark); color: var(--orange); font-size: 18px; letter-spacing: .04em; }
+  footer .desc { color: var(--muted); font-size: 13px; }
+  footer .desc a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer .osm { margin-left: auto; color: var(--dim); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  footer .osm a { color: var(--dim); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eclipse, .hbtn.live .loc-ring, .hbtn.wait .loc-ring, .map .me .me-halo { animation: none; }
+    #ring-g animateTransform { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="../../">Routes · <b>Nature L</b></a>
+    <div class="hdr-btns">
+      <a class="hbtn" href="#map">Map</a>
+      <button type="button" class="hbtn off" id="loc-btn" aria-pressed="false"><span class="loc-ring" aria-hidden="true"></span><span id="loc-txt">Where am I</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <div class="orb">
+      <svg class="ring" viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+        <defs><path id="orbit" d="M115,115 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/></defs>
+        <g id="ring-g">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 115 115" to="360 115 115" dur="40s" repeatCount="indefinite"/>
+          <text textLength="614" lengthAdjust="spacing"><textPath href="#orbit" xlink:href="#orbit" startOffset="0">Nature L · old railway · Sint-Jan-ter-Biezen · Helleketelbos · 10,6 km · </textPath></text>
+        </g>
+      </svg>
+      <div class="eclipse" role="img" aria-label="A path leading into a small wood">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="ground" d="M8,92 Q60,84 112,92"/>
+          <path class="path" d="M58,112 C62,96 48,88 56,74 C62,64 70,60 72,52"/>
+          <g class="tree">
+            <path d="M34,78 L34,54"/><path d="M34,54 C22,54 18,40 28,34 C26,24 40,20 44,28 C54,26 56,42 46,46 C50,56 40,58 34,54 Z"/>
+            <path d="M86,80 L86,50"/><path d="M86,50 C72,52 68,34 80,30 C80,16 100,16 100,30 C110,36 104,52 92,50 C92,54 88,54 86,50 Z"/>
+            <path d="M62,56 L62,44"/><path d="M62,44 C56,44 54,36 59,34 C58,28 66,26 68,30 C74,30 74,40 68,42 C70,46 65,47 62,44 Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <h1>Rail<em>way</em> & wood</h1>
+    <p class="sub">Hop fields, the old railway bed, a chapel hamlet and the wood.</p>
+    <p class="meta"><span><b>10,6 km</b></span><span><b>about 2 h 25</b></span><span>Poperinge</span></p>
+    <p class="status" id="status"></p>
+  </section>
+
+  <section class="block note" id="goodtoknow">
+    <h2>Good to know</h2>
+    <p>Mostly quiet asphalt lanes with two unpaved stretches: the old railway bed in the north and the paths through Helleketelbos at the end. After rain the forest paths are muddy; the railway is fine in any weather.</p><p class="soft">Water and a snack in the bag: there is no café on the line until Boskafé Boule Carré, which sits 400 m south of the wood on Stoppelweg (Friday to Monday from noon, Sunday from 11:30).</p>
+    <details class="more"><summary>More</summary><div class="more-body"><p>The railway is line 69A, Poperinge to Hazebrouck across the French border, opened in 1870 and closed to passengers in the 1950s. The bed is now a long green corridor used by cyclists and walkers; the stretch here runs between hop fields and small woods.</p><p>Helleketelbos, at the far end, is a small replanted wood on a low rise managed by Natuur en Bos: oaks, sheep, a half-timbered cottage at the entrance and views to the French hills from its south edge.</p></div></details>
+  </section>
+
+  <section class="mapsec" id="map">
+    <div class="map-head">
+      <h2>On foot</h2>
+      <p class="cue">Real streets, drawn to scale. The dashed line is the walk.</p>
+    </div>
+    <div class="map-wrap">
+<svg class="map has-streets" id="mapsvg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of the walk">
+  <defs>
+    <clipPath id="canvas"><rect width="600" height="600"/></clipPath>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#2A2724"/></pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <g class="streets" clip-path="url(#canvas)">
+  <path class="park" d="M-18.6,19.3L-14.0,20.1L-14.4,21.7L-13.4,21.9L-13.5,23.5L-8.7,24.2L-7.8,23.1L-7.5,20.0L-18.2,18.4L-18.6,19.3ZM-16.2,348.1L-15.3,349.2L4.4,339.3L18.2,324.8L24.5,320.4L23.2,319.5L16.9,323.7L6.3,335.3L2.5,338.2L-10.5,344.3L-16.2,348.1ZM-48.6,385.2L-41.6,390.5L-41.1,389.8L-46.8,385.3L-41.4,376.8L-38.2,373.6L-35.2,373.4L-34.0,374.3L-30.6,370.3L-25.1,360.0L-26.3,359.3L-31.5,368.9L-34.4,371.4L-39.3,372.4L-41.2,374.3L-48.6,385.2ZM68.6,358.3L77.4,376.6L82.3,374.1L73.5,356.1L68.6,358.3ZM-26.4,232.5L-23.6,236.0L-22.6,235.3L-23.4,234.3L-22.3,233.6L-19.2,237.6L-18.3,236.9L-23.5,230.4L-26.4,232.5ZM39.3,278.5L41.4,280.0L41.1,277.8L39.3,278.5ZM-35.6,193.9L-29.9,192.4L-24.6,192.3L-22.2,192.7L-18.9,195.2L-3.7,183.8L-6.9,179.1L-11.6,174.7L-35.6,193.9ZM47.1,245.0L54.3,242.9L53.9,239.1L52.7,239.5L53.5,242.8L47.1,245.0ZM-8.8,172.6L-1.7,177.2L-1.8,180.7L-0.9,182.0L23.0,163.7L20.5,158.8L2.3,172.2L-2.0,167.1L-8.8,172.6ZM37.7,276.5L39.1,278.2L42.0,275.5L43.3,275.9L43.1,279.1L43.9,280.0L45.8,276.7L44.4,274.1L42.3,273.7L37.7,276.5ZM46.2,241.0L46.5,242.3L51.2,240.2L49.9,239.6L46.2,241.0ZM78.9,568.3L81.4,571.6L89.1,565.7L85.6,563.0L78.9,568.3ZM36.8,595.7L37.9,596.8L48.1,586.5L50.3,588.0L52.4,590.1L53.4,593.7L45.4,602.3L46.6,603.2L57.8,591.5L50.8,581.9L36.8,595.7ZM28.9,507.9L29.8,508.7L32.2,506.2L31.3,504.1L28.9,507.9ZM20.3,655.2L42.0,635.0L20.3,655.2ZM-6.9,529.9L7.4,545.0L8.4,544.1L-5.6,528.8L-6.9,529.9ZM281.4,574.3L282.7,574.1L282.8,571.7L281.7,571.9L281.4,574.3ZM198.1,568.6L226.0,620.5L233.8,632.6L230.8,635.2L233.3,639.1L223.1,646.7L219.8,643.6L218.9,644.6L221.8,648.4L236.3,637.7L238.3,639.9L251.5,631.1L245.3,621.5L241.2,620.7L235.5,610.9L228.2,592.5L235.9,590.9L237.5,597.0L239.7,597.0L242.8,607.6L245.1,608.2L246.8,610.6L258.9,604.7L261.6,607.4L265.1,614.4L267.3,616.5L270.4,613.7L269.7,612.6L284.1,601.6L280.6,592.2L283.1,591.9L282.7,574.1L259.8,577.6L259.6,560.5L284.1,554.6L281.7,571.9L282.8,571.7L283.5,565.4L288.5,561.1L290.8,539.9L280.2,522.8L268.3,507.2L288.8,494.6L251.0,471.7L232.5,488.6L217.9,511.3L225.2,521.4L223.4,522.5L232.3,543.1L212.6,557.1L213.1,561.2L212.1,562.6L199.1,563.3L198.1,568.6ZM242.5,466.0L288.8,494.6L292.9,491.9L276.8,477.2L250.3,458.2L247.1,460.0L242.5,466.0ZM330.9,544.1L335.1,547.1L336.4,546.0L332.1,543.4L330.9,544.1ZM314.3,539.5L314.9,545.4L316.4,548.3L316.5,552.9L318.2,552.0L318.7,549.8L317.9,545.8L316.4,545.6L315.7,538.2L317.6,537.6L321.9,541.2L322.9,540.9L316.5,535.3L314.6,537.1L314.3,539.5ZM301.1,537.4L305.1,549.8L305.8,549.6L302.1,537.1L301.1,537.4ZM347.1,539.3L348.6,543.7L350.1,543.1L348.1,537.9L347.1,539.3ZM333.1,547.8L337.6,551.3L338.0,552.8L338.2,551.7L339.7,551.4L333.7,547.3L333.1,547.8ZM303.9,536.4L304.5,538.4L306.9,537.1L306.3,535.0L303.9,536.4ZM608.1,558.9L610.1,558.9L621.7,552.1L623.2,550.2L614.9,553.2L608.1,558.9ZM607.0,537.6L607.4,538.2L611.9,536.0L611.3,535.2L607.0,537.6ZM561.6,610.1L567.3,616.9L569.9,614.7L563.9,608.1L561.6,610.1ZM249.9,456.7L280.0,478.5L289.2,462.1L284.4,458.1L281.3,461.2L252.5,438.8L252.2,446.9L249.9,456.7ZM17.1,401.4L19.0,402.8L21.4,400.1L20.3,399.0L19.4,401.7L17.8,400.6L17.1,401.4ZM14.3,404.0L17.3,406.7L24.1,397.9L23.1,395.7L21.0,397.0L22.7,398.6L19.0,402.8L17.1,401.4L14.3,404.0ZM213.0,464.4L213.4,465.2L216.1,464.2L217.8,464.9L217.9,465.7L216.4,466.4L215.3,464.8L213.6,465.6L216.4,470.9L219.8,469.4L218.4,467.2L220.0,466.0L216.7,462.6L213.0,464.4ZM51.8,462.2L60.8,471.5L63.1,469.7L64.5,471.1L77.5,458.5L70.5,449.0L68.6,450.7L70.2,452.6L67.4,455.2L65.1,452.6L63.9,453.7L64.4,454.6L63.2,455.6L63.4,463.3L61.7,469.3L53.2,461.1L51.8,462.2ZM50.3,441.7L57.0,449.2L57.6,448.7L51.3,441.0L50.3,441.7ZM213.4,465.2L215.5,464.3L213.4,465.2ZM97.5,462.3L100.0,463.7L101.8,460.2L99.0,458.8L97.5,462.3ZM155.0,440.0L155.9,440.5L160.3,435.7L159.6,435.0L155.0,440.0ZM150.7,439.8L157.4,445.1L150.7,439.8ZM77.9,429.2L78.7,429.7L94.8,406.3L77.9,429.2ZM212.1,504.9L217.9,511.3L232.5,488.6L240.3,481.5L235.1,475.6L212.1,504.9ZM73.6,579.6L76.6,588.4L80.8,592.7L83.2,590.3L73.6,579.6ZM54.4,596.6L74.3,613.7L74.7,613.2L55.3,596.4L72.6,581.3L72.2,580.4L54.4,596.6ZM99.2,568.0L106.5,574.2L105.1,576.0L106.0,576.7L108.2,573.6L101.1,567.6L103.6,565.1L103.2,564.6L99.2,568.0ZM94.2,232.6L94.4,233.5L103.6,224.5L115.7,215.3L106.7,221.3L94.2,232.6ZM192.1,277.0L201.4,276.7L218.7,273.1L231.3,267.6L233.4,265.5L231.8,263.1L213.7,269.6L209.4,272.4L192.9,274.3L192.1,277.0ZM190.0,246.9L190.1,250.3L198.3,247.9L193.1,235.5L190.8,234.8L190.2,236.2L191.4,235.7L193.2,236.8L196.0,246.7L191.8,249.1L190.0,246.9ZM146.6,204.6L147.6,207.4L146.8,208.0L147.2,209.8L153.4,222.1L154.3,221.8L146.6,204.6ZM145.8,322.3L148.8,324.8L148.0,322.4L154.3,319.8L153.9,318.8L145.8,322.3ZM112.8,210.0L121.1,220.1L124.5,226.5L130.8,224.0L128.2,213.3L129.8,208.7L119.9,203.2L112.8,210.0ZM149.3,326.0L152.8,330.2L153.7,330.1L154.0,328.7L153.3,329.1L150.8,326.1L152.0,325.1L154.4,327.6L153.1,325.4L151.4,324.4L149.3,326.0ZM183.8,164.3L184.8,172.5L191.2,174.3L191.7,171.4L189.1,171.5L188.1,170.3L187.0,163.7L184.3,163.1L183.8,164.3ZM129.0,212.7L130.1,218.3L134.0,216.1L138.1,219.1L140.3,224.4L139.5,227.4L141.9,234.4L148.2,242.7L150.2,242.2L144.7,228.6L147.2,227.5L134.1,202.9L129.0,212.7ZM113.8,285.0L123.3,288.9L123.5,288.3L116.7,285.1L113.8,285.0ZM282.2,378.0L283.8,381.0L285.8,379.9L288.4,381.0L287.7,380.4L288.5,379.1L283.5,375.9L282.2,378.0ZM245.1,216.1L246.6,217.1L257.7,209.9L255.6,208.0L251.1,212.1L250.3,211.6L253.8,206.4L251.2,202.2L249.4,204.6L251.6,206.5L245.1,216.1ZM189.5,66.9L190.7,72.6L192.7,72.9L197.5,67.6L196.6,66.5L193.5,69.7L191.0,66.0L189.5,66.9ZM304.2,222.4L304.3,223.8L306.5,224.0L305.2,227.7L309.4,229.1L310.1,228.5L310.3,224.7L306.8,223.4L306.2,221.0L304.8,220.9L304.2,222.4ZM255.1,131.8L258.2,134.2L264.0,131.0L268.2,131.5L270.9,134.1L273.8,131.3L281.6,132.2L284.9,131.6L286.9,129.4L286.1,126.7L292.7,123.5L297.3,118.9L296.6,118.1L294.0,121.6L285.9,125.7L264.2,127.4L265.9,119.1L264.7,118.8L262.7,127.3L257.4,126.6L255.1,131.8ZM224.6,217.3L226.5,219.8L230.3,217.7L230.9,218.9L231.6,218.4L229.2,214.3L224.6,217.3ZM174.9,50.3L186.9,63.2L187.9,63.2L188.3,62.3L176.4,48.9L174.9,50.3ZM78.3,165.2L80.9,164.3L85.7,169.8L86.6,169.1L81.0,162.2L78.3,165.2ZM134.7,54.1L141.8,60.5L144.1,57.7L146.8,60.3L148.8,58.2L152.8,61.9L154.8,59.8L141.0,47.8L134.7,54.1ZM161.9,-14.2L166.9,-4.0L170.0,-5.5L171.2,-8.4L175.7,-12.7L172.8,-19.8L170.7,-19.7L164.7,-16.8L161.9,-14.2ZM149.9,-34.5L158.5,-18.9L160.6,-20.1L160.6,-23.1L157.7,-23.0L151.6,-34.4L153.0,-35.2L152.2,-36.4L149.9,-34.5ZM281.1,76.4L285.8,84.9L292.9,88.6L295.5,82.3L293.5,81.4L292.8,75.8L291.7,74.5L283.5,71.6L282.2,71.9L281.1,76.4ZM137.4,40.3L145.5,41.4L147.1,36.1L145.7,35.6L144.1,38.9L142.7,38.9L142.6,37.0L145.5,33.6L144.5,32.8L137.4,40.3ZM168.6,-53.2L174.6,-45.4L170.1,-43.4L169.7,-41.8L169.8,-40.6L172.1,-41.3L171.9,-43.1L172.9,-43.2L174.6,-41.0L174.3,-39.9L172.5,-41.0L170.2,-39.6L172.7,-38.3L176.7,-39.1L177.9,-39.9L177.1,-43.4L178.7,-44.6L177.9,-45.8L176.0,-44.8L170.4,-54.6L168.6,-53.2ZM160.7,19.6L161.2,20.8L164.8,19.4L164.4,18.3L160.7,19.6ZM147.5,44.2L153.0,46.7L159.3,44.2L157.7,40.3L147.5,44.2ZM208.7,25.0L209.1,26.1L210.1,25.6L209.6,24.2L223.3,17.5L221.2,12.6L215.1,15.4L217.0,20.0L208.7,24.0L208.7,25.0ZM9.5,9.5L11.4,9.9L15.1,8.2L14.8,6.9L11.3,7.0L9.5,9.5ZM97.1,127.5L98.4,129.1L100.2,127.1L99.0,124.8L99.1,127.5L97.1,127.5ZM123.0,112.4L123.8,113.1L129.6,104.6L128.7,104.1L123.0,112.4ZM40.3,129.9L43.2,133.6L47.7,129.4L46.6,124.4L40.3,129.9ZM83.2,130.4L83.7,131.1L86.9,128.0L83.2,130.4ZM41.5,162.8L54.7,185.4L55.4,184.8L51.8,178.2L52.4,177.4L43.4,161.6L41.5,162.8ZM84.1,-2.9L87.6,-1.5L87.2,0.3L88.8,0.3L91.3,-1.4L84.5,-3.6L84.1,-2.9ZM435.2,-4.1L436.1,-0.7L437.2,-1.3L437.5,-3.7L439.9,-4.8L439.7,-5.5L436.8,-3.8L436.4,-4.6L435.2,-4.1ZM316.8,62.4L319.6,64.3L316.8,69.6L319.2,76.8L320.3,75.4L320.7,70.5L323.3,70.4L325.2,67.7L320.9,60.5L322.0,58.8L320.0,57.5L316.8,62.4ZM342.1,61.0L346.9,70.4L351.1,69.7L347.2,61.7L357.1,56.6L358.6,59.9L360.1,60.4L360.8,59.9L360.0,57.3L364.9,56.0L365.5,54.7L369.5,52.6L368.1,50.1L342.1,61.0ZM413.6,8.2L414.3,8.9L419.9,4.3L432.9,-1.5L430.4,-0.9L429.8,-2.3L427.7,-1.9L432.3,-5.4L433.4,-4.3L432.0,-3.6L433.0,-2.5L434.5,-5.1L433.7,-6.5L431.9,-6.9L425.7,-2.2L426.9,0.3L418.3,4.1L413.6,8.2ZM362.6,31.3L363.4,32.8L370.7,31.4L370.5,29.8L362.6,31.3ZM437.4,1.5L439.7,6.1L441.1,5.8L438.3,0.2L437.4,1.5ZM370.7,-40.5L371.6,-38.8L379.0,-42.4L378.1,-44.2L372.2,-42.0L370.7,-40.5ZM623.4,54.0L625.2,55.5L627.5,53.5L625.9,51.4L626.7,50.7L626.1,49.9L624.4,50.4L623.4,54.0ZM586.6,12.5L587.5,13.5L591.2,10.8L596.3,18.0L597.2,17.4L591.7,9.1L586.6,12.5ZM533.4,133.6L535.0,136.3L537.1,134.2L538.1,135.5L545.6,133.0L542.9,128.5L537.0,132.6L536.2,131.9L533.4,133.6ZM605.0,45.0L619.2,68.6L623.6,66.3L630.2,60.8L627.9,58.7L623.1,62.7L620.2,60.7L619.6,62.0L618.5,61.6L619.1,59.5L617.6,57.5L620.6,55.9L620.2,52.4L623.5,46.3L615.7,37.5L605.0,45.0ZM588.6,21.3L590.1,22.3L589.4,19.8L588.6,21.3ZM584.3,88.4L585.8,89.8L586.4,89.3L586.2,87.0L588.4,85.4L588.3,84.3L584.9,85.6L584.3,88.4ZM625.1,76.4L627.6,79.1L630.3,78.2L631.3,79.0L629.7,80.7L626.8,80.4L627.6,83.8L640.9,75.5L640.8,74.5L630.8,75.5L625.1,75.1L625.1,76.4ZM587.9,91.1L588.7,91.8L603.8,89.8L615.1,86.4L619.3,86.8L619.7,84.4L613.9,83.6L606.4,85.1L603.9,85.7L604.5,87.9L599.4,88.6L598.6,87.3L597.1,87.0L588.3,89.2L587.9,91.1ZM590.3,85.1L590.5,85.7L593.3,84.9L594.4,82.2L595.6,81.8L597.1,83.9L600.5,82.8L607.2,78.1L608.9,74.9L612.8,75.2L617.9,77.2L617.8,73.9L600.0,68.2L603.1,76.9L593.3,81.9L590.3,85.1ZM282.9,249.0L283.8,249.9L289.1,246.2L288.7,245.7L299.6,237.4L299.2,236.8L282.9,249.0ZM446.5,56.4L452.8,68.7L453.5,71.6L452.3,75.0L452.9,75.8L454.5,72.2L454.4,69.3L447.7,56.0L446.5,56.4ZM407.8,147.4L409.3,150.8L411.8,152.6L413.6,152.1L415.3,149.2L414.9,147.9L411.8,151.5L410.1,149.7L413.0,146.8L408.7,146.4L407.8,147.4ZM279.4,252.7L281.4,251.3L283.3,252.4L283.8,249.9L282.6,251.7L282.1,250.7L282.9,249.0L279.4,252.7ZM452.5,57.1L454.6,61.7L459.5,60.1L458.1,55.4L452.5,57.1ZM260.8,286.6L264.5,287.4L267.5,284.5L266.2,283.4L260.8,286.6ZM284.3,292.1L288.5,296.0L290.3,293.7L286.7,290.6L288.3,289.0L287.5,288.3L284.3,292.1ZM308.9,85.8L309.1,100.9L315.5,100.5L315.7,92.2L312.8,90.4L310.7,90.5L310.3,85.9L308.9,85.8ZM342.2,314.2L345.3,316.8L343.1,319.2L348.3,323.4L351.3,320.5L355.5,324.2L356.6,327.3L359.7,326.3L362.9,323.5L355.8,314.2L354.0,315.7L347.0,306.8L342.5,307.4L342.2,314.2ZM342.1,334.6L354.3,352.8L354.9,352.4L345.6,338.9L348.1,337.5L349.0,335.0L346.8,330.5L345.6,329.5L342.1,334.6ZM388.7,296.5L390.2,297.6L389.0,299.3L389.6,300.3L392.1,300.8L392.5,301.8L390.3,306.4L394.2,310.0L399.4,306.3L399.7,304.5L388.7,296.5ZM353.7,332.4L355.8,335.7L358.8,336.4L360.6,340.3L364.4,344.6L370.7,338.9L371.5,339.5L371.9,338.9L371.3,337.9L368.6,337.4L367.8,340.3L365.0,336.4L359.5,334.4L356.6,331.9L353.7,332.4ZM340.8,325.5L344.4,328.6L348.0,323.8L344.2,321.0L340.8,325.5ZM468.9,97.7L479.2,115.8L470.6,97.7L482.0,94.6L481.6,94.0L474.8,95.4L468.9,97.7ZM479.5,95.1L488.4,108.9L487.8,113.7L490.4,112.3L492.0,114.7L494.0,113.7L482.0,94.6L479.5,95.1ZM538.7,145.3L540.9,146.6L542.7,144.6L542.5,143.2L540.6,142.9L538.7,145.3ZM626.5,237.1L629.1,239.5L629.9,238.7L628.3,237.0L629.5,235.7L628.7,234.8L626.5,237.1ZM591.7,272.1L594.0,274.4L595.2,273.7L595.4,271.6L594.4,270.4L592.7,269.8L591.7,272.1ZM423.2,245.0L427.5,249.0L429.3,246.8L428.5,245.9L427.4,247.3L424.6,243.3L423.2,245.0ZM635.0,111.3L639.1,115.0L642.4,111.6L640.9,109.0L646.6,105.5L649.1,105.0L651.9,102.1L650.8,100.8L635.0,111.3ZM478.9,249.7L480.0,250.5L497.7,249.8L496.1,245.9L494.6,246.8L494.8,248.9L484.5,248.5L478.9,249.7ZM416.2,220.7L419.1,222.1L421.8,222.0L423.1,217.6L422.5,216.3L421.0,221.2L419.1,221.0L418.6,219.5L419.5,217.0L421.8,216.0L419.1,215.0L416.2,220.7ZM440.1,341.9L455.3,356.9L466.4,355.7L471.4,352.0L463.8,344.4L462.9,345.9L470.1,351.5L466.3,354.4L456.9,355.4L442.2,342.8L444.2,340.6L442.9,339.2L440.1,341.9ZM500.0,230.4L505.2,235.0L507.1,234.1L508.1,230.0L509.6,228.8L509.0,227.3L506.8,229.1L504.5,226.7L502.2,227.5L502.5,228.9L504.2,228.4L506.2,231.2L506.6,232.1L505.7,233.2L501.6,229.3L500.0,230.4ZM421.4,216.8L422.5,216.3L421.4,216.8ZM575.8,353.2L583.9,363.3L584.0,362.3L576.6,352.6L575.8,353.2ZM469.4,321.5L477.8,329.9L478.7,329.1L470.1,320.8L469.4,321.5ZM484.6,334.0L493.0,347.5L493.8,347.2L485.3,333.7L484.6,334.0ZM576.1,350.2L584.5,361.9L585.4,362.6L586.4,362.1L577.7,349.3L576.1,350.2ZM536.5,382.9L536.6,383.6L538.8,383.2L536.5,382.9ZM488.2,400.5L488.7,401.3L499.1,396.5L499.2,395.6L488.2,400.5ZM518.5,387.1L518.8,387.8L531.5,384.3L531.8,383.5L518.5,387.1ZM473.7,245.7L474.8,246.6L480.4,240.2L480.8,238.6L479.3,238.4L473.7,245.7ZM402.3,247.5L412.8,256.8L414.0,256.7L404.5,247.6L407.6,245.0L412.0,247.7L412.4,246.9L407.6,243.5L402.3,247.5ZM496.2,244.0L499.7,249.6L507.3,249.1L497.3,234.5L499.0,238.2L496.5,241.4L497.7,243.1L496.2,244.0ZM350.0,516.5L351.7,517.5L366.1,517.1L350.0,516.5ZM489.7,436.4L491.3,437.4L493.8,437.3L489.7,436.4ZM486.8,431.9L489.3,437.6L490.0,437.1L489.3,435.6L489.9,432.4L488.7,431.3L486.8,431.9ZM503.6,456.4L506.4,460.6L515.8,453.6L515.2,452.8L506.8,459.1L504.2,456.0L503.6,456.4ZM515.4,540.1L521.5,547.8L520.3,549.6L522.0,548.9L522.2,547.3L516.2,539.6L515.4,540.1ZM492.1,430.7L492.2,431.6L493.3,428.9L495.4,427.9L495.7,425.7L493.2,427.8L492.3,427.5L492.1,430.7ZM312.3,450.4L312.7,451.5L317.4,450.1L316.9,449.1L312.3,450.4ZM364.9,544.0L367.5,552.7L370.3,554.4L365.5,543.4L364.9,544.0ZM552.2,450.2L555.5,456.5L553.5,457.9L561.4,468.3L562.2,467.2L556.2,457.6L558.3,455.9L554.4,448.5L552.2,450.2ZM561.2,523.3L565.5,521.8L568.2,519.6L577.0,517.4L585.6,512.1L584.0,510.7L578.7,514.3L568.3,518.2L561.2,522.4L561.2,523.3ZM603.4,490.5L604.0,491.2L610.8,485.6L614.6,486.5L617.4,485.9L620.6,482.5L617.2,479.2L616.1,480.3L616.4,482.4L613.7,483.5L615.6,483.6L617.4,482.2L618.4,483.3L615.2,484.9L610.9,484.0L603.4,490.5ZM583.4,501.1L584.7,502.5L587.5,501.2L586.8,500.1L583.4,501.1ZM406.6,625.9L406.7,626.5L413.5,622.7L412.0,621.6L406.6,625.9ZM423.8,596.2L428.5,603.4L429.1,602.9L425.4,597.1L427.8,595.7L432.4,602.9L435.0,601.5L437.3,607.1L433.7,609.5L434.4,610.5L440.7,606.3L436.6,599.6L432.9,602.1L428.0,594.3L423.8,596.2ZM499.9,586.5L502.0,589.7L500.9,590.5L504.0,594.2L506.1,593.0L500.8,585.8L499.9,586.5ZM490.4,586.2L498.9,597.2L500.3,596.4L494.5,589.7L494.9,588.9L491.1,585.6L490.4,586.2ZM74.3,613.7L77.6,616.5L96.4,626.6L135.7,650.6L137.1,650.2L142.9,643.5L143.6,644.2L150.3,637.4L157.3,646.1L150.2,653.8L180.2,683.5L182.6,680.8L185.1,683.3L186.5,681.6L186.4,678.6L183.4,673.7L218.8,643.9L217.6,642.3L212.9,643.8L208.8,639.6L186.8,609.6L197.7,603.9L193.4,571.1L190.3,564.0L186.3,558.0L175.3,548.8L173.9,548.9L172.8,567.5L172.1,567.2L173.0,546.4L157.6,544.0L143.1,544.7L142.1,544.0L144.8,549.4L138.7,552.4L136.1,547.0L110.3,560.7L109.5,561.5L118.7,568.3L125.6,570.0L124.4,570.8L122.3,575.4L123.1,577.7L120.6,591.4L107.3,607.5L88.2,594.7L74.3,613.7ZM103.4,617.2L107.8,608.6L125.5,618.3L123.8,618.7L119.9,626.3L103.4,617.2ZM194.9,520.2L199.6,526.0L198.8,527.3L199.7,528.4L220.7,514.8L212.1,504.9L202.2,515.4L194.9,520.2ZM199.0,560.6L199.1,563.3L212.1,562.6L213.1,561.2L212.6,557.1L232.3,543.1L223.4,522.5L222.5,523.9L206.9,532.2L211.7,537.3L208.5,541.3L206.1,547.1L201.7,549.0L199.0,560.6ZM152.0,222.6L153.5,226.8L156.1,226.1L154.3,221.8L152.0,222.6Z"/><path class="water" d="M39.1,278.2L41.1,277.8L41.5,279.4L43.0,279.6L43.6,276.3L42.0,275.5L39.1,278.2ZM46.5,242.3L47.1,245.0L53.5,242.8L52.9,240.4L46.5,242.3ZM29.1,509.1L29.6,510.9L31.8,511.2L34.4,509.9L34.7,508.3L31.6,506.2L29.1,509.1ZM3.5,510.6L5.5,512.7L8.1,509.9L6.1,507.9L3.5,510.6ZM239.3,617.4L241.2,620.7L243.2,621.1L241.3,616.5L239.3,617.4ZM618.9,556.1L621.6,559.1L625.8,555.3L623.2,553.4L618.9,556.1ZM215.3,464.8L216.4,466.4L217.9,465.7L216.1,464.2L215.3,464.8ZM13.3,400.2L14.2,401.4L16.3,400.9L19.6,396.3L17.6,395.4L13.3,400.2ZM190.4,246.5L191.8,249.1L194.9,247.8L192.0,244.5L191.0,244.4L190.4,246.5ZM142.0,158.0L145.5,162.8L147.2,162.3L147.3,161.3L143.8,156.7L142.0,158.0ZM132.0,219.2L132.9,220.8L135.7,221.3L137.0,224.8L138.4,224.7L138.4,220.9L135.3,217.7L132.6,217.3L132.0,219.2ZM303.4,224.8L305.3,226.8L306.6,224.6L306.1,223.6L303.4,224.8ZM171.8,-42.1L172.7,-40.3L174.3,-39.9L174.6,-41.0L172.9,-43.2L171.9,-43.1L171.8,-42.1ZM-5.2,8.9L10.3,10.1L-5.1,8.1L-5.2,8.9ZM68.0,67.8L68.7,70.9L70.4,70.8L71.2,69.6L70.4,67.7L68.0,67.8ZM96.4,125.5L97.1,127.5L99.1,127.5L98.4,123.6L96.4,125.5ZM427.7,-1.9L433.4,-4.3L431.6,-5.2L427.7,-1.9ZM360.8,57.5L362.0,59.2L363.7,57.7L363.2,56.3L360.8,57.5ZM299.4,-44.1L306.1,-36.8L306.8,-37.2L307.2,-38.9L301.1,-44.9L299.8,-45.0L299.4,-44.1ZM436.0,-27.2L437.1,-25.6L440.3,-25.5L440.6,-29.7L436.4,-29.7L436.0,-27.2ZM372.5,19.7L373.1,21.4L375.8,22.2L377.6,21.2L378.3,18.0L376.9,16.6L373.7,16.2L372.5,19.7ZM589.1,19.0L590.7,20.6L594.5,19.0L594.8,17.8L593.8,16.3L592.6,16.2L589.1,19.0ZM587.3,87.5L588.3,89.2L613.9,83.6L621.2,84.6L622.8,83.8L622.9,79.8L620.9,80.6L620.6,79.7L617.2,80.3L611.5,77.9L608.0,77.6L600.5,82.8L597.1,83.9L597.2,84.9L593.3,84.9L588.0,86.3L587.3,87.5ZM554.0,82.0L554.1,83.1L556.8,83.6L556.2,81.0L554.0,82.0ZM282.1,251.0L283.3,251.6L283.3,249.8L282.1,251.0ZM410.1,149.7L412.4,151.6L414.9,147.9L413.0,146.8L410.1,149.7ZM367.0,337.8L368.4,340.2L368.0,337.6L367.0,337.8ZM398.4,310.2L402.2,313.6L405.6,309.6L402.0,306.6L398.4,310.2ZM565.5,358.4L566.2,360.2L568.1,359.9L569.0,358.4L566.9,356.9L565.5,357.3L565.5,358.4ZM501.6,229.3L504.9,233.0L506.3,233.0L506.2,231.2L504.2,228.4L502.0,228.3L501.6,229.3ZM418.6,219.5L419.1,221.0L421.0,221.2L421.9,217.2L419.5,217.0L418.6,219.5ZM424.6,243.3L425.4,245.3L427.8,247.0L428.5,245.9L425.9,242.5L424.6,243.3ZM488.7,429.1L488.7,431.3L489.9,432.4L489.7,436.4L493.7,437.0L492.3,433.1L492.7,428.5L489.6,427.5L488.7,429.1ZM311.0,448.5L312.3,450.4L316.9,449.1L314.2,445.9L311.0,448.5ZM536.0,507.5L538.0,510.2L540.7,509.0L540.7,507.5L538.2,505.4L536.0,507.5ZM627.7,457.6L630.7,460.8L633.2,459.4L632.2,456.5L630.1,455.1L628.2,456.2L627.7,457.6ZM540.6,563.0L541.6,565.0L542.8,564.6L542.7,565.5L546.1,562.7L543.8,560.5L540.6,563.0ZM481.8,547.1L483.3,549.4L485.3,548.3L483.8,545.8L481.8,547.1ZM253.4,598.1L254.5,600.6L258.0,601.6L258.5,600.7L255.2,596.7L253.4,598.1ZM192.0,547.3L193.7,547.6L208.9,538.1L207.7,535.3L204.0,531.4L204.4,533.3L207.5,537.4L192.0,547.3ZM276.4,463.5L283.0,464.3L286.2,460.1L284.5,458.7L281.5,461.6L276.4,463.5ZM190.5,467.7L191.8,469.8L194.0,469.4L195.8,467.3L191.6,466.3L190.5,467.7ZM162.4,173.4L163.3,177.6L166.4,176.6L164.7,172.8L162.4,173.4ZM101.1,160.9L103.1,163.6L104.5,162.0L103.7,160.3L101.1,160.9ZM-0.8,184.1L-0.7,185.4L1.0,186.6L3.7,185.2L1.8,183.0L-0.1,183.0L-0.8,184.1ZM-16.1,336.8L-12.6,338.5L-11.4,335.3L-14.6,333.6L-15.6,334.3L-16.1,336.8ZM72.8,95.9L74.2,97.9L75.3,97.5L74.1,95.1L72.8,95.9ZM106.9,14.9L109.9,15.7L110.8,13.4L108.6,12.8L106.9,14.9ZM333.7,349.6L334.7,351.9L337.2,353.0L336.5,349.3L334.6,348.0L333.7,349.6ZM325.1,351.7L326.4,353.1L328.1,351.3L329.1,347.8L328.1,346.8L325.5,347.7L325.1,351.7ZM125.5,643.0L127.2,643.7L127.9,642.7L127.9,638.6L126.9,638.7L125.5,643.0ZM592.6,271.5L593.9,273.8L594.9,273.7L594.2,271.1L592.6,271.5ZM588.3,239.0L588.4,241.2L589.3,241.4L589.9,237.8L588.3,239.0ZM555.9,248.3L557.5,250.4L560.4,247.8L558.8,245.8L555.9,248.3ZM515.1,224.6L516.8,226.4L519.6,224.7L517.6,222.4L515.1,224.6ZM423.5,274.9L424.9,275.7L425.8,274.4L424.3,273.6L423.5,274.9ZM302.8,282.0L304.1,283.7L306.6,282.3L304.8,280.6L302.8,282.0ZM263.2,385.9L264.2,386.6L267.2,385.7L265.2,383.6L263.2,385.9ZM574.8,333.4L575.8,334.8L578.5,332.9L577.2,331.5L574.8,333.4ZM366.6,463.4L368.6,466.6L369.6,466.8L368.9,461.7L366.8,462.1L366.6,463.4ZM334.9,452.7L336.3,453.7L336.0,452.4L334.9,452.7ZM3.3,446.9L4.1,448.5L6.3,446.4L4.8,445.2L3.3,446.9ZM-16.6,114.3L-15.8,114.9L-13.3,113.6L-11.2,111.3L-12.6,110.1L-15.2,110.3L-16.3,111.4L-16.6,114.3ZM540.3,66.1L541.3,66.8L542.2,65.8L541.3,65.1L540.3,66.1ZM426.0,63.7L426.2,64.9L427.3,65.3L432.7,63.8L433.0,62.1L430.2,61.6L426.0,63.7ZM292.0,599.1L293.1,601.9L295.1,603.0L297.3,602.5L296.1,597.7L292.0,599.1ZM637.5,140.6L639.1,141.8L641.7,138.8L639.8,137.4L637.5,140.6ZM-29.3,384.7L-27.3,386.8L-25.9,385.2L-28.2,383.6L-29.3,384.7ZM455.9,176.7L458.2,177.9L459.6,176.9L460.0,175.1L457.9,174.5L455.9,176.7ZM491.1,244.5L492.5,246.8L494.0,246.6L493.0,243.8L491.1,244.5ZM303.8,580.2L306.3,584.4L308.0,583.6L305.8,579.3L303.8,580.2ZM368.2,531.8L369.8,535.9L372.9,534.7L371.1,530.6L368.2,531.8ZM488.4,578.2L489.8,579.3L492.2,577.3L492.4,576.0L490.6,575.6L488.4,578.2ZM516.0,546.0L518.3,548.6L519.1,548.4L518.4,545.6L517.0,545.1L516.0,546.0ZM9.2,24.5L9.3,25.3L10.7,25.2L10.5,21.9L9.2,24.5ZM-2.8,5.6L-2.4,7.0L0.6,7.7L2.3,5.4L1.4,3.5L0.5,3.5L-2.2,4.2L-2.8,5.6ZM-19.0,27.0L-17.4,27.7L-16.0,24.8L-17.6,24.6L-19.0,27.0ZM171.0,4.4L172.1,5.3L174.0,3.4L171.0,4.4Z"/><path class="water stream" d="M90.1,-0.9L87.9,-0.1L86.8,2.0L87.6,10.5L86.9,11.7M86.9,11.7L75.6,18.6L73.3,15.5L71.8,15.0L69.4,10.5L61.7,13.4L55.3,13.7L34.6,11.5L30.0,9.0L22.6,7.2L17.6,6.8L12.0,7.6L8.9,9.7L5.8,9.6L-3.9,8.9L-17.4,5.0L-35.9,8.7M297.0,117.6L296.1,120.0L292.3,123.2L286.3,126.1L274.6,127.9L254.6,129.0L237.9,126.6L226.7,119.0L221.8,119.3L209.1,110.5L200.0,98.3L197.6,84.3M217.2,382.0L211.8,376.2L206.7,372.8L188.5,364.1L175.9,356.5M357.0,623.7L393.6,608.9M493.0,181.6L505.5,177.2M363.9,31.9L369.9,31.1M204.6,540.9L207.0,546.5L208.0,552.2L216.7,566.8L222.0,571.6L225.0,577.1L234.1,582.5L241.6,588.3L246.2,588.6L252.1,591.4L254.8,591.0M313.4,584.0L319.8,586.5L331.0,581.7M220.7,593.8L241.6,588.3M624.5,639.8L625.1,638.6L629.8,636.0L639.4,634.0M400.9,368.2L415.6,382.8L429.6,407.8L439.9,406.8L446.9,410.9M537.7,383.1L542.1,382.4M542.1,382.4L544.7,378.5L553.5,375.7L567.7,401.4L592.4,382.1L600.2,392.1L603.9,392.3L617.8,387.7L622.4,388.6L626.5,386.1L639.9,389.0M501.1,395.1L519.2,387.4L530.0,384.2L537.7,383.1M499.0,396.2L501.1,395.1M446.9,410.9L448.7,410.0M448.7,410.0L455.6,405.6L464.8,401.9L470.7,409.7L499.0,396.2M535.1,454.7L551.5,475.5L557.4,471.1L584.7,502.0L591.1,498.5L593.8,500.2L598.3,497.6M568.4,560.2L576.8,567.9L595.9,556.2M620.7,552.1L625.6,550.1M595.9,556.2L596.2,549.9M596.2,549.9L607.8,558.3L610.0,558.6L620.7,552.1M600.0,542.2L612.4,557.1M313.2,518.4L335.3,515.5M335.3,515.5L336.9,516.1M336.9,516.1L347.8,516.4L352.5,517.7L370.7,517.4L379.1,520.7L383.6,521.1M383.6,521.1L413.4,525.0M413.4,525.0L426.0,519.0L430.4,524.5L438.0,519.6L460.3,546.0M465.4,548.7L477.9,563.9M460.3,546.0L465.4,548.7M454.9,587.4L455.8,588.4L457.0,587.6M500.2,558.6L506.4,557.0L514.0,553.6L520.9,549.6L521.9,547.4L531.3,541.0L536.3,542.1L538.6,536.6L544.1,531.0M620.1,482.9L621.7,481.4M621.7,481.4L631.8,480.9M633.3,480.9L639.7,481.2M631.8,480.9L633.3,480.9M393.6,608.9L395.5,608.1M395.5,608.1L427.8,594.9L432.4,602.0L433.4,602.3L454.9,587.4M544.1,531.0L545.1,530.1L547.9,533.0L548.8,532.0M548.8,532.0L566.8,520.1L577.2,516.5L587.8,511.2L594.3,511.0L601.9,503.7L598.7,497.1L610.7,486.3L616.9,486.2L620.1,482.9M505.5,177.2L559.9,156.3M469.9,97.7L474.2,95.9L486.5,93.3L519.4,90.3L534.7,82.8L542.4,81.6L555.6,83.0L585.7,90.8L600.4,89.5L615.0,86.0L633.2,89.2L637.8,91.5M559.9,156.3L570.8,153.9L589.1,146.7L592.4,144.6L602.4,134.6L609.1,133.9L615.5,130.8L630.3,116.0L637.9,110.2M160.2,49.8L142.8,41.9L130.5,38.8L112.9,32.4L86.9,11.7M71.1,290.9L68.0,295.1M68.0,295.1L57.5,301.6L42.5,303.6L36.1,309.8L27.0,315.9L23.4,320.5L17.3,324.2L4.1,338.2L-15.1,348.2L-24.7,357.9L-30.9,369.5L-33.4,371.7L-39.0,372.9M152.1,338.8L150.5,337.0M150.5,337.0L148.0,330.2L139.0,319.2L137.5,315.5L136.9,304.7L130.0,290.9L114.6,285.2L105.9,287.9L97.8,285.8L85.3,285.8L71.1,290.9M175.9,356.5L172.7,358.8M172.7,358.8L152.1,338.8M245.3,265.7L234.5,266.5L218.6,272.4L199.8,276.0L186.5,276.2L180.5,277.4L145.3,287.6L132.2,289.8L130.0,290.9M35.0,470.6L32.0,466.9L23.3,459.9L15.9,455.1L3.6,449.3M3.6,449.3L-8.4,451.0M-8.4,451.0L-29.5,435.4M48.4,638.2L38.2,633.7L23.1,624.9M23.1,624.9L15.0,621.5M15.0,621.5L-1.3,612.5L-19.0,605.2L-24.3,612.6L-38.2,603.0M459.7,-6.0L461.3,-6.6M461.3,-6.6L467.3,-11.2L485.1,-22.0L505.9,-39.0M369.9,31.1L372.7,30.8M372.7,30.8L380.3,29.3L388.2,26.1L398.8,18.1L410.1,12.2L418.7,4.7L443.3,-6.4L452.8,-11.9L456.7,-11.0L459.7,-6.0M255.5,590.8L259.5,589.6L261.8,589.9L265.4,591.4L267.8,594.0L277.4,591.2L278.2,592.3L283.1,591.9L311.8,584.5M254.8,591.0L255.5,590.8M219.4,594.1L220.7,593.8M187.1,609.0L211.2,596.8L219.4,594.1M499.0,558.9L500.2,558.6M457.0,587.6L465.9,580.8L470.7,571.6L479.5,562.7L499.0,558.9M197.6,84.3L190.3,66.9L187.5,62.5L175.6,50.1L166.7,48.6L160.2,49.8M311.8,584.5L313.4,584.0M331.0,581.7L357.0,623.7"/><path class="rd ped" d="M365.2,452.1L375.0,466.0L413.2,527.0L436.5,558.6L422.4,563.4L406.6,567.0L385.2,579.2L379.3,583.5M293.7,538.9L280.9,540.3L263.8,549.9L246.0,552.7M244.0,608.3L255.9,602.2M214.4,564.8L209.3,571.9L219.8,593.4M97.0,627.8L116.0,639.0L150.2,637.0M229.8,536.0L269.7,521.3L274.1,520.5L277.9,521.9L281.3,528.6L284.3,532.3L285.6,539.4M278.4,496.0L282.2,499.1L293.6,492.0M220.9,515.7L212.1,505.3M560.9,127.4L539.7,135.6M469.0,131.7L500.6,156.5L502.8,156.6L519.7,144.2M61.0,255.2L86.7,252.5L116.4,242.9L119.4,243.5L125.1,247.4L136.4,245.3M335.7,621.9L323.9,591.8L320.0,588.2L312.0,583.7L306.1,575.9M218.4,230.9L229.2,226.4L229.3,223.9L191.5,175.4M301.4,177.1L286.0,180.0L251.3,201.6L237.9,183.1M436.5,558.6L473.2,613.3M367.3,66.4L367.5,68.6L364.9,76.9L364.7,82.8L373.5,114.9L377.0,122.5L380.5,126.8L393.5,135.7M377.1,63.4L367.6,10.9M154.1,71.6L165.7,82.1M161.1,467.4L159.2,468.0L145.1,481.4L142.6,482.4L127.3,472.0L115.1,466.6L105.3,463.5M385.2,579.2L384.4,575.6L370.4,554.0M595.1,9.8L618.5,-3.5L636.3,-15.0M45.4,192.7L66.6,209.9M229.2,226.4L243.9,218.8L252.9,204.8L251.3,201.6M601.9,232.0L601.9,231.7M605.0,243.2L604.8,246.0L597.7,245.6M598.8,251.7L598.7,253.8L600.7,253.9L601.9,232.0L607.8,231.9M605.1,240.3L605.0,243.2L597.8,242.8M599.0,248.7L604.6,249.0M605.3,237.4L605.1,240.3L598.0,239.9M604.8,246.0L604.5,252.0L598.8,251.7L599.0,248.7L597.5,248.6M605.5,234.6L605.8,230.3M97.0,627.8L77.5,617.2L53.2,597.0M556.4,-30.1L558.4,-31.9M220.3,594.4L231.6,617.4M607.3,638.0L613.4,632.5L624.9,614.4L638.0,601.1M623.6,638.8L626.1,636.0L635.7,633.0M404.6,258.5L405.9,260.8L412.9,265.4L412.9,266.2L401.3,280.2L384.5,298.2M607.8,231.9L607.7,234.7L598.3,234.2M416.3,382.0L374.3,341.6L377.1,338.3L362.7,324.2L355.6,315.0L354.1,316.2L342.5,301.4L339.6,317.0M246.0,552.7L239.3,552.9L237.9,552.2L235.4,548.3M556.4,-30.1L571.8,-12.8L581.6,-3.5L600.2,19.4L623.6,45.9L629.6,49.8M220.9,515.7L261.0,484.7L278.4,496.0M263.3,506.1L265.8,510.2L265.8,512.3L269.7,521.3M174.3,560.0L173.9,567.9L169.0,594.3M257.4,598.8L257.6,595.3L254.9,590.3L246.0,552.7M255.9,602.2L257.4,598.8M111.5,561.7L134.6,548.7L136.1,548.7L138.6,552.9L145.0,550.0L143.4,545.1L143.9,544.0L172.0,531.5M223.5,520.3L210.9,528.7L202.1,531.4M202.1,531.4L197.1,529.1L191.0,530.1M191.0,530.1L188.0,523.3M176.3,548.2L183.5,554.1L187.3,551.9L194.0,571.4L197.8,603.1M175.0,548.1L173.7,531.0M212.1,505.3L235.3,476.5M243.9,466.0L249.0,460.2L250.5,460.1L276.3,478.4L292.5,492.7M111.5,561.7L109.6,560.6M235.3,476.5L234.4,475.6M243.9,466.0L242.7,465.2M169.0,621.1L167.9,622.0M173.7,531.0L172.9,529.8M219.8,593.4L220.3,594.4M197.8,603.1L193.0,603.9L183.6,609.6L169.0,621.1M169.0,594.3L132.9,614.1L127.6,618.0M212.1,505.3L211.2,504.4M188.6,524.5L201.6,516.6L212.1,505.3M601.9,232.0L598.5,231.3L597.5,248.6M605.5,234.6L605.3,237.4L598.1,237.0M609.3,168.5L635.2,190.2M187.9,639.0L196.0,632.2M602.0,231.2L602.1,230.2M601.9,231.7L602.0,231.2M235.4,548.3L223.8,521.3M223.8,521.3L223.5,520.3M223.5,520.3L220.9,515.7M223.8,521.3L263.3,506.1L266.5,503.4L274.8,500.0L278.4,496.0M191.0,530.1L189.8,537.9L176.3,548.2M176.3,548.2L175.0,548.1M173.7,531.0L188.6,524.5M174.3,560.0L175.0,548.1M175.0,548.1L173.6,548.1M108.5,608.5L121.7,592.4L123.9,577.9L127.8,569.6L120.4,567.8L111.5,561.7M108.5,608.5L107.6,608.1L97.0,627.8M219.8,593.4L212.5,595.7L197.8,603.1M561.5,128.0L541.7,141.1L542.1,144.3M126.9,618.1L108.5,608.5M127.6,618.0L126.9,618.1M235.4,548.3L230.8,552.5L222.6,555.9L219.1,558.6L215.6,563.4M215.6,563.4L214.4,564.8M169.0,621.1L169.0,594.3M637.4,72.2L622.7,71.5M622.7,71.5L610.1,68.5L548.5,45.0M548.5,45.0L532.7,38.9L521.9,36.2L511.6,35.1L498.6,35.9L430.9,45.6L386.6,59.2L378.7,60.8L376.4,62.4L329.1,76.9L321.4,77.8L312.9,76.9M266.0,61.4L238.3,50.8L227.8,48.1M227.8,48.1L222.5,47.1M394.2,58.1L399.3,77.5M310.9,78.3L319.5,80.1L329.7,79.2L371.1,66.0L379.6,64.7L386.8,61.6L434.0,46.9L508.4,37.4L520.0,38.2L532.3,41.2L614.0,72.1L625.2,74.9L637.3,74.5M312.9,76.9L308.8,75.6M265.4,63.1L308.2,77.4M292.4,70.0L266.0,61.4M308.8,75.6L292.4,70.0M265.7,62.1L265.4,63.1M308.2,77.4L310.9,78.3M312.0,77.8L312.9,76.9M222.5,47.1L227.3,50.0L265.4,63.1M308.8,75.6L308.3,76.7M634.4,227.5L634.5,228.7L602.5,259.7M140.2,23.5L140.0,22.1L94.6,-2.3L82.0,-6.1L13.1,-6.5L6.7,-7.3L1.2,-6.1L-39.3,-6.6M-40.0,-4.3L0.4,-4.5L6.7,-3.4L14.9,-4.1L82.4,-4.2L91.7,-1.5L134.2,22.3L138.7,23.9L140.2,23.5M274.4,64.2L274.5,65.2M456.9,43.0L435.8,-0.8M442.1,43.8L442.3,45.0M377.3,64.6L377.1,63.4M366.9,65.3L367.3,66.4M213.7,324.4L198.2,296.2L184.6,300.4"/><path class="rd minor" d="M-5.5,-5.3L-5.6,7.6M-6.3,637.2L23.9,622.8L40.3,609.7L53.2,597.0M-35.5,403.7L-23.7,391.5L4.0,374.2L8.1,374.2L13.1,380.5L14.4,380.4L35.9,364.1L54.3,354.4L62.1,351.3L68.0,350.9L81.8,355.5L109.5,357.5L118.5,357.0M-39.7,195.1L-26.8,192.6L-23.7,192.7L-20.3,194.3L7.2,223.6M315.0,531.2L314.5,524.4L313.0,519.4L294.3,492.9M315.0,531.2L302.6,536.6L293.7,538.9M637.3,332.6L604.5,354.7L566.2,371.6L548.9,375.8L544.3,377.7L542.4,379.6M570.4,556.8L534.3,519.3L530.9,518.2L525.7,519.6L523.5,518.6L507.0,494.0L487.0,459.2L478.7,449.3L468.7,440.3L464.0,434.1L459.1,417.0L457.5,414.9M457.5,414.9L449.3,411.3L440.7,406.0L431.4,406.8L430.0,406.2L416.3,382.0M542.4,379.6L537.9,365.0L532.3,352.5L534.0,350.4L545.8,344.4L551.3,340.5L556.6,336.2L558.3,333.7L554.5,327.6L549.3,321.7L511.8,283.0L535.4,260.3L536.0,258.4L535.4,256.6L526.9,246.1M346.2,460.1L333.8,442.6L326.6,438.9L321.7,433.4L313.9,427.3L284.0,410.3L277.5,405.7M638.3,502.3L633.3,492.5L619.9,481.3L600.5,463.1L577.9,438.8L547.1,393.8L541.0,382.9M339.1,284.7L323.1,271.8M323.1,271.8L328.9,256.9L329.0,254.6L321.9,222.1L320.3,216.4L310.7,195.0L301.4,177.1L300.2,169.4L300.6,142.0L308.1,120.7L309.0,115.8L308.0,80.4M185.8,40.2L171.3,52.6L154.1,71.6L120.6,118.0L68.0,175.4M185.8,40.2L208.9,43.4L222.5,47.1M119.2,357.8L124.3,389.5L148.2,419.2L169.5,441.4L172.2,445.5L172.8,451.1L162.0,464.6L161.1,467.4L167.8,482.7L188.7,523.0M442.3,45.0L454.7,69.3L454.7,72.4L453.2,76.8L454.1,80.5L465.0,95.9L465.1,99.3L462.7,108.6L466.2,126.9L469.0,131.7L467.2,135.2L452.9,146.6M634.1,111.2L613.9,130.6L610.5,132.3L601.2,134.0L589.9,144.8L586.5,147.2L580.9,148.8L578.4,147.9L555.9,121.4L539.6,110.7L537.8,111.3L533.1,116.1L533.2,117.9L537.0,122.0M542.4,379.6L541.0,382.9M293.6,492.0L277.7,477.5L249.3,456.9M526.9,246.1L516.5,249.1L482.5,250.6L462.4,253.3L445.0,253.2L404.6,258.5L395.7,260.4L385.7,263.9L353.2,279.2L339.1,284.7M242.7,465.2L234.4,475.6M188.0,523.3L172.9,529.8M101.3,558.0L109.6,560.6M-7.6,-34.8L-5.5,-5.3M136.4,245.3L143.9,244.6L176.8,235.5L187.8,234.2L199.2,234.8L218.4,230.9M185.8,40.2L183.3,22.0L183.5,6.5L173.5,-19.0M233.1,50.8L233.9,48.2L244.3,33.9L251.8,25.4L255.7,18.1M138.0,93.1L96.8,58.2L94.6,58.2L86.1,62.5L65.5,64.4L64.1,63.3L62.6,56.9L61.0,54.6M90.5,-3.1L90.4,-5.7L85.7,-13.2L85.9,-15.5L101.6,-31.7M633.3,492.5L632.5,479.7L634.0,476.7L639.6,472.1M611.4,534.4L627.9,555.1L623.2,560.2L633.9,573.1M309.6,297.5L289.1,335.8L288.4,342.2L290.0,378.7L287.2,386.5L277.5,405.7M218.4,230.9L163.4,208.5L141.5,202.9L116.7,189.0L93.0,184.7L68.0,175.4M312.0,77.8L319.8,79.0L328.8,78.3L432.0,46.5L500.4,36.9L510.1,36.3L519.5,37.0L531.2,39.7L615.3,71.6L633.6,73.7M265.7,62.1L308.3,76.7M556.0,-34.5L560.7,-38.6M636.3,227.5L617.7,230.5L593.0,230.1L553.0,235.9L538.9,239.2L533.4,241.6L526.9,246.1M-36.3,465.4L-23.3,473.1L29.1,500.4L43.2,512.8L72.1,530.6L101.3,558.0M68.0,175.4L45.4,192.7M7.2,223.6L-17.0,246.6L-37.2,261.2M346.2,460.1L341.0,463.0L322.8,466.5L317.0,468.5L314.3,471.1L305.5,488.0L302.9,489.8L294.3,492.9M445.8,629.2L434.2,610.9M293.7,538.9L299.8,564.3M244.0,608.3L255.6,627.7M-2.9,70.3L4.9,67.3L18.5,58.9L20.0,57.1M19.5,154.0L36.8,138.1M30.1,172.3L19.6,179.7M158.9,207.0L153.1,188.8M266.0,61.4L282.9,28.1L303.1,-24.4L311.6,-39.6M20.5,514.1L24.0,508.2L30.0,501.3M63.1,453.4L64.5,455.2L64.9,459.6L64.1,469.0L62.3,471.2L44.1,481.5L39.3,486.3L29.1,500.4M83.5,517.5L72.1,530.6M53.5,534.2L56.1,532.9L64.0,525.1M-39.8,635.4L-25.0,626.5M291.3,330.9L306.1,342.7L316.2,349.1M302.6,536.6L306.6,548.8M584.8,25.0L602.4,18.1M119.2,357.8L150.4,338.0L156.1,338.0L164.6,340.4L169.7,340.2L211.7,325.3L236.1,313.0L268.1,307.4L276.6,305.1L294.0,298.4L309.6,297.5M339.6,317.0L349.7,325.2M5.7,433.7L-23.3,473.1M73.7,415.9L107.5,399.9L123.7,387.5M435.4,-31.1L442.8,-31.1L447.5,-28.5M443.5,-35.8L458.4,-10.2L467.3,9.3L481.1,26.0L488.0,38.7M211.2,504.4L202.0,514.9L188.7,523.0M223.0,639.1L224.8,636.3L228.2,624.4L231.6,617.4M140.2,23.5L164.8,36.5L185.8,40.2M222.5,47.1L265.7,62.1M24.5,395.0L20.6,390.9L13.6,380.7M134.7,199.5L128.6,212.9L132.1,227.7M500.5,396.3L487.4,377.1M314.0,522.0L328.0,517.1L336.4,515.4M277.5,405.7L271.3,412.1L257.6,423.6L255.7,426.3L252.3,435.5L251.9,446.9L249.3,456.9M234.4,475.6L211.2,504.4M249.3,456.9L242.7,465.2M53.2,597.0L72.4,579.3L101.3,558.0M172.0,531.5L173.6,548.1L172.3,568.2L168.5,586.4L167.8,595.0L167.9,622.0M379.3,583.5L371.0,586.9L367.0,586.4L355.0,565.5L348.7,556.7L320.4,538.4L315.0,531.2M457.5,414.9L392.6,443.5L377.1,447.6L365.2,452.1M-6.5,53.7L5.3,100.6L6.9,112.2L14.5,132.5L17.1,148.2L25.7,165.7L45.4,192.7M-5.6,7.6L-5.8,9.4M150.2,637.0L154.7,631.5L167.9,622.0M469.1,318.4L469.3,319.5L480.0,329.9M453.6,333.0L484.5,303.5L494.1,298.6L501.9,291.3M511.8,283.0L501.9,291.3M541.0,382.9L527.6,385.6L517.0,389.0L469.8,410.8L457.5,414.9M365.2,452.1L346.2,460.1M294.3,492.9L293.6,492.0M188.7,523.0L188.0,523.3M61.0,255.2L66.9,267.1L71.1,279.0L68.9,292.9L69.5,296.8L95.0,334.8L118.5,357.0M339.1,284.7L311.4,295.4M311.4,295.4L339.6,317.0M173.5,-19.0L173.1,-20.5M196.1,25.6L184.7,31.2M230.9,16.8L185.6,37.1M430.7,370.0L417.3,379.2L416.3,382.0M-6.5,53.7L-34.2,63.0M-5.8,9.4L-8.2,31.3L-6.5,53.7M45.4,192.7L7.2,223.6M323.1,271.8L273.8,253.7L258.8,249.5L218.4,230.9M45.4,192.7L54.4,235.6L61.0,255.2M171.8,530.4L172.0,531.5M172.9,529.8L171.8,530.4M409.6,637.9L394.4,608.5L381.3,585.5L379.3,583.5M231.6,617.4L237.7,610.9L241.3,608.7L244.0,608.3M167.9,622.0L168.6,630.7L170.6,637.8M109.6,560.6L141.6,543.6L171.8,530.4M158.7,57.7L159.4,57.0L164.4,60.7M347.3,172.6L338.6,166.7L300.2,154.8M116.0,340.0L126.2,353.9M449.9,236.4L461.7,251.1L462.4,253.3M419.8,234.1L436.0,254.6M522.5,584.9L497.0,555.7L486.8,541.6L482.6,544.1M509.0,592.8L535.1,621.2L544.0,624.2L549.1,620.9M516.5,508.5L527.2,500.5L531.5,499.4L535.2,496.6M265.7,62.1L266.0,61.4M310.9,78.3L312.0,77.8M308.3,76.7L312.0,77.8M308.2,77.4L308.0,80.4M308.0,80.4L310.9,78.3M308.3,76.7L308.2,77.4M629.7,228.2L623.5,221.2L620.5,221.8L620.7,222.9M623.3,229.5L614.6,220.4L613.2,219.9M362.0,469.9L364.1,469.0M356.7,455.6L362.0,469.2L360.3,472.0M584.9,363.2L575.8,350.7L573.2,349.0L570.5,349.4M274.5,65.2L270.7,92.9L267.0,111.5L267.4,114.6M159.2,66.1L172.4,77.7L173.4,76.5M20.0,57.1L24.0,46.5L24.9,45.3L26.5,45.1L27.6,46.7L27.2,48.6L22.5,50.1M484.4,118.9L485.9,121.8L469.0,131.7M551.8,47.5L551.1,49.6L552.6,64.6L550.8,65.3M139.1,22.9L122.6,14.1M139.1,22.9L140.2,23.5M122.6,14.1L135.0,21.7L139.1,22.9M-26.5,-5.4L82.3,-5.0L90.5,-3.1L122.6,14.1M292.9,2.2L260.2,-35.8M304.0,-26.3L299.3,-28.5L294.8,-23.4M72.4,579.3L76.8,592.2L75.8,593.4M311.4,295.4L309.6,297.5M118.5,357.0L119.2,357.8"/><path class="rd major" d="M556.0,-34.5L636.2,55.7M611.4,534.4L570.4,556.8L438.4,633.5"/>
+  <path id="sn0" d="M528.8,244.5L537.4,255.1L538.5,258.4L537.2,262.1L514.2,282.4L551.1,320.0L556.5,326.1L560.7,333.1L558.3,338.0L552.8,342.5L547.0,346.6L535.3,352.5L534.7,351.9L540.2,364.1L544.8,378.9" fill="none"/><text class="sn"><textPath href="#sn0" startOffset="50%" text-anchor="middle">Kleine Dasdreef</textPath></text><path id="sn1" d="M338.2,282.4L352.2,276.9L384.7,261.6L395.0,258.0L404.2,256.0L444.8,250.7L462.2,250.8L482.3,248.1L516.2,246.6L526.2,243.7" fill="none"/><text class="sn"><textPath href="#sn1" startOffset="50%" text-anchor="middle">Helleketelweg</textPath></text><path id="sn2" d="M317.0,529.7L321.9,536.4L350.2,554.7L357.1,564.2L369.0,584.9L370.4,584.5L378.4,581.2" fill="none"/><text class="sn"><textPath href="#sn2" startOffset="50%" text-anchor="middle">Vijfgemetenstraat</textPath></text><path id="sn3" d="M364.3,449.8L376.4,445.2L391.7,441.2L456.5,412.6" fill="none"/><text class="sn"><textPath href="#sn3" startOffset="50%" text-anchor="middle">Kleine Casseldreef</textPath></text><path id="sn4" d="M121.7,357.4L126.6,388.4L150.1,417.6L171.3,439.7L174.6,444.7L175.0,452.3L164.0,466.1L163.5,466.6L170.0,481.6L190.9,521.8" fill="none"/><text class="sn"><textPath href="#sn4" startOffset="50%" text-anchor="middle">Stoppelweg</textPath></text><path id="sn5" d="M459.5,413.4L461.5,416.2L466.3,433.1L470.5,438.6L480.5,447.6L489.1,457.9L509.1,492.7L525.5,517.1L525.6,517.1L530.8,515.7L536.0,517.5L572.2,555.1" fill="none"/><text class="sn"><textPath href="#sn5" startOffset="50%" text-anchor="middle">Boudeweelstraat</textPath></text><path id="sn6" d="M68.9,173.1L93.7,182.3L117.6,186.7L142.5,200.6L164.3,206.2L219.3,228.6" fill="none"/><text class="sn"><textPath href="#sn6" startOffset="50%" text-anchor="middle">Karel Grimminckweg</textPath></text><path id="sn7" d="M312.4,75.3L319.9,76.5L328.1,75.9L431.4,44.1L500.1,34.4L510.1,33.8L519.9,34.5L531.8,37.3" fill="none"/><text class="sn"><textPath href="#sn7" startOffset="50%" text-anchor="middle">Watouseweg</textPath></text><path id="sn8" d="M310.5,80.3L311.5,115.8L310.5,121.5L303.1,142.4L302.7,169.3L303.7,176.2L313.0,193.9L322.6,215.4L324.3,221.5L331.5,254.1L331.3,257.7L325.4,272.7" fill="none"/><text class="sn"><textPath href="#sn8" startOffset="50%" text-anchor="middle">Duivinnestraat</textPath></text><path id="sn9" d="M117.9,355.7L149.2,335.8L156.5,335.5L165.0,337.9L168.9,337.8L210.8,323.0L235.3,310.6L267.6,304.9L275.8,302.7L293.4,296.0L309.5,295.0" fill="none"/><text class="sn"><textPath href="#sn9" startOffset="50%" text-anchor="middle">Wulfhullestraat</textPath></text><path id="sn14" d="M66.2,173.7L118.7,116.4L152.1,70.1L169.5,50.8L184.2,38.3" fill="none"/><text class="sn"><textPath href="#sn14" startOffset="50%" text-anchor="middle">Kapellestraat</textPath></text>
+  </g>
+  <path class="rt glow" d="M479.3,333.5L480.0,329.9L469.1,318.4L484.5,303.5L494.1,298.6L535.4,260.3L535.4,256.6L526.9,246.1L516.5,249.1L482.5,250.6L462.4,253.3L445.0,253.2L404.6,258.5L385.7,263.9L339.1,284.7L323.1,271.8L329.0,254.6L321.9,222.1L310.7,195.0L301.4,177.1L300.2,169.4L300.6,142.0L309.0,115.8L308.0,80.4L312.9,76.9L262.8,60.3L235.3,49.8L212.6,44.1L185.8,40.2L185.5,36.0L185.8,40.2L171.3,52.6L152.3,73.7L120.6,118.0L68.0,175.4L93.0,184.7L116.7,189.0L141.5,202.9L158.9,207.0L157.0,201.9L158.9,207.0L218.4,230.9L258.8,249.5L273.8,253.7L323.1,271.8L339.1,284.7L312.5,294.6L309.6,297.5L289.1,335.8L288.4,342.2L290.1,377.6L287.2,386.5L277.5,405.7L255.7,426.3L252.3,435.5L251.9,446.9L249.3,456.9L214.6,502.4L212.1,505.3L211.2,504.4L221.8,517.1L229.8,536.0L269.7,521.3L263.3,506.1L266.5,503.4L274.8,500.0L278.4,496.0L282.2,499.1L293.6,492.0L292.2,490.6L294.3,492.9L304.8,488.6L314.3,471.1L317.0,468.5L341.0,463.0L373.5,448.9L392.6,443.5L428.6,427.0L469.8,410.8L517.0,389.0L541.0,382.9L542.4,379.6L537.9,365.0L532.3,352.5L534.0,350.4L551.3,340.5L558.3,333.7L549.3,321.7L511.8,283.0L494.1,298.6L484.5,303.5L469.1,318.4L480.0,329.9L479.3,333.5"/>
+  <path class="rt walk" d="M479.3,333.5L480.0,329.9L469.1,318.4L484.5,303.5L494.1,298.6L535.4,260.3L535.4,256.6L526.9,246.1L516.5,249.1L482.5,250.6L462.4,253.3L445.0,253.2L404.6,258.5L385.7,263.9L339.1,284.7L323.1,271.8L329.0,254.6L321.9,222.1L310.7,195.0L301.4,177.1L300.2,169.4L300.6,142.0L309.0,115.8L308.0,80.4L312.9,76.9L262.8,60.3L235.3,49.8L212.6,44.1L185.8,40.2L185.5,36.0L185.8,40.2L171.3,52.6L152.3,73.7L120.6,118.0L68.0,175.4L93.0,184.7L116.7,189.0L141.5,202.9L158.9,207.0L157.0,201.9L158.9,207.0L218.4,230.9L258.8,249.5L273.8,253.7L323.1,271.8L339.1,284.7L312.5,294.6L309.6,297.5L289.1,335.8L288.4,342.2L290.1,377.6L287.2,386.5L277.5,405.7L255.7,426.3L252.3,435.5L251.9,446.9L249.3,456.9L214.6,502.4L212.1,505.3L211.2,504.4L221.8,517.1L229.8,536.0L269.7,521.3L263.3,506.1L266.5,503.4L274.8,500.0L278.4,496.0L282.2,499.1L293.6,492.0L292.2,490.6L294.3,492.9L304.8,488.6L314.3,471.1L317.0,468.5L341.0,463.0L373.5,448.9L392.6,443.5L428.6,427.0L469.8,410.8L517.0,389.0L541.0,382.9L542.4,379.6L537.9,365.0L532.3,352.5L534.0,350.4L551.3,340.5L558.3,333.7L549.3,321.7L511.8,283.0L494.1,298.6L484.5,303.5L469.1,318.4L480.0,329.9L479.3,333.5"/>
+  <g class="pt"><circle cx="312.9" cy="76.9" r="4"/><text class="ml" x="320.9" y="72.9" text-anchor="start">Old railway</text></g><g class="pt"><circle cx="185.5" cy="36.0" r="4"/><text class="ml" x="193.5" y="32.0" text-anchor="start">Sint-Jan-ter-Biezen</text></g><g class="pt"><circle cx="157.0" cy="201.9" r="4"/><text class="ml" x="165.0" y="205.9" text-anchor="start">Karel Grimminckweg</text></g><g class="pt"><circle cx="211.2" cy="504.4" r="4"/><text class="ml" x="219.2" y="508.4" text-anchor="start">Into the wood</text></g><g class="pt"><circle cx="258.4" cy="525.7" r="4"/><text class="ml" x="266.4" y="539.7" text-anchor="start">Helleketelbos</text></g><g class="pt"><circle cx="292.2" cy="490.6" r="4"/><text class="ml" x="300.2" y="494.6" text-anchor="start">Out of the wood</text></g><g class="pt"><circle cx="349.0" cy="458.7" r="4"/><text class="ml" x="357.0" y="454.7" text-anchor="start">Vijfgemetenstraat</text></g><g class="pt"><circle cx="517.0" cy="389.0" r="4"/><text class="ml" x="509.0" y="393.0" text-anchor="end">Kleine Casseldreef</text></g><g class="pt home"><circle cx="479.3" cy="333.5" r="9"/><circle cx="479.3" cy="333.5" r="3" class="core"/><text class="ml home" x="465.3" y="337.5" text-anchor="end">Home</text></g>
+  <g class="me" id="me" hidden><circle class="me-halo" r="14"/><circle class="me-acc" r="0"/><circle class="me-dot" r="4.5"/></g>
+  <g class="scale"><line x1="20" y1="578" x2="117.4" y2="578"/><text class="ml dim" x="20" y="572">500 m</text></g>
+  <g class="north"><text class="ml dim" x="576" y="24" text-anchor="middle">N</text><line x1="576" y1="30" x2="576" y2="46"/></g>
+</svg>
+    </div>
+    <div class="legend">
+      <span class="lgi"><i class="lg"></i>The walk</span>
+      <span class="lgi"><i class="lg ped"></i>Unpaved path</span>
+      <span class="lgi"><i class="lg wood"></i>Wood</span>
+      <span class="lgi"><i class="lg home"></i>Start</span>
+    </div>
+    <p class="map-note" id="map-note">Tap <i>Where am I</i> at the top for a blue dot on the map.</p>
+  </section>
+
+  <section class="tl" id="walk">
+    <div class="track" aria-hidden="true"></div>
+    <div class="track-done" id="track-done" aria-hidden="true"></div>
+    <div class="tl-head">
+      <span class="dot"></span>
+      <h2>The walk</h2>
+      <p class="cue">Clockwise. Distances are from the front door.</p>
+    </div>
+    <article class="stop" data-km="0.000">
+      <span class="dot"></span>
+      <div class="time">0,0 km</div>
+      <h3 class="title">Out of the door</h3>
+      <p class="note">Down the gravel lane to Kleine Dasdreef, then left, up the dreef to Helleketelweg and west. At the Karel Grimminckweg junction stay right and take Duivinnestraat north through the hop fields.</p>
+      <p class="accent">Clockwise: north to the old railway first, the wood near the end.</p>
+    </article>
+    <article class="stop" data-km="2.798">
+      <span class="dot"></span>
+      <div class="time">2,8 km</div>
+      <h3 class="title">Left onto the old railway bed</h3>
+      <p class="note">The Poperinge to Hazebrouck line, closed decades ago and now a car-free green path. Dead straight, trees either side, west to Sint-Jan-ter-Biezen.</p>
+      <p class="accent">Nothing but bikes and walkers from here to the hamlet.</p>
+    </article>
+    <article class="stop" data-km="3.502">
+      <span class="dot"></span>
+      <div class="time">3,5 km</div>
+      <h3 class="title">Sint-Jan-ter-Biezen</h3>
+      <p class="note">A hamlet with a chapel on the border of hop country. Leave the railway here and turn south-west on Kapellestraat.</p>
+      <p class="accent">Halfway. A bench by the chapel.</p><p class="where"><span>Sint-Jan-ter-Biezen</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Sint-Jan-ter-Biezen+Poperinge" target="_blank" rel="noopener">Open in Maps</a></p>
+    </article>
+    <article class="stop" data-km="4.972">
+      <span class="dot"></span>
+      <div class="time">5,0 km</div>
+      <h3 class="title">South to Helleketelweg</h3>
+      <p class="note">Kapellestraat becomes Karel Grimminckweg and drops back to the Helleketelweg junction you passed earlier. Cross it and keep straight on, south, with the wood ahead.</p>
+      
+    </article>
+    <article class="stop" data-km="6.956">
+      <span class="dot"></span>
+      <div class="time">7,0 km</div>
+      <h3 class="title">Wood on your left</h3>
+      <p class="note">The forest edge now runs alongside the lane. Keep following the asphalt along the edge of the wood, down to the bottom corner.</p>
+      
+    </article>
+    <article class="stop" data-km="7.416">
+      <span class="dot"></span>
+      <div class="time">7,4 km</div>
+      <h3 class="title">Leave the asphalt</h3>
+      <p class="note">At the corner where the lane bends away, take the track into Helleketelbos. Packed earth, roots, a boardwalk where it stays wet.</p>
+      <p class="accent">White-and-red GR 5A marks and knooppunt signs along the way.</p>
+    </article>
+    <article class="stop" data-km="7.763">
+      <span class="dot"></span>
+      <div class="time">7,8 km</div>
+      <h3 class="title">Through the wood</h3>
+      <p class="note">East along the path through the heart of the wood, then it swings north and climbs gently out towards the lane. Oaks, sheep in the open parts, roe deer if you are lucky.</p>
+      <p class="accent">Boskafé Boule Carré is a few hundred metres south, on Stoppelweg, if the legs want a stop.</p><p class="where"><span>Helleketelbos, Vijfgemetenstraat</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Helleketelbos+Vijfgemetenstraat+4+Poperinge" target="_blank" rel="noopener">Open in Maps</a></p>
+    </article>
+    <article class="stop" data-km="8.112">
+      <span class="dot"></span>
+      <div class="time">8,1 km</div>
+      <h3 class="title">Back onto a lane</h3>
+      <p class="note">The path comes out on Vijfgemetenstraat at the top corner of the wood. Turn left; the lane heads north-east.</p>
+      
+    </article>
+    <article class="stop" data-km="8.482">
+      <span class="dot"></span>
+      <div class="time">8,5 km</div>
+      <h3 class="title">Right onto Kleine Casseldreef</h3>
+      <p class="note">A long, straight lane between the fields, pointing almost exactly at home.</p>
+      <p class="accent">A bit under a kilometre of straight line.</p>
+    </article>
+    <article class="stop" data-km="9.416">
+      <span class="dot"></span>
+      <div class="time">9,4 km</div>
+      <h3 class="title">Left, and up the dreef</h3>
+      <p class="note">Where Kleine Casseldreef meets Kleine Dasdreef, turn left up the dreef, then left again into the gravel lane for the last stretch to the door.</p>
+      
+    </article>
+    <article class="stop" data-km="10.619">
+      <span class="dot"></span>
+      <div class="time">10,6 km</div>
+      <h3 class="title">Home</h3>
+      <p class="note">Boots off. 10,6 km in all, 0,9 km of it unpaved.</p>
+      <p class="accent">About 2 h 25 at a walking pace, longer if you stop.</p>
+    </article>
+  </section>
+
+  <footer>
+    <span class="mark">DARIDEH</span>
+    <span class="desc">routes · <a href="../../">all walks</a></span>
+    <span class="osm">map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  /* ---- hero: fill the visible screen under the header, measured once ---- */
+  var hero = document.querySelector('.hero');
+  function sizeHero() {
+    var top = document.querySelector('.top').offsetHeight;
+    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    hero.style.minHeight = (h - top + 24) + 'px';
+  }
+  sizeHero();
+  window.addEventListener('orientationchange', function () { setTimeout(sizeHero, 300); });
+
+  /* ---- map projection, the same four numbers the SVG was drawn with ---- */
+  var MINLON = 2.65304744574175, MAXLAT = 50.861596466399995, K = 0.6313743191668787, SX = 21688.492519640437;
+  var HOME = { lat: 50.846221, lon: 2.68805 };
+  function proj(lat, lon) { return { x: (lon - MINLON) * K * SX, y: (MAXLAT - lat) * SX }; }
+  function distM(a, b) {
+    var R = 6371000, p = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * p, dLon = (b.lon - a.lon) * p;
+    var s = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a.lat * p) * Math.cos(b.lat * p) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+
+  /* ---- live location: a blue dot on the map, and the nearest stop lit on the track ---- */
+  var KEY_LOC = 'routes-nature-l-loc';
+  var btn = document.getElementById('loc-btn'), txt = document.getElementById('loc-txt'), status = document.getElementById('status');
+  var me = document.getElementById('me'), note = document.getElementById('map-note');
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var trackDone = document.getElementById('track-done'), tl = document.getElementById('walk');
+  var watchId = null;
+  var routePts = (document.querySelector('.rt.walk').getAttribute('d').match(/-?\d+(\.\d+)?,-?\d+(\.\d+)?/g) || []).map(function (s) { var a = s.split(','); return { x: +a[0], y: +a[1] }; });
+  var cum = [0];
+  for (var i = 1; i < routePts.length; i++) cum.push(cum[i - 1] + Math.hypot(routePts[i].x - routePts[i - 1].x, routePts[i].y - routePts[i - 1].y));
+  var totalPx = cum[cum.length - 1];
+
+  function nearestAlong(p) {
+    var best = Infinity, at = 0;
+    for (var i = 1; i < routePts.length; i++) {
+      var a = routePts[i - 1], b = routePts[i], dx = b.x - a.x, dy = b.y - a.y, L = dx * dx + dy * dy || 1;
+      var t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / L));
+      var qx = a.x + t * dx, qy = a.y + t * dy, d = Math.hypot(p.x - qx, p.y - qy);
+      if (d < best) { best = d; at = cum[i - 1] + t * Math.sqrt(L); }
+    }
+    return { off: best, at: at };
+  }
+
+  function setState(cls, label) {
+    btn.className = 'hbtn ' + cls; txt.textContent = label; btn.setAttribute('aria-pressed', cls === 'live' || cls === 'wait' ? 'true' : 'false');
+  }
+  function fmtKm(m) { return (m / 1000).toFixed(1).replace('.', ',') + ' km'; }
+
+  function onFix(pos) {
+    var lat = pos.coords.latitude, lon = pos.coords.longitude, acc = pos.coords.accuracy || 0;
+    var p = proj(lat, lon);
+    var onMap = p.x > -10 && p.x < 610 && p.y > -10 && p.y < 610;
+    if (onMap) me.removeAttribute('hidden'); else me.setAttribute('hidden', '');
+    if (onMap) {
+      me.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')');
+      me.querySelector('.me-acc').setAttribute('r', Math.min(80, acc / 111320 * SX).toFixed(1));
+    }
+    var toHome = distM({ lat: lat, lon: lon }, HOME);
+    setState('live', 'Live');
+    var n = nearestAlong(p);
+    var kmAlong = n.at / totalPx; /* fraction of the loop */
+    if (onMap && n.off < 25) {
+      status.textContent = fmtKm(toHome) + ' from the door, as the crow flies.';
+      note.innerHTML = 'On the map. <i>' + fmtKm(kmAlong * totalKm()) + ' into the loop.</i>';
+      lightTrack(kmAlong * totalKm());
+    } else {
+      status.textContent = onMap ? fmtKm(toHome) + ' from the door.' : fmtKm(toHome) + ' from the door, off the map.';
+      note.innerHTML = onMap ? 'On the map, <i>off the line</i>.' : 'Outside the map. <i>' + fmtKm(toHome) + ' from the door.</i>';
+    }
+  }
+  function totalKm() { return parseFloat(document.querySelector('.stop:last-of-type').getAttribute('data-km')) * 1000; }
+  function lightTrack(doneM) {
+    var cur = null;
+    stops.forEach(function (s) {
+      var km = parseFloat(s.getAttribute('data-km')) * 1000;
+      s.classList.toggle('done', km < doneM - 60);
+      s.classList.remove('current');
+      if (km <= doneM + 60 && (cur === null || km > parseFloat(cur.getAttribute('data-km')) * 1000)) cur = s;
+    });
+    if (cur) { cur.classList.add('current'); var r = cur.getBoundingClientRect(), t = tl.getBoundingClientRect(); trackDone.style.height = Math.max(0, r.top - t.top + 26 - 24) + 'px'; }
+  }
+  function onErr(e) {
+    setState('off', 'Where am I');
+    me.setAttribute('hidden', '');
+    status.textContent = '';
+    note.innerHTML = e && e.code === 1 ? 'Location is blocked for this site. <i>Allow it in the browser settings.</i>' : 'No fix yet. <i>Try again outside.</i>';
+    stop();
+  }
+  function start() {
+    if (!('geolocation' in navigator)) { note.textContent = 'This browser has no location.'; return; }
+    setState('wait', 'Finding you');
+    note.innerHTML = 'Finding you<i>…</i>';
+    try { localStorage.setItem(KEY_LOC, '1'); } catch (e) {}
+    watchId = navigator.geolocation.watchPosition(onFix, onErr, { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 });
+  }
+  function stop() {
+    if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+    try { localStorage.removeItem(KEY_LOC); } catch (e) {}
+    setState('off', 'Where am I');
+    me.setAttribute('hidden', ''); status.textContent = '';
+    note.innerHTML = 'Tap <i>Where am I</i> at the top for a blue dot on the map.';
+    stops.forEach(function (s) { s.classList.remove('done', 'current'); }); trackDone.style.height = '0px';
+  }
+  btn.addEventListener('click', function () { watchId === null ? start() : stop(); });
+  var wanted = false; try { wanted = localStorage.getItem(KEY_LOC) === '1'; } catch (e) {}
+  if (wanted && location.protocol === 'https:') start();
+})();
+</script>
+</body>
+</html>
