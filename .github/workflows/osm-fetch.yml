@@ -1,0 +1,40 @@
+name: Fetch OSM data
+
+# Fetches OpenStreetMap geometry for a route area from the Overpass API
+# and uploads it as a workflow artifact. Used while building route pages;
+# the result is baked into the page, nothing is fetched at runtime.
+
+on:
+  workflow_dispatch:
+    inputs:
+      bbox:
+        description: "south,west,north,east"
+        required: true
+        default: "50.825,2.650,50.858,2.705"
+      name:
+        description: "artifact name"
+        required: true
+        default: "osm"
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Overpass
+        env:
+          BBOX: ${{ github.event.inputs.bbox }}
+        run: |
+          Q='[out:json][timeout:90];(way["highway"]('"$BBOX"');way["railway"="rail"]('"$BBOX"');way["natural"~"^(water|wood|scrub|grassland)$"]('"$BBOX"');way["landuse"~"^(forest|wood|orchard|meadow)$"]('"$BBOX"');way["waterway"~"^(river|canal|stream|ditch)$"]('"$BBOX"');way["leisure"~"^(park|nature_reserve)$"]('"$BBOX"');way["boundary"="national_park"]('"$BBOX"');relation["leisure"="nature_reserve"]('"$BBOX"'););out geom;'
+          for H in https://overpass-api.de/api/interpreter https://overpass.kumi.systems/api/interpreter https://overpass.private.coffee/api/interpreter; do
+            echo "trying $H"
+            if curl -sS -m 180 --data-urlencode "data=$Q" "$H" -o osm.json && python3 -c "import json;d=json.load(open('osm.json'));print(len(d['elements']),'elements')"; then
+              break
+            fi
+            rm -f osm.json; sleep 5
+          done
+          test -s osm.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.name }}
+          path: osm.json
+          retention-days: 7
