@@ -3,7 +3,7 @@
 Walks from the front door, each as a one-page, phone-first site in the DARIDEH style, with a street map drawn from OpenStreetMap data rather than map tiles.
 
 - Live: https://depross.github.io/routes/
-- `helleketelbos/` — Helleketelbos loop from Kleine Dasdreef, 5,6 km, about 75 min.
+- `helleketelbos/` — Helleketelbos loop from Kleine Dasdreef, 6,3 km, about 85 min.
 
 ## How a route page is built
 

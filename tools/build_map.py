@@ -13,7 +13,7 @@ OUT = sys.argv[2]
 
 # ---- waypoints (lat, lon) in walking order, loop closes back to the first ----
 WAYPOINTS = [
-    ("Kleine Dasdreef 8", 50.8480137, 2.6895101),
+    ("Kleine Dasdreef 8", 50.846221, 2.688050),
     ("Helleketelweg", 50.850274, 2.691473),
     ("West along Helleketelweg", 50.848597, 2.677466),
     ("Helleketelweg south", 50.841734, 2.671187),
@@ -64,7 +64,10 @@ for e in els:
     ways.append(e)
     hw = t.get("highway")
     if not hw or hw not in PREFER: continue
-    if t.get("access") in ("private", "no") and t.get("foot") not in ("yes", "designated", "permissive"): continue
+    if t.get("access") in ("private", "no") and t.get("foot") not in ("yes", "designated", "permissive"):
+        # private lanes are only usable when they are the walker's own driveway: within 350 m of home
+        home = (WAYPOINTS[0][1], WAYPOINTS[0][2])
+        if min(hav(home, (g["lat"], g["lon"])) for g in e["geometry"]) > 350: continue
     if t.get("foot") == "no": continue
     nds = e["nodes"]; geo = e["geometry"]
     for i, nid in enumerate(nds):
@@ -103,18 +106,25 @@ def dijkstra(s, g):
     return path[::-1], legs[::-1]
 
 wp_nodes = [nearest(la, lo) for _, la, lo in WAYPOINTS]
+HOME_LL = (WAYPOINTS[0][1], WAYPOINTS[0][2])
+nodes["__home__"] = HOME_LL
+conn = hav(HOME_LL, nodes[wp_nodes[0]])
+print("connector to network: %.0f m" % conn)
 route = []; segs = []; cum = 0.0; stops_px = []
 order = wp_nodes + [wp_nodes[0]]
 stop_cum = [0.0]
+route = ["__home__"]; cum = conn; segs.append((conn, ("connector", None, None)))
 for i in range(len(order)-1):
     p, legs = dijkstra(order[i], order[i+1])
-    if route: p = p[1:]
+    if i > 0: p = p[1:]
     for (L, info) in legs:
         cum += L
     stop_cum.append(cum)
     route.extend(p)
     segs.extend(legs)
+route.append("__home__"); cum += conn; segs.append((conn, ("connector", None, None)))
 total = cum
+wp_nodes[0] = "__home__"
 
 # surface summary
 by = {}

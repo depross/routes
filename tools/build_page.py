@@ -46,7 +46,7 @@ for i, name in enumerate(LABEL):
 # ---------- stops ----------
 G = lambda q: "https://www.google.com/maps/search/?api=1&query=" + q
 COPY = {
-  "Kleine Dasdreef 8": dict(label="Kleine Dasdreef 8", map=True, title="Out of the door", note="Turn right, up the dreef towards Helleketelweg. The lane is quiet; the odd tractor is the traffic.", accent="Clockwise, so the wood comes halfway and the long straight lanes are behind you on the way home."),
+  "Kleine Dasdreef 8": dict(label="Kleine Dasdreef 8", map=True, title="Out of the door", note="Down the gravel lane to Kleine Dasdreef, then left, up the dreef towards Helleketelweg. Quiet lanes; the odd tractor is the traffic.", accent="Clockwise, so the wood comes halfway and the long straight lanes are behind you on the way home."),
   "Helleketelweg": dict(label="", map=False, title="Left onto Helleketelweg", note="Follow it west. Open fields on both sides, hop poles in the distance, the first farms after about a kilometre."),
   "West along Helleketelweg": dict(label="Helleketelweg", map=True, dy=-8, title="Keep left, stay on Helleketelweg", note="At the junction with Karel Grimminckweg the road bends south. Stay on Helleketelweg; it runs straight at the wood from here.", accent="The wood is the dark line ahead."),
   "Helleketelweg south": dict(label="", map=False, title="Wood on your left", note="The forest edge now runs alongside the lane. Keep following the asphalt along the edge of the wood, down to the bottom corner."),
@@ -54,14 +54,14 @@ COPY = {
   "Helleketelbos": dict(label="Helleketelbos", map=True, dy=10, title="Through the wood", note="East along the path through the heart of the wood. Oaks, sheep in the open parts, a chance of roe deer if you are early. The path then swings north and climbs gently out towards the lane.", accent="For a drink, De Boshoeve and the car park are a few hundred metres south of here, and Boskafé Boule Carré just beyond on Stoppelweg.", maps=G("Helleketelbos+Vijfgemetenstraat+4+Poperinge"), addr="Helleketelbos, Vijfgemetenstraat"),
   "Out of the wood": dict(label="Out of the wood", map=True, title="Back onto a lane", note="The path comes out on Vijfgemetenstraat at the top corner of the wood. Turn left; the lane heads north-east."),
   "Vijfgemetenstraat": dict(label="Vijfgemetenstraat", map=True, dy=-8, title="Right onto Kleine Casseldreef", note="A long, straight lane between the fields, pointing almost exactly at home. The wood falls away behind you.", accent="The longest stretch of the walk, a bit under a kilometre of straight line."),
-  "Kleine Casseldreef": dict(label="Kleine Casseldreef", map=True, title="Left, and up the dreef", note="Where Kleine Casseldreef meets Kleine Dasdreef, turn left and follow the dreef the last stretch back to the door."),
+  "Kleine Casseldreef": dict(label="Kleine Casseldreef", map=True, title="Left, and up the dreef", note="Where Kleine Casseldreef meets Kleine Dasdreef, turn left up the dreef, then left again into the gravel lane for the last stretch to the door."),
 }
 stops = []
 for s_ in MAP["stops"]:
     c = COPY.get(s_["name"], {})
     s_ = dict(s_, **c)
     stops.append(s_)
-stop_copy = list(stops) + [dict(name="Home", cum_m=MAP["total_m"], title="Home", note="Boots off. %s in all." % (("%.1f km" % (MAP["total_m"]/1000)).replace(".", ",")), accent="About an hour and a quarter at a walking pace, longer if the wood holds you up.")]
+stop_copy = list(stops) + [dict(name="Home", cum_m=MAP["total_m"], title="Home", note="Boots off. %s in all." % (("%.1f km" % (MAP["total_m"]/1000)).replace(".", ",")), accent="About %s at a walking pace, longer if the wood holds you up." % ("an hour and a half" if MAP["total_m"] > 6000 else "an hour and a quarter"))]
 MAP["stop_copy"] = stop_copy
 # optional extra markers (dim)
 def projll(lat, lon): return ((lon-P["MINLON"])*P["K"]*SX, (P["MAXLAT"]-lat)*SX)
